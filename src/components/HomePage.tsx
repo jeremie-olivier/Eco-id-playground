@@ -1,11 +1,15 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import Button from '@mui/material/Button';
 import { useMachine } from '@xstate/react';
 import machine from "../machine"
+import { GlobalStateContext } from '../providers/globalState';
+
+import { useActor } from '@xstate/react';
 
 function HomePage(){
-  const [state, send] = useMachine(machine, { devTools: true });
-
+  const globalServices = useContext(GlobalStateContext);
+  const [state,send] = useActor(globalServices.stateService);
+  
   return (
     <div>
       

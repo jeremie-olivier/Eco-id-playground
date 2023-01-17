@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './App.css';
 import { useMachine } from '@xstate/react';
 import { Machine } from 'xstate';
@@ -14,39 +14,40 @@ import FormikForm from './components/FormikForm';
 import HomePage from './components/HomePage';
 import UserDashboard from './components/UserDashboard';
 
+import { GlobalStateContext } from './providers/globalState';
+import { useInterpret } from '@xstate/react';
+import XStateControls from './components/XStateControls';
+
+import { inspect } from '@xstate/inspect';
+
+
+
+
+inspect({
+  // options
+ //  url: 'https://stately.ai/registry/editor/b36b17c5-4e17-45bc-9d0d-602d33bb01c6?machineId=710f0813-3934-40d6-9c1b-88fa2349d451', // (default)
+  iframe: false // sopen in new window
+});
+
+
 
 function App() {
-  const [state, send] = useMachine(machine, { devTools: true });
 
-  console.log(state);
+  const stateService = useInterpret(machine, { devTools: true });
+
 
 
   return (
-    <div>
-      <NavBar></NavBar>
-      <FormikForm/>
+    //@ts-ignore
+    <GlobalStateContext.Provider value={{stateService}}>
+        
+        <NavBar></NavBar>
+        <FormikForm/>
+        <XStateControls></XStateControls>
 
-      {state.matches('Idle') && <BlockInvitationToConnect></BlockInvitationToConnect>}
-      {state.matches('connecting') && <p>connecting</p>}
-      {state.matches('connected') && <p>connected</p>}
+    </GlobalStateContext.Provider>    
 
-      {state.matches({"connected": "Home Page"}) && <HomePage></HomePage>}
 
-      {state.matches({"connected": {"Create Attestation": "Empty Form"}}) && <p>empty form</p>}
-      
-      {state.matches({"Claim Eco ID": "submit file"}) && <UserDashboard></UserDashboard>}
-
-      <div>
-        <button onClick={() => send('Connect')}>Connect</button>
-
-        {/** You can send events to the running service */}
-        <button onClick={() => send('Create')}>Create</button>
-        <button onClick={() => send('Claim')}>Claim</button>
-
-        <button onClick={() => send('done')}>Done</button>
-        <button onClick={() => send('fail')}>Fail</button>
-      </div>
-    </div>
   );
 };
 

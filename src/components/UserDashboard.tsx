@@ -1,11 +1,16 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
+import { GlobalStateContext } from '../providers/globalState';
+import { useActor } from '@xstate/react';
+
 import Button from '@mui/material/Button';
 import InputIcon from '@mui/icons-material/Input';
 import { useMachine } from '@xstate/react';
 import machine from "../machine"
 
 function UserDashboard(){
-  const [state, send] = useMachine(machine, { devTools: true });
+  const globalServices = useContext(GlobalStateContext);
+  const [state,send] = useActor(globalServices.stateService);
+
 
   return (
     <div>
