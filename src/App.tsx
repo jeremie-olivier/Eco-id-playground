@@ -3,7 +3,6 @@ import './App.css';
 import { useMachine } from '@xstate/react';
 import { Machine } from 'xstate';
 import machine from './machine'
-
 import BlockInvitationToConnect from './components/BlockInvitationToConnect';
 import NavBar from './components/header/NavBar';
 import ButtonCreateAttestation from './components/landingpage/ButtonCreateAttestation';
@@ -13,15 +12,11 @@ import ButtonMintEcoID from './components/ButtonMintEcoID';
 import FormikForm from './components/FormikForm';
 import HomePage from './components/HomePage';
 import UserDashboard from './components/UserDashboard';
-
 import { GlobalStateContext } from './providers/globalState';
 import { useInterpret } from '@xstate/react';
 import XStateControls from './components/XStateControls';
-
 import { inspect } from '@xstate/inspect';
-
-
-
+import PageContainer from './components/landingpage/PageContainer';
 
 inspect({
   // options
@@ -29,25 +24,18 @@ inspect({
   iframe: false // sopen in new window
 });
 
-
-
 function App() {
 
   const stateService = useInterpret(machine, { devTools: true });
 
-
-
   return (
     //@ts-ignore
     <GlobalStateContext.Provider value={{stateService}}>
-        
         <NavBar></NavBar>
-        <FormikForm/>
+        <PageContainer></PageContainer>
+        
         <XStateControls></XStateControls>
-
     </GlobalStateContext.Provider>    
-
-
   );
 };
 

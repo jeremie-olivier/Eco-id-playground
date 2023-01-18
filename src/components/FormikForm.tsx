@@ -4,6 +4,7 @@ import * as yup from "yup";
 // import DatePicker from 'react-datepicker';
 import Error from "./Error";
 
+
 const ValidationSchema = yup.object().shape({
   receiverAddress: yup.string()
     .min(26, "26 characters minimum")
@@ -32,7 +33,7 @@ export default function FormikForm() {
         }, 500);
       }}
     >
-      {({ 
+{({ 
         values, 
         errors, 
         touched, 
@@ -86,6 +87,7 @@ export default function FormikForm() {
           </div>
         </form>
       )}
+      
     </Formik>
   );
 }

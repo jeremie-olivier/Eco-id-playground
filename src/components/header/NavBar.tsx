@@ -11,12 +11,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 
 import ButtonWalletConnect from './ButtonWalletConnect';
+import { Button } from '@mui/material';
 
 
 
- function NavBar() {
+function NavBar() {
   const globalServices = useContext(GlobalStateContext);
-  const [state,send] = useActor(globalServices.stateService);
+  const [state, send] = useActor(globalServices.stateService);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -31,8 +32,10 @@ import ButtonWalletConnect from './ButtonWalletConnect';
           >
             <MenuIcon />
           </IconButton>
+          <Button variant="contained" color='secondary' onClick={() => { send("go to home page") }}>Home</Button>
+
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          test
+            Eco ID Dapp
           </Typography>
           <ButtonWalletConnect></ButtonWalletConnect>
         </Toolbar>
