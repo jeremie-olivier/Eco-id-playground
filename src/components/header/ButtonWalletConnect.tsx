@@ -1,9 +1,39 @@
-import React, { useContext } from 'react';
+// import { GlobalStateContext } from '../../providers/globalState';
+// import { useActor } from '@xstate/react';
+
+
+// import Button from '@mui/material/Button';
+// import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+
+// function ButtonWalletConnect() {
+
+
+
+//   return (
+//     <div>
+//       {state.matches("idle") ?
+//         <Button variant="contained" color='secondary' startIcon={<AccountBalanceWalletIcon />} onClick={() => { send("connect"); send("done") }}>Connect your wallet</Button>
+//         : ""}
+//       {state.matches("connected") ?
+//         <Button variant="contained" color='secondary' startIcon={<AccountBalanceWalletIcon />} onClick={() => { send("disconnect") }}>0x3343342...F5323</Button>
+//         : ""}
+//     </div>
+
+//   );
+// };
+
+// export default ButtonWalletConnect
+
+
+
+
+import { ConnectButton, useConnectModal } from "@rainbow-me/rainbowkit";
+import { useAccount, } from 'wagmi'
+
 import { GlobalStateContext } from '../../providers/globalState';
 import { useActor } from '@xstate/react';
+import React, { useContext, useEffect } from 'react';
 
-import Button from '@mui/material/Button';
-import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 
 function ButtonWalletConnect() {
 
@@ -11,17 +41,26 @@ function ButtonWalletConnect() {
   const [state, send] = useActor(globalServices.stateService);
 
 
+  const account = useAccount({
+    onConnect() {
+      setTimeout(() => {
+        send('connect'); send('done')
+      }, 0);
+
+    },
+    onDisconnect() {
+      setTimeout(() => {
+        send("disconnect");
+      }, 0)
+    }
+  })
+
+
+
+
   return (
-    <div>
-      {state.matches("idle") ?
-        <Button variant="contained" color='secondary' startIcon={<AccountBalanceWalletIcon />} onClick={() => { send("connect"); send("done") }}>Connect your wallet</Button>
-        : ""}
-      {state.matches("connected") ?
-        <Button variant="contained" color='secondary' startIcon={<AccountBalanceWalletIcon />} onClick={() => { send("disconnect") }}>0x3343342...F5323</Button>
-        : ""}
-    </div>
+    <ConnectButton />
+  )
+}
 
-  );
-};
-
-export default ButtonWalletConnect
+export default ButtonWalletConnect;
