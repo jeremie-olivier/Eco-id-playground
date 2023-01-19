@@ -14,7 +14,7 @@ import NavBar from './components/header/NavBar';
 import PageContainer from './components/landingpage/PageContainer';
 
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
-import { configureChains, createClient, WagmiConfig, mainnet } from "wagmi";
+import { configureChains, createClient, WagmiConfig, goerli } from "wagmi";
 
 import { infuraProvider } from "wagmi/providers/infura";
 import { alchemyProvider } from "wagmi/providers/alchemy";
@@ -22,7 +22,7 @@ import { publicProvider } from "wagmi/providers/public";
 
 
 const { chains, provider } = configureChains(
-  [mainnet],
+  [goerli],
   [
     infuraProvider({ apiKey: process.env.NEXT_PUBLIC_INFURA_ID || "9fac2c4055444f7e9aefd509df789922" }),
     alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY || "CjccbhvHOgr96gSq9rbmBIxKaqWBhl7A" }),
