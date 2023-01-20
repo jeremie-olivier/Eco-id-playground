@@ -5,6 +5,7 @@ import * as yup from "yup";
 import Error from "./Error";
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
+import download from "../utilities/download";
 
 
 
@@ -15,24 +16,28 @@ const ValidationSchema = yup.object().shape({
     .required("Must enter a wallet address"),
   deadline: yup.date()
   .required("Enter the deadline"),
-  revocable: yup.boolean().oneOf([true], 'This field must be checked')
+  revocable: yup.boolean().oneOf([true])
   
 });
+
 
 
 export default function FormikForm() {
 
   return (
     
-    <Formik 
+    <Formik
+      
       initialValues={{ 
         receiverAddress: "", 
         deadline: "",
         revocable: true }}
       validationSchema={ValidationSchema}
+      validate={(values) => {
+        console.log(values);
+      }}
       onSubmit={(values, { setSubmitting, resetForm }) => {
         setSubmitting(true);
-
         setTimeout(() => {
           alert(JSON.stringify(values, null, 2));
           resetForm();
@@ -51,7 +56,7 @@ export default function FormikForm() {
       }) => (
         <form onSubmit={handleSubmit}>
 
-          {/* {JSON.stringify(values)} */}
+          {JSON.stringify(values)}
 
           <h2> Verifier form</h2>
           
@@ -98,12 +103,12 @@ export default function FormikForm() {
                 onChange={handleChange}
               />
             </Box>
-            <Error touched={touched.deadline} message={errors.deadline} />   
             </div>   
           </div>
           <div className="input-row">
-            <button type="submit" disabled={isSubmitting}>
-              Sign Claim 
+            {/* @ts-ignore */}
+            <button onClick={()=>{download("attestation", values)}}>
+              Download attestation
               </button>
           </div>
         </form>
