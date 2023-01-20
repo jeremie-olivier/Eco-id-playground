@@ -5,6 +5,7 @@ import FormikForm from './FormikForm';
 import UploadAttestation from './UploadAttestation';
 import ButtonRegister from './ButtonRegister';
 import ButtonMintEcoID from './ButtonMintEcoID';
+import { Button } from '@mui/material';
 
 function ClaimEcoID() {
 
@@ -26,6 +27,8 @@ function ClaimEcoID() {
 
             {state.matches({ "connected": { "claim eco id": { "attestation is loaded": "attestation is valid" } } }) ? <FormikForm></FormikForm> : ""}
             {state.matches({ "connected": { "claim eco id": "idle" } }) ? <UploadAttestation></UploadAttestation> : ""}
+            {state.matches({"connected":{"claim eco id":{"attestation is loaded":"attestation miss receiver signature"}}}) ? <Button variant="contained" onClick={()=> send("sign")}>Sign</Button> : ""}
+
             {state.matches({ "connected": { "claim eco id": { "attestation is loaded": "attestation ready to be registered" } } }) ? <ButtonRegister></ButtonRegister> : ""}
             {state.matches({ "connected": { "claim eco id": { "attestation is loaded": "Eco ID ready to be minted" } } }) ? <ButtonMintEcoID></ButtonMintEcoID> : ""}
 

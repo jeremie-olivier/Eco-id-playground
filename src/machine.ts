@@ -1,244 +1,232 @@
+import { resolve } from 'path';
 import { createMachine } from 'xstate';
 
 const returnTrue = () => {
   return true
 };
 
+const hasBothSignature = () => {
+  return false
+};
+
+const hasReceiverSignature = () => {
+  return true
+};
+
+const getReceiverSignature = ()=>{
+  const promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("foo");
+    }, 3000);
+  });
+  
+  return promise
+}
+
+const getVerifierSignature = ()=>{
+  const promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("foo");
+    }, 3000);
+  });
+  
+  return promise
+}
+
+
+
+const callRegister = ()=>{
+  const promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("foo");
+    }, 3000);
+  });
+  
+  return promise
+}
+
+const callMint = ()=>{
+  const promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("foo");
+    }, 3000);
+  });
+  
+  return promise
+}
+
+
 
 const machine = 
-/** @xstate-layout N4IgpgJg5mDOIC5QFEDGB7ABASQCKdwEMAHYgOmwgBswBiAYXQDsmxUAXAbQAYBdRUMXSwAluxHMBIAB6IAjAGY5Zbqu5KATAE4tGhQDYFAVgA0IAJ6INRjWQDsAFh1H9Ruwvca5+gL4+zaFh4BCTkGCxs4kxQtBDMYDz8SCBCouKSybIINmaWCHJ2XmQ6Wo6qABz63Fr65X4BGDj4RKRk4awcItG0AGaEIlSJUqliEkxSWXIOymrqctq6Bsa5Vty2Gk5a5U7b2tb1IIFNIa3tkZCxIrBnHEPJI+njmfLTKmqaOnqGphaI5cqbEpycpaNwaQwHI7BFphZgddiQMgACXQAFswJgAAqEGAMABOYEICLugmEowyoCyDm4+hUcjc8zkujkqn0DhW+Ts2zI5QUCnU3AKOgcCkhjWhoTacPOEGRaIx2Nx9Co-VRJJSZMeE0QDnBdIZXmZrPZvwQWmqxW8Rn5lT0Ol8-kO4uakpuCNl9AJRIxAEF2AjYOwiWNaABxLDsLAo9FYnEJPjDTVjbUIaa0wUGpleY0cgoKBxkPn8ozlIzmozqIxioIu07SjiIz2EhGYP0BoOPMjIVHEdjmTAAMXQeNRtAArrAwHjMF1iGOuAn7kmKTJEGzbOUNJv9Ft5ja7ByNNZuPYnK4lBWmaVq8cYVKIg2PV6W224B2xmQhyOZ7BMAA3QgqBECBx0nadZ3ndUHmTZ4EFcDct3BXc9G4coD1NI9VDIDYan+FxuDsB0GhrE5YQfd0yCbb1W39N9g2YT9h1RH9-0A4CyB6JjMC9CB+0jTBRCgJhaEEpgoOXJ5KT+XkyDLBRQV5NwHCqH48gKSpT1KapSkUDR1BvCU63Ixtn19WjA3ophGO-K5WKA2VOO-Hi+KwUSRJEITODkJJSTSGCpLguw7B5RCd3+FC0NzdxlEcUoFF5f5ynKAiDNrMj4RM5szPbSzrOY2yAPsjiuNEi5cHQAB3JgqHQQgIHEvyV0mPQjBUfQNHcDwHDLEEoo02K7G0uxdP0x0oTS+8MqfLKaJyzsv3y39CvY1Ap3EHoRFQSzMDiKqarqi4qJbAA5MAKoa8lJNXfJDFpYwtPUGplN0PraQGoaRtFMbnVIyaZUo0zZrozsumWiBMEc0cweoyGLq1WD1xC7dkP3XMjF1MhNjsa15OxpKNFS363Uy6jXwskGmDBiGmNoaGW1h7zE0aq7Jn0NnCzLQbHrZHcNEPKZgvenRhoUAnvpIu9iY9FURGY8awywAAVKN5VjGA4f867dXTelhsNbMaRNPJSy0TGrTLDrtB6wnJfrCjlVVTBxrIYCaBEscACNUTECGBnjHyNWZlNClNzQ2a8eluBcI35G4brMZ0XktBFGoajF4jb1dO3GxluXnRdym2PBok5pDOmMRL4GxkwCqxAAC3-KcRA2qcBI8pgiTHAkNaaxB4qMVrN22eSdJpVwOUI1qtCtNCplF4w5BtrPjOlx3ndBovMEr8my6L6jt-fZga-rxu8WbkRW9Ezvu8Zpcg4R0FC3mQxUPpTdc1F8pikTuQWW0RQSxLyMlNSiucnb5wPttWy+0IAXFROgCAzd+yw0XL5S6KZ+6Dy3CnUebNVLSWCkWTC8lphRzqOLTOwD-oO1luAmsZBIGPBYjAxEjDq4FSLrTPeLZbJsKPnXQgv4wBMHBhOS+7dr7+yZug2ClQTy6j0oKCONgDATz5JpLQ8U0J4OGkA9K1CwHOz4UwZhtVYGymMSxMGXD7LUV4eZQ+JiBFCJEZgMR04r7sC7gkW+aD4YBTkZjTCSjf4qP0ByZOBZ2pOCUbqEUKUKGGX0Y+UBa8IEOKgb+FhFiMlMOcpgfiHsMQEigFcBEBIQJbSoFQbiYBSmBlbuidgdcEE9xZlYOwOgVBcnil4GwwJ0Ycm2MFHCuhk6G0Gl9DOSS-opJoXnehljoFmNYbk6u+TCnFLqWUqcFwqk1JKTs6cTSWn1V8YHGRAUNjJWwuoPkaFeTxRjggTp6xNhuH+JMhJ0yJpS1SbQoxayj7LIOjk0uR8NlYCKW3ISkBMAe37MI0RYF3KeVQRc-x10CgFGwlpE2tRrRJQiQ4KJOFYkbH5HYPRsz7aGPSeCkxILzEMKBSYyF8KMSlXBgizASK3EotEl5AO0Fe75BFLSNwcdBrWgcJ0tmQyQRkGiWM+COhf7Ur+fMuhTQWUMtMaCsghyGkVNoPszA3smDsHNWAZprT0UivaQgPkWwgmGlFoKKOeghmyuwpsbQ1I2STI1dnVeAL6VV2BVklZsojXlL2YBGpFqrUnNaech1GCWQKExh4f4tQ9DyT5qaV5vrnBcgKAKKliTfkhv+QsnVSyo0Gssbtaq0aFbwsIKgAA1gU9AbSUx6HjgotYXgnCKEiqac0BYSggnalUXNREnQS2XiArVgK9VMtWXqrl8LEWuPcbESqra6omAEny-izSRB4nBsQKcsBmD9tgoaU2ZbZXeFFu4TRESB4Jy2PoLkFZrBsmDSvWt2q8C6ojYyxtzLLE7p5Xyg9k4qA9HNV0BcwqJIDqvPYf4b7DAdXkgoIZ6Nf26GUiLQiWg-COiYAguAUhxqkWkZirIABacJpoONvDUK4Qo8UDDo2pZQGgLHNZUkLXkaeSrRl6UqJo6w5CflEztl0KAYnRXaFpFUZOxh8xcl0-zE8jylDGE3NaPQSml2UOSe6DTjqvAjNcP+tCCmkLEdNG+ktSU0JbjQqNZTttQPRgVHGezA7XDYWc1yTposkJDMGsUPB2hhq5t1CB1dgMyaOPC7BEsygh5IXCqjU0UxSMlGxrqVCGYqxVpU6Bo62UoNdh7H2QcTFcsBXUrYTphRf7-oMN1dCakYslsGsLEatXAsruoVl1leUrFF069ddqptCthT3KhYb8g2QFhwnrc0HV3CLqY0FzLM1su5QWotoqkNal1RcjCq66aEZJUxoRMoSkjDzD6iMpw42dLuqmdZmZmq5sMoWxw27JV26QGW5MaorV8wFsGsNdqGxftjY+kDjLs2Lvzeu1Dlaa1z5bSYS27J8P5AGFNuCEsw85Em0xzhPjBbrD0lx3M8HzWN72WpiOKnCBthf0qO4ZG5pahyEPHpLNLO8JVEIpz2laSayC7cKHZ+No36ScQAPL+sUkqdOBCS7QSuc4q51a7MAgu2RI816-EsOv8hxynonEh8kdztTN6GutEHefAS3qywXRvCwGBpBHd9E61JPN-VycEAzKve7A+uqD+rzE246k-cEWvHcch5iW6ezrsZTZB9WhrdLFmsrT1u1PROIA2+xlnl+eF36TvivYV+vMo4in2HVs7BiLcQYbZgbJkGd4QsJLxXtHLan1LjfXu+lzro4VsDuAeb7HBTHUN6wWfrxmBoC6X+rq6K-1qr5usFqf2XQvg3u5FU5BeKH0MoHT6NBvtRpPgs08d5gxN-xS1CJPNdcNcfaDEfaNQ1bZY1OHRfVjPuYEYKaoakHqO5akDzY2H1WKMZANWVQ-U7GbOZU-Ifc-GDREY6AcRWNDS1GAvxcTPuWoLNEEaoedf4X+IKHfTSbRTcMoDnPvAg5XMNSvDdUgy-UAnaI9SnWAughAFfJVUEdGYaTfNA79eRbwZ6KYVwaedOI-fvQgwfXAMfRxavUQow2-XlfdMCR-QvWSXAqoPjBSYlVqX-UEXpKYe0GjHwIAA */
 
-createMachine({
+/** @xstate-layout N4IgpgJg5mDOIC5QFEDGB7ABASQCKdwEMAHYgOgEsIAbMAYgwDtGxUAXAbQAYBdRUYulgU2FdI34gAHogC0ATgDMZAKwB2ABwA2ACzyVARhUaATFrUAaEAE9EO7WS1auB8wc1quW+VoC+vqzQsPAISciYWdgpGKDoIcTBuPiQQQWFRcUkZBBUtMnkDeRN9E3sDDR17K1sclS5VE0VzOq5PRR1Ff0CMHHwiUjII1jZIOIpYIfYkyTSRMQkU7INHJo6VDqMNNXVtasRFeR18kyM1Q5NPe1KukCDe0IHJkYgyAAt0AFswTGJCGAYAE5gQgjaYpWYZBagbKVeo6Qr2FTrJTyLiNPYIAyNZbFNSKAxcJFcNYmG53EL9cLiSLPN6fb6-f6oaiECgfMECIRzTKLOyVMg6LSKLiKNRCjTaHQmFQYgwGfmeHwaFSKDSnNQ6Mk9ClhQbU4aQQZAkHfEEjWBsEHzOhQLBsLDvL4-P6JXgzLmQrL7cpkLjEip6HQueSorSy4V5JRcUxabTmcwaLXBPq6p6G1DGkaYM1wS2QsgAM3QAI+mHGmAAboRqFRC8XS8aINZMPbMMIoIw6BWwACKAWKD22xQOxzUh75l6EGpPKpid5Cop1sVZXplFwQ8L8V5EUn7pS9cwDS8M8CszmLVbxHWS2XYJXq7Wizf2ywIHF0AB3RjUdCECCjiEJ15KcNQFfFijMQ4NHOWVp2WeFKkFJFNEJXcdUefV2HTTNTTYc083ma9S3LKsa2PHtRH7VBL0YTB4i-H8-1GE8TUwFgPwA8ceWhRAsSxMhNw1JwYxOGUbF4rRigFFxPG2M5CmMNCUwww8sOPHDszw3MaKI297zIsgAGVh0YaJYniFhKEYCt0AAazAMhyWUqlVNpFizy0i98yfYi71I2tjI7MyEGiGzqMhJJOPSICeIQIoVDILY-WVTxsXlWUnDUMhpUXM5iXkUxWiUh4XJpbDT1w-CdJ8vT-JeQLTJiOgewBYsyGIFk2B8xztWcg8yvUirNKq7z61qh96pM4LQvQcL5kit1wS4qFpEQJL8gjeNSkkvQV0ORxFWJAlnBMMxiv3NNjxZNlMFYLAqBtO0HXpZ0YCi7kVuyfENF9f06m0bZTu2WUvHqeUkXsbcNCKgJbl6kr+qPQZrtLO6yxeKhaDoWAAFcACMPhETB+1od7PWA7QTGkxQzG8M5VVjDEpSynxch8YUTljRNYachHLuR1lUZ6WtMfoXGCaJknEgMZJOWi7jVoQDRFGUdpzhpvQtCMcN6hONRXAKRp8rFc7U0wtyUdu4WMZoMX8cJthiYoUmTFlsd5c+xA3F9E4sS1jV1nUDEOYEoNXAJeRtkKPwefhi7zfTS20drc8CPEPTGIgQ1U5ozBCdgO8gVQMAKG7AEhw7EEcaBbGTLJmLFYMRcjgKaHpxVVEVBMDRZXkMh1VWcGRSxU2VIGgWbuTl4c8hDPfyzl4XzM99LJm+yeuTPmE6uwWrfu6fPLT2jy0zw0l5iELrNmmiFrdwCFaWC4sppuVNty3bxIQExCUSnRDEaUw2wdD606LHTe8dXKJ13lPMgM95hzyYovKaTUWptQ6iCbqvMIHj2ZNA62sDD65xPvPM+yCoCXzCjfXg9cH68RVFlFKko5SnWlBiC4+R4R4m2F4LYpgR5gL3GbSBO9J74LgenYhiCCEjXgY2ZsrY8bfCBFAcYIwgRvmotQagmBlGqMHF8Ng7x-yLTlh9ScWJ9C+ibhqb+0Ztg90-oYI4kkiiqkFAcEUMdujgKETgpOYjCGz0kQvQY1YawxB0WAFRFoewrwcmvByWDfFI1waI-e0jtJBLvKfY8YSzKROiWoih18IrUJMe7MxwEm7uFUCrCUaJozFAMBiNQJwBRYg2MqZoo9SopP8ek8Rx9skkNyVo-JuiYkAmagCVqAJ2qdUwXHZJakJ5CwGYE+BwT0x5IiRMopM05riFvu6D25isT1BVrGP06hoyVAcTUQweRbFqmVJDaCXi4Y+LHn0vB6yZESOGVIvZPZmJhLztER2BijE0M9piF+iVhRInaN4P+hIMSvIRScP+lwjDRh6YjFZqS1nowyV5TZgKQmaPCVAcFjA2BxKsjZdeSTvmEv6SSwZCDKU7JpYTOlxTDmMGOUtU5VTXB5AXAUVw9itggx-k0KVehWgyTUPi-mRK94co2QCzAOTQljIiXy+lqC5noK6vWDegjWUW1+Vq-5QzdUjP1dS2lbABVUJ4DCs505srOBcJJXI05FDotyNTVpRQjBCnWGq7eqzNUp21Q6vVnL6LfhGY9TAeNCCoFsi2dAXqqneCeRUA45RziuBMGw4k2U8TIUaKiUUTcY3CLjTAzlWyD72orq+TNzYi4lzLtjMA1ACyuoLbFJuqp+6eAlAVA40FI7Bz-r6Jw3cm6Bvks2vxtqE1do7aSo+3bIC9sicXUusTU2Z3HY3S42UJTaGMPKEBYkahmCpkUHaZg8TKzOP4WGjB0BZ3gCkFlxATmVNirIRoRwDirGVmqLwKowyf1kAcPuyVILSg7sqfFotwPk0g+UPIsHdDweOkhpmDgnAuAlMYZmhgt3DDMvhhuX1iOovUF3TmdRmmf3sHkaj5RlQVAuF3RjakWO0MxGcFY6gpSinoeUStKH8TLH+o0TwHdFICPQr0lZjoGQukk7CoGsmbEKcbaYWU2JsqR2KNofQmhubeKtXptyGlBnGcnM4GDc6tDISUMrF9vETh90qKdYeKIEzifc0NQZukSITS88BfzVN51NAC6qRcOtIxSncFzbh7QYvlVYvFmqiWDI1TkXm7tyXYr6z7rGZwugCT+llZ-Ju+1wsVpcE0coBhiuDVK4mhLfkJq6RfJAOritth9wKKWpugpDhnFgj-XIkWmjbFFINo0cWRvlbGwZYuAJKIUEFXRT8abEHTeyHiMGzRBSpR2vIWU2h6gFC1uoAkC7Fw7fcpVTJhEDv6QCmQm7iBPAXL85loLso2ZkFaV3NUIY-TEhUH99lVBwc5Ejhwl5zcDhImUzUKDpRfqmHaMdJb8gMc7ptrQbHugEpQXKAT-QXcmbCkSt3CU7RoLaGgrTtJdrAc6pydjgkrSBJNGhoSGddyMSyCbnkdTPmLHtFJDpvq6rMedtF0mp1nL86F1YAOwcL4q5Agl6UML+J5tdzxIrvQ5PSiGGjO4fEoCXO6YJTa4Xu79dctIUFGI1uhT910JJLE2wnHBbilTewPhgF9ZUIcSSQviUB7JWLw3ibIl-nkVgRRBS9HqLD3kd3-HRT+3uXYdhrNNPTlXMrL3nzXO+6gf7vX2eDdSKpeMqJpfrf7QKq3JUEpRMYlT1TVoUppTfu8BUDP8bu+Hv3cCsvIqIONw1wKFoDNzndxaftJE8oDilD4dcLXW8W0arbXn-d-fDUQol-CuorT4TqEjvYWvcV4Q1o8DXWKD0GX3vz3QpUNEYALEhQhSmy3wIx3xVg4XxG8FLTxAuBBnsFUGVHUA1GFGVj-lAICXAMdSkRTUu3F3gNY14i2ASiMFOhpnZzXV-zfWOEki1kaFIzlCIL+UD33U5UmwgBPX7XPQBGt1TwRwJAUxOFKBYTYVjEcGQkqGn3KGnD-V8CAA */
+createMachine(
+  {
   predictableActionArguments: true,
-  "id": "Eco ID Dapp",
-"initial": "idle",
-"states": {
+  id: "Eco ID Dapp",
+initial: "idle",
+states: {
 "idle": {
-  "on": {
+  on: {
     "connect": {
-      "target": "connecting"
+      target: "connecting"
     }
   }
 },
 "connecting": {
-  "on": {
-    "done": {
-      "target": "connected",
-      "cond": returnTrue
-    },
-    "fail": {
-      "target": "idle",
-      "cond": returnTrue
-    }
+  on: {
+    "done": "connected"
   }
 },
 "connected": {
-  "initial": "home page",
-  "states": {
+  initial: "home page",
+  states: {
     "home page": {
-      "on": {
+      on: {
         "create": {
-          "target": "create attestation"
+          target: "create attestation"
         },
         "claim": {
-          "target": "claim eco id"
+          target: "claim eco id"
         }
       }
     },
     "create attestation": {
-      "initial": "empty form",
-      "states": {
-        "empty form": {
-          "on": {
-            "user input": {
-              "target": "invalid form"
-            }
-          }
-        },
+      initial: "form is valid",
+      states: {
         "form is valid": {
-          "initial": "form ready to sign",
-          "states": {
+          initial: "form ready to sign",
+
+          states: {
             "form ready to sign": {
-              "on": {
-                "sign": [
-                  {
-                    "target": "form signed",
-                    "cond": returnTrue
-                  },
-                  {
-                    "target": "form ready to sign",
-                    "cond": returnTrue,
-                    "internal": false
-                  }
-                ]
+              on: {
+                "verifier sign": "Signing"
               }
             },
+
             "form signed": {
-              "on": {
+              on: {
                 "download": {
-                  "target": "certification downloaded"
+                  target: "certification downloaded"
                 }
               }
             },
+
             "certification downloaded": {
-              "on": {
-                "create new": {
-                  "target": "#Eco ID Dapp.connected.create attestation.empty form"
-                }
+              on: {
+                "create new": "form ready to sign"
+              }
+            },
+
+            Signing: {
+              invoke: {
+                src: "getVerifierSignature",
+                onDone : "form signed",
+                onError : "form ready to sign"
               }
             }
-          },
-          "on": {
-            "user input": {
-              "target": "invalid form"
-            }
-          }
-        },
-        "invalid form": {
-          "on": {
-            "validate form": [
-              {
-                "target": "form is valid",
-                "cond": returnTrue
-              },
-              {
-                "target": "invalid form",
-                "cond": returnTrue,
-                "internal": false
-              }
-            ]
           }
         }
       },
-      "on": {
+      on: {
         "go to home page": {
-          "target": "home page"
+          target: "home page"
         }
       }
     },
     "claim eco id": {
-      "initial": "idle",
-      "states": {
+      initial: "idle",
+      states: {
         "idle": {
-          "on": {
-            "submit file": {
-              "target": "invalid attestation"
-            }
-          }
-        },
-        "invalid attestation": {
-          "on": {
-            "validate attestation with verifier signature": [
+          on: {
+            "submit file" : [
+              {target : "attestation is loaded.attestation ready to be registered", cond: "hasBothSignature"},
+              {target : "attestation is loaded.attestation miss receiver signature", cond: "hasReceiverSignature"},
               {
-                "target": "attestation is loaded",
-                "cond": returnTrue
+                target : "idle",
               },
-              {
-                "target": "invalid attestation",
-                "cond": returnTrue,
-                "internal": false
-              }
             ]
-          }
         },
+        exit : ["storeAttestation"]
+      },
+
         "attestation is loaded": {
-          "initial": "attestation is valid",
-          "states": {
-            "attestation is valid": {
-              "on": {
-                "validate is attestation has end user signature": [
-                  {
-                    "target": "attestation ready to be registered",
-                    "cond":returnTrue
-                  },
-                  {
-                    "target": "attestation ready to be signed by end user",
-                    "cond": returnTrue
-                  }
-                ]
+          states: {
+
+            "attestation miss receiver signature": {
+              on : {
+                "sign" : "signing"
               }
+            },
+            "signing" : {
+              invoke : {
+                src : "getReceiverSignature",
+                onDone : "attestation signed by receiver",
+                onError : "attestation miss receiver signature"
+              },
+              entry : "StoreForm"
             },
             "attestation ready to be registered": {
-              "on": {
-                "call register method": [
-                  {
-                    "target": "registered",
-                    "cond": returnTrue
-                  },
-                  {
-                    "target": "attestation ready to be registered",
-                    "cond": returnTrue,
-                    "internal": false
-                  }
-                ]
+              on : {
+                "call register method" : "calling register"
               }
             },
-            "attestation ready to be signed by end user": {
-              "on": {
-                "sign": [
-                  {
-                    "target": "attestation signed by end user",
-                    "cond": returnTrue
-                  },
-                  {
-                    "target": "attestation ready to be signed by end user",
-                    "cond": returnTrue,
-                    "internal": false
-                  }
-                ]
+            "calling register" : {
+              invoke : {
+                src : "callRegister",
+                onDone : "registered",
+                onError : "attestation ready to be registered"
               }
             },
             "registered": {
-              "on": {
-                "call mint method": [
-                  {
-                    "target": "nft minted",
-                    "cond": returnTrue
-                  },
-                  {
-                    "target": "registered",
-                    "cond": returnTrue,
-                    "internal": false
-                  }
-                ]
+              on :{
+                "call mint method" : "calling mint"
               }
             },
-            "nft minted": {},
+            "calling mint" : {
+              invoke:  {
+                src : "callMint",
+                onDone : "nft minted",
+                onError : "registered"
+              }
+            },
+
+            "nft minted": {
+
+            },
+
             "attestation downloaded": {
-              "on": {
+              on: {
                 "go back to": {
-                  "target": "attestation signed by end user"
+                  target: "attestation signed by receiver"
                 }
               }
             },
-            "attestation signed by end user": {
-              "on": {
-                "download, send to third person": {
-                  "target": "attestation downloaded"
-                },
-                "self mint": {
-                  "target": "attestation ready to be registered"
+
+            "attestation signed by receiver": {
+              on: {
+                "self mint": "attestation ready to be registered",
+
+                download: {
+                  target: "attestation downloaded"
                 }
               }
-            }
+            },
+
+
           },
-          "on": {
-            "modify form": {
-              "target": "invalid attestation"
-            }
-          }
+
+          initial: "attestation miss receiver signature"
         }
       },
-      "on": {
-        "go to home page": {
-          "target": "home page"
-        }
+      on: {
+        "go to home page": "home page"
       }
     }
   },
-  "on": {
+  on: {
     "disconnect": {
-      "target": "idle"
+      target: "idle"
     }
   }
 }
@@ -246,12 +234,57 @@ createMachine({
 ,
 schema: {
   context: {} as {
-    
+    attestation : {}
+    form : {}
   },
-  events: {} as {"type": "connect"}| {"type": "done"}| {"type": "fail"}| {"type": "create"}| {"type": "claim"}| {"type": "user input"}| {"type": "validate form"}| {"type": "disconnect"}| {"type": "sign"}| {"type": "download"}| {"type": "create new"}| {"type": "go to home page"}| {"type": "submit file"}| {"type": "validate attestation with verifier signature"}| {"type": "validate is attestation has end user signature"}| {"type": "call register method"}| {"type": "call mint method"}| {"type": "download, send to third person"}| {"type": "self mint"}| {"type": "go back to"}| {"type": "modify form"}
+  events: {} as {"type": "connect"}|
+  {"type": "done"}|
+  {"type": "fail"}|
+  {"type": "create"}|
+  {"type": "claim"}|
+  {"type": "user input"}|
+  {"type": "validate form"}|
+  {"type": "disconnect"}|
+  {"type": "sign"}|
+  {"type": "verifier sign", form : {}}|
+  {"type": "download"}|
+  {"type": "create new"}|
+  {"type": "go to home page"}|
+  {"type": "submit file", attestation : {}}|
+  {"type": "validate attestation with verifier signature"}|
+  {"type": "validate is attestation has end user signature"}|
+  {"type": "call register method"}|
+  {"type": "call mint method"}|
+  {"type": "download, send to third person"}|
+  {"type": "self mint"}|
+  {"type": "go back to"}|
+  {"type": "modify form"}
 },
-context: {},
+context: {
+  attestation : {},
+  form : {}
+},
 preserveActionOrder: true,
+},{
+  actions : {
+    storeAttestation: (context, event) => {
+      if (event.type == 'submit file') context.attestation = event.attestation
+      console.log('event!',event);
+    },
+    StoreForm : (context, event) => {
+      if (event.type == 'verifier sign') context.form = event.form
+      console.log('event!',event);
+    }
+  },
+  guards : {
+    hasBothSignature,
+    hasReceiverSignature
+  },
+  delays : {},
+  services : {
+    getReceiverSignature,
+    getVerifierSignature,
+  }
 })
 
 export default machine;
