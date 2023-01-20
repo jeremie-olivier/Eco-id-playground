@@ -3,6 +3,9 @@ import { Formik } from "formik";
 import * as yup from "yup";
 // import DatePicker from 'react-datepicker';
 import Error from "./Error";
+import Box from '@mui/material/Box';
+import Checkbox from '@mui/material/Checkbox';
+
 
 
 const ValidationSchema = yup.object().shape({
@@ -11,17 +14,21 @@ const ValidationSchema = yup.object().shape({
     .max(35, "Limited to 35 characters")
     .required("Must enter a wallet address"),
   deadline: yup.date()
-  .required("Enter the deadline")
+  .required("Enter the deadline"),
+  revocable: yup.boolean().oneOf([true], 'This field must be checked')
+  
 });
 
 
 export default function FormikForm() {
 
   return (
+    
     <Formik 
       initialValues={{ 
         receiverAddress: "", 
-        deadline: ""}}
+        deadline: "",
+        revocable: true }}
       validationSchema={ValidationSchema}
       onSubmit={(values, { setSubmitting, resetForm }) => {
         setSubmitting(true);
@@ -32,8 +39,8 @@ export default function FormikForm() {
           setSubmitting(false);
         }, 500);
       }}
-    >
-{({ 
+      >
+  {({ 
         values, 
         errors, 
         touched, 
@@ -49,7 +56,7 @@ export default function FormikForm() {
           <h2> Verifier form</h2>
           
           <div className="input-row">
-            <label>Receiver address</label>
+            <label>Receiver address : </label>
             <input 
               type="text"
               name="receiverAddress" 
@@ -65,7 +72,7 @@ export default function FormikForm() {
           </div>
 
           <div className="input-row">
-            <label htmlFor="deadline"></label>
+            <label htmlFor="deadline">Deadline : </label>
             <input type="date"
               name="deadline" 
               id="deadline" 
@@ -77,17 +84,30 @@ export default function FormikForm() {
               className={touched.deadline && errors.deadline ? "has-error" : null}
             />
             <Error touched={touched.deadline} message={errors.deadline} />
-
-
-            <div className="input-row">
-              <button type="submit" disabled={isSubmitting}>
-                Submit
-                </button>
-            </div>
+            
+          <div className="input-row">
+            <label>Revocable ?</label>
+            <Box
+              alignItems="center"
+              display="flex"
+              ml={-1} 
+              >
+              <Checkbox
+                checked={values.revocable}
+                name="revocable"
+                onChange={handleChange}
+              />
+            </Box>
+            <Error touched={touched.deadline} message={errors.deadline} />   
+            </div>   
+          </div>
+          <div className="input-row">
+            <button type="submit" disabled={isSubmitting}>
+              Sign Claim 
+              </button>
           </div>
         </form>
       )}
-      
     </Formik>
   );
 }
