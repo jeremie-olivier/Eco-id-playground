@@ -66,7 +66,8 @@ function UploadAttestation() {
 
         if (fileReader.result && typeof fileReader.result == 'string') {
           attestation = JSON.parse(fileReader.result);
-          register()
+          send({ type : 'submit file', attestation})
+          // register()
         }
 
 
