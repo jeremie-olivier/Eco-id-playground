@@ -6,6 +6,7 @@ import Error from "./Error";
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import download from "../utilities/download";
+import { sendParent } from "xstate/lib/actions";
 
 
 
@@ -19,7 +20,6 @@ const ValidationSchema = yup.object().shape({
   revocable: yup.boolean().oneOf([true])
   
 });
-
 
 
 export default function FormikForm() {
@@ -104,6 +104,12 @@ export default function FormikForm() {
               />
             </Box>
             </div>   
+          </div>
+          <div className="input-row">
+            {/* @ts-ignore */}
+            <button onClick={()=>{send("verifiersign")}}>
+              Sign attestation
+              </button>
           </div>
           <div className="input-row">
             {/* @ts-ignore */}
