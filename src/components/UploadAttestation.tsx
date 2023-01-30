@@ -43,15 +43,6 @@ function UploadAttestation() {
 
 
 
-
-
-
-
-
-
-  // const { address } = useAccount();
-
-
   const readFileOnUpload = (uploadedFile: File) => {
     const fileReader = new FileReader();
     fileReader.onloadend = async () => {

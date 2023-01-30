@@ -28,7 +28,7 @@
 
 
 import { ConnectButton, useConnectModal } from "@rainbow-me/rainbowkit";
-import { useAccount, } from 'wagmi'
+import { useAccount, useSigner, } from 'wagmi'
 
 import { GlobalStateContext } from '../../providers/globalState';
 import { useActor } from '@xstate/react';
@@ -39,12 +39,15 @@ function ButtonWalletConnect() {
 
   const globalServices = useContext(GlobalStateContext);
   const [state, send] = useActor(globalServices.stateService);
+  const { data: signer } = useSigner();
+
 
 
   const account = useAccount({
     onConnect() {
       setTimeout(() => {
-        send('connect'); send('done')
+        send('connect'); 
+
       }, 0);
 
     },

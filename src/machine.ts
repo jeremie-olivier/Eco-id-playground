@@ -1,5 +1,6 @@
 import { resolve } from 'path';
 import { createMachine } from 'xstate';
+import generateAttestation from './utilities/generateAttestation';
 import GetVerifierSignature from './utilities/getVerifierSignature';
 
 const returnTrue = () => {
@@ -60,13 +61,8 @@ states: {
 "idle": {
   on: {
     "connect": {
-      target: "connecting"
+      target: "connected"
     }
-  }
-},
-"connecting": {
-  on: {
-    "done": "connected"
   }
 },
 "connected": {
@@ -100,7 +96,8 @@ states: {
                 "download": {
                   target: "certification downloaded"
                 }
-              }
+              },
+              entry : "storeVerifierSignature"
             },
 
             "certification downloaded": {
@@ -114,7 +111,8 @@ states: {
                 src: "GetVerifierSignature",
                 onDone : "form signed",
                 onError : "form ready to sign"
-              }
+              },
+              entry : "generateAttestation"
             }
           }
         }
@@ -155,7 +153,6 @@ states: {
                 onDone : "attestation signed by receiver",
                 onError : "attestation miss receiver signature"
               },
-              entry : "StoreForm"
             },
             "attestation ready to be registered": {
               on : {
@@ -227,8 +224,11 @@ schema: {
   context: {} as {
     attestation : {}
     form : {}
+    signer : {}
+    verifierSignature : string
   },
-  events: {} as {"type": "connect"}|
+  events: {} as 
+  {"type": "connect", signer : {}}|
   {"type": "done"}|
   {"type": "fail"}|
   {"type": "create"}|
@@ -237,7 +237,7 @@ schema: {
   {"type": "validate form"}|
   {"type": "disconnect"}|
   {"type": "sign"}|
-  {"type": "verifier sign", form : {}}|
+  {"type": "verifier sign", form : {}, signer : {}}|
   {"type": "download"}|
   {"type": "create new"}|
   {"type": "go to home page"}|
@@ -253,7 +253,9 @@ schema: {
 },
 context: {
   attestation : {},
-  form : {}
+  form : {},
+  signer : {},
+  verifierSignature : ""
 },
 preserveActionOrder: true,
 },{
@@ -262,10 +264,18 @@ preserveActionOrder: true,
       if (event.type == 'submit file') context.attestation = event.attestation
       console.log('event!',event);
     },
-    StoreForm : (context, event) => {
-      if (event.type == 'verifier sign') context.form = event.form
-      console.log('event!',event);
-    }
+    generateAttestation,
+    
+    storeVerifierSignature : (context, event) => {
+      console.log("storeVerifierSignature",event);
+      
+      //@ts-ignore
+      context.verifierSignature = event.data
+      //@ts-ignore
+      context.attestation.verifySig = event.data
+
+    },
+    
   },
   guards : {
     hasBothSignature,
@@ -274,7 +284,8 @@ preserveActionOrder: true,
   delays : {},
   services : {
     getReceiverSignature,
-    GetVerifierSignature,
+    GetVerifierSignature: (context, event) => GetVerifierSignature(context,event)
+
   }
 })
 
