@@ -14,8 +14,6 @@ import {FormData} from '../types/types';
 import { useSigner } from "wagmi";
 
 
-
-
 const ValidationSchema = yup.object().shape({
   receiverAddress: yup.string()
     .min(26, "26 characters minimum")
@@ -152,16 +150,29 @@ export default function FormikForm() {
           <div className="input-row">
             {/* @ts-ignore */}
             <button onClick={()=>{getSignature()}}>
-              Sign attestation
+              Sign Attestation
               </button>
           </div>
           }
 
           {state.matches({"connected":{"create attestation":{"form is valid":"form signed"}}} ) &&
           <div className="input-row">
+
+            <button onClick={()=>{
+              /* @ts-ignore */
+              download("attestation-" + state.context.attestation.message.recipient, state.context.attestation)
+              send("download")
+              }}>
+              Download Attestation
+              </button>
+          </div>
+          }
+
+          {state.matches({"connected":{"create attestation":{"form is valid":"certification downloaded"}}} ) &&
+          <div className="input-row">
             {/* @ts-ignore */}
-            <button onClick={()=>{download("attestation-" + state.context.attestation.message.recipient, state.context.attestation)}}>
-              Download attestation
+            <button onClick={()=>{send("go to home page")}}>
+              Home Page 
               </button>
           </div>
           }

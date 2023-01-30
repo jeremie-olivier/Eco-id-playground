@@ -15,8 +15,7 @@ export default function generateAttestation(context: any,event: any ){
 
 }
 
- function buildAttestation(form: FormData, signer: FetchSignerResult<ethers.Signer>){
-
+function buildAttestation(form: FormData, signer: FetchSignerResult<ethers.Signer>){
 
     let attestation = {
       types: {

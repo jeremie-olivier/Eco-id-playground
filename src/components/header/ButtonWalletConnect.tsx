@@ -45,9 +45,8 @@ function ButtonWalletConnect() {
 
   const account = useAccount({
     onConnect() {
-      setTimeout(() => {
+      setTimeout(() => {        
         send('connect'); 
-
       }, 0);
 
     },
