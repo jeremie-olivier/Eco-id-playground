@@ -2,6 +2,7 @@
 import { resolve } from 'path';
 import { createMachine } from 'xstate';
 import generateAttestation from './utilities/generateAttestation';
+import generateAttestation from './utilities/generateAttestation';
 import GetVerifierSignature from './utilities/getVerifierSignature';
 import getReceiverSignature from  './utilities/getReceiverSignature';
 import callRegister from  './utilities/register';
@@ -55,8 +56,9 @@ states: {
   on: {
     "connect": {
       target: "connected"
+      target: "connected"
     }
-  },
+  }
 },
 "connected": {
   initial: "home page",
@@ -91,6 +93,8 @@ states: {
                 }
               },
               entry : "storeVerifierSignature"
+              },
+              entry : "storeVerifierSignature"
             },
 
             "certification downloaded": {
@@ -104,6 +108,8 @@ states: {
                 src: "GetVerifierSignature",
                 onDone : "form signed",
                 onError : "form ready to sign"
+              },
+              entry : "generateAttestation"
               },
               entry : "generateAttestation"
             }
@@ -213,11 +219,11 @@ schema: {
   context: {} as {
     attestation : Attestation | {}
     form : {}
-    signer : FetchSignerResult<Signer> | undefined
+    signer : {}
     verifierSignature : string
   },
   events: {} as 
-  {"type": "connect"}|
+  {"type": "connect", signer : {}}|
   {"type": "done"}|
   {"type": "fail"}|
   {"type": "create"}|
@@ -225,7 +231,7 @@ schema: {
   {"type": "user input"}|
   {"type": "validate form"}|
   {"type": "disconnect"}|
-  {"type": "sign", signer : {}}|
+  {"type": "sign"}|
   {"type": "verifier sign", form : {}, signer : {}}|
   {"type": "download"}|
   {"type": "create new"}|
@@ -243,7 +249,7 @@ schema: {
 context: {
   attestation : {},
   form : {},
-  signer : undefined,
+  signer : {},
   verifierSignature : ""
 },
 preserveActionOrder: true,
@@ -254,6 +260,7 @@ preserveActionOrder: true,
       console.log('event!',event);
     },
     generateAttestation,
+    
     storeVerifierSignature : (context, event) => {
       console.log("storeVerifierSignature",event);
       
@@ -261,15 +268,6 @@ preserveActionOrder: true,
       context.verifierSignature = event.data
       //@ts-ignore
       context.attestation.verifySig = event.data
-
-    },
-    storeReceiverSignature  : (context, event) => {
-      console.log("storeReceiverSignature",event);
-      
-      //@ts-ignore
-      context.receiverSignature = event.data
-      //@ts-ignore
-      context.attestation.sig = event.data
 
     },
     
@@ -281,8 +279,8 @@ preserveActionOrder: true,
   delays : {},
   services : {
     getReceiverSignature,
-    GetVerifierSignature,
-    callRegister,
+    GetVerifierSignature: (context, event) => GetVerifierSignature(context,event)
+
   }
 })
 
