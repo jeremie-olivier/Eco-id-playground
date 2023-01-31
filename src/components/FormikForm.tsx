@@ -14,14 +14,11 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-
-
 import Checkbox from '@mui/material/Checkbox';
 import download from "../utilities/download";
 import { sendParent } from "xstate/lib/actions";
 import { GlobalStateContext } from "../providers/globalState";
 import { useActor } from '@xstate/react';
-
 import {FormData} from '../types/types';
 import { useSigner } from "wagmi";
 
@@ -39,7 +36,6 @@ const ValidationSchema = yup.object().shape({
   .min(26, "26 characters minimum")
   .max(35, "Limited to 35 characters")
   .required("Claim required"),
-
 });
 
 
@@ -107,11 +103,8 @@ export default function FormikForm() {
               isSubmitting 
             }) => (
               <form onSubmit={handleSubmit}>
-
-                {JSON.stringify(values)}
-
-                <Typography component="h1" variant="h5">
-                  Verifier form
+                <Typography variant="caption" display="block" gutterBottom>
+                  {JSON.stringify(values)}
                 </Typography>
                 
                 <TextField
@@ -213,8 +206,8 @@ export default function FormikForm() {
               </form>
             )}
           </Formik>
-    </Box>
-    </Box>
+        </Box>
+      </Box>
     </Container>
   );
 }
