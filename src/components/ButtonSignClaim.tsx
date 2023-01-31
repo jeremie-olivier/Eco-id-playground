@@ -4,7 +4,7 @@ import CreateTwoToneIcon from '@mui/icons-material/CreateTwoTone';
 
 function ButtonSignClaim(){
     return (
-      <Button variant="contained" endIcon={<CreateTwoToneIcon/>}>Sign Claim</Button>
+      <Button variant="contained" color="success" endIcon={<CreateTwoToneIcon/>}>Sign Claim</Button>
     );
 };
 

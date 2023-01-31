@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 function ButtonRegister(){
 
     return (
-      <Button variant="contained">Register</Button>
+      <Button variant="contained" color="success" >Register</Button>
     );
 };
 
