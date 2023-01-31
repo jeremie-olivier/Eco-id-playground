@@ -18,7 +18,7 @@ function PageContainer() {
 
       {state.matches('idle') ? <BlockInvitationToConnect></BlockInvitationToConnect> : ""}
       {state.matches({ "connected": "home page" }) ? <HomePage></HomePage> : ""}
-      {state.matches({"connected":{"create attestation":{"form is valid":"form ready to sign"}}} ) ? <FormikForm></FormikForm> : ""}
+      {state.matches({"connected":{"create attestation":"form is valid"}} ) ? <FormikForm></FormikForm> : ""}
       {state.matches({ "connected": "claim eco id" }) ? <ClaimEcoID></ClaimEcoID> : ""}
 
     </Container>

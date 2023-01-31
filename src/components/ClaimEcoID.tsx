@@ -5,13 +5,20 @@ import FormikForm from './FormikForm';
 import UploadAttestation from './UploadAttestation';
 import ButtonRegister from './ButtonRegister';
 import ButtonMintEcoID from './ButtonMintEcoID';
-import { Button } from '@mui/material';
+import { Button, Grid } from '@mui/material';
+import download from "../utilities/download";
+
+
+import { useAccount, useSigner, } from 'wagmi'
+
 
 function ClaimEcoID() {
 
 
     const globalServices = useContext(GlobalStateContext);
     const [state, send] = useActor(globalServices.stateService);
+    const { data: signer } = useSigner();
+
 
     return (
         <div style={{
@@ -27,10 +34,31 @@ function ClaimEcoID() {
 
             {state.matches({ "connected": { "claim eco id": { "attestation is loaded": "attestation is valid" } } }) ? <FormikForm></FormikForm> : ""}
             {state.matches({ "connected": { "claim eco id": "idle" } }) ? <UploadAttestation></UploadAttestation> : ""}
-            {state.matches({"connected":{"claim eco id":{"attestation is loaded":"attestation miss receiver signature"}}}) ? <Button variant="contained" onClick={()=> send("sign")}>Sign</Button> : ""}
+            {state.matches({"connected":{"claim eco id":{"attestation is loaded":"attestation miss receiver signature"}}}) ? <Button variant="contained" onClick={
+                //@ts-ignore
+                ()=> send({type : "sign", signer})
+            }>Sign</Button> : ""}
+
+
+            {state.matches({"connected":{"claim eco id":{"attestation is loaded":"attestation signed by receiver"}}}) && 
+                <Grid container display="flex" justifyContent="center" alignItems="center" flexDirection="column" spacing={5}>
+                    <Grid>
+                        <Button variant="contained" onClick={()=> send("self mint")}>Mint your Eco ID</Button> 
+                    </Grid>
+                    <Grid>
+                        <Button variant="contained" onClick={()=> {
+                            send("download");
+                            //@ts-ignore   
+                            download("attestation-" + state.context.attestation.message.recipient, state.context.attestation)
+                            }}>Download</Button>                
+                    </Grid>
+                </Grid>
+            }
+
 
             {state.matches({ "connected": { "claim eco id": { "attestation is loaded": "attestation ready to be registered" } } }) ? <ButtonRegister></ButtonRegister> : ""}
             {state.matches({ "connected": { "claim eco id": { "attestation is loaded": "Eco ID ready to be minted" } } }) ? <ButtonMintEcoID></ButtonMintEcoID> : ""}
+
 
         </div>
 

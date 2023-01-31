@@ -23,22 +23,22 @@ type AttestationValues = {
 
 
 
-export default  function GetVerifierSignature(context: any, event: any ) {
+export default  function getReceiverSignature(context: any, event: any ) {
 
   console.log("context",context)
   console.log("event",event);
   
 
 
- let attestation = context.attestation
- console.log(attestation);
+let attestation = context.attestation
+console.log(attestation);
 
 
- let signer = event.signer
- let promise =  signer._signTypedData(attestation.domain, attestation.types, attestation.message)
+let signer = event.signer
+let promise =  signer._signTypedData(attestation.domain, attestation.types, attestation.message)
 
- console.log(promise);
- 
+console.log(promise);
+
 
 return promise
 

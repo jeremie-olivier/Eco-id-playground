@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Formik } from "formik";
 import * as yup from "yup";
 // import DatePicker from 'react-datepicker';
@@ -7,7 +7,11 @@ import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import download from "../utilities/download";
 import { sendParent } from "xstate/lib/actions";
+import { GlobalStateContext } from "../providers/globalState";
+import { useActor } from '@xstate/react';
 
+import {FormData} from '../types/types';
+import { useSigner } from "wagmi";
 
 
 const ValidationSchema = yup.object().shape({
@@ -17,12 +21,30 @@ const ValidationSchema = yup.object().shape({
     .required("Must enter a wallet address"),
   deadline: yup.date()
   .required("Enter the deadline"),
-  revocable: yup.boolean().oneOf([true])
-  
+  revocable: yup.boolean().oneOf([true]),
+  claim: yup.string()
+  .min(26, "26 characters minimum")
+  .max(35, "Limited to 35 characters")
+  .required("Claim required"),
+
 });
 
 
 export default function FormikForm() {
+
+  const globalServices = useContext(GlobalStateContext);
+  const [state, send] = useActor(globalServices.stateService);
+  const { data: signer } = useSigner();
+
+
+  let form: FormData;
+
+
+  const getSignature =()=>{
+    signer &&
+    send({ type : 'verifier sign', form, signer})
+  }
+
 
   return (
     
@@ -31,10 +53,12 @@ export default function FormikForm() {
       initialValues={{ 
         receiverAddress: "", 
         deadline: "",
-        revocable: true }}
+        revocable: true,
+        claim: ""}}
       validationSchema={ValidationSchema}
       validate={(values) => {
         console.log(values);
+        form = values;
       }}
       onSubmit={(values, { setSubmitting, resetForm }) => {
         setSubmitting(true);
@@ -78,7 +102,8 @@ export default function FormikForm() {
 
           <div className="input-row">
             <label htmlFor="deadline">Deadline : </label>
-            <input type="date"
+            <input 
+              type="date"
               name="deadline" 
               id="deadline" 
               placeholder="enter the deadline here"
@@ -89,7 +114,22 @@ export default function FormikForm() {
               className={touched.deadline && errors.deadline ? "has-error" : null}
             />
             <Error touched={touched.deadline} message={errors.deadline} />
+          </div>
             
+          <div className="input-row">
+            <label htmlFor="claim">Claim : </label>
+            <input 
+              type="text"
+              name="claim" 
+              id="claim" 
+              placeholder="Claim"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.claim}
+              //@ts-ignore
+            />
+          </div>
+
           <div className="input-row">
             <label>Revocable ?</label>
             <Box
@@ -103,20 +143,40 @@ export default function FormikForm() {
                 onChange={handleChange}
               />
             </Box>
-            </div>   
-          </div>
+          </div>   
+
+
+          {state.matches({"connected":{"create attestation":{"form is valid":"form ready to sign"}}} ) &&
           <div className="input-row">
             {/* @ts-ignore */}
-            <button onClick={()=>{send("verifiersign")}}>
-              Sign attestation
+            <button onClick={()=>{getSignature()}}>
+              Sign Attestation
               </button>
           </div>
+          }
+
+          {state.matches({"connected":{"create attestation":{"form is valid":"form signed"}}} ) &&
+          <div className="input-row">
+
+            <button onClick={()=>{
+              /* @ts-ignore */
+              download("attestation-" + state.context.attestation.message.recipient, state.context.attestation)
+              send("download")
+              }}>
+              Download Attestation
+              </button>
+          </div>
+          }
+
+          {state.matches({"connected":{"create attestation":{"form is valid":"certification downloaded"}}} ) &&
           <div className="input-row">
             {/* @ts-ignore */}
-            <button onClick={()=>{download("attestation", values)}}>
-              Download attestation
+            <button onClick={()=>{send("go to home page")}}>
+              Home Page 
               </button>
           </div>
+          }
+
         </form>
       )}
     </Formik>
