@@ -12,6 +12,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 import ButtonWalletConnect from './ButtonWalletConnect';
 import { Button } from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home';
+
 
 
 
@@ -21,7 +23,7 @@ function NavBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" color="inherit">
         <Toolbar>
           <IconButton
             size="large"
@@ -32,7 +34,7 @@ function NavBar() {
           >
             <MenuIcon />
           </IconButton>
-          <Button variant="contained" color='secondary' onClick={() => { send("go to home page") }}>Home</Button>
+          <Button color='success' endIcon={<HomeIcon/>} onClick={() => { send("go to home page") }}>Home</Button>
 
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Eco ID Dapp

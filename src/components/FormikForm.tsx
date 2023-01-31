@@ -4,6 +4,18 @@ import * as yup from "yup";
 // import DatePicker from 'react-datepicker';
 import Error from "./Error";
 import Box from '@mui/material/Box';
+
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+
+
 import Checkbox from '@mui/material/Checkbox';
 import download from "../utilities/download";
 import { sendParent } from "xstate/lib/actions";
@@ -12,6 +24,7 @@ import { useActor } from '@xstate/react';
 
 import {FormData} from '../types/types';
 import { useSigner } from "wagmi";
+
 
 
 const ValidationSchema = yup.object().shape({
@@ -47,138 +60,161 @@ export default function FormikForm() {
 
 
   return (
-    
-    <Formik
-      
-      initialValues={{ 
-        receiverAddress: "", 
-        deadline: "",
-        revocable: true,
-        claim: ""}}
-      validationSchema={ValidationSchema}
-      validate={(values) => {
-        console.log(values);
-        form = values;
-      }}
-      onSubmit={(values, { setSubmitting, resetForm }) => {
-        setSubmitting(true);
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          resetForm();
-          setSubmitting(false);
-        }, 500);
-      }}
-      >
-  {({ 
-        values, 
-        errors, 
-        touched, 
-        handleChange, 
-        handleBlur, 
-        handleSubmit, 
-        isSubmitting 
-      }) => (
-        <form onSubmit={handleSubmit}>
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
 
-          {JSON.stringify(values)}
+      <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+        <Typography component="h1" variant="h5">
+            Verifier Form
+        </Typography>
+        <Box component="form" noValidate sx={{ mt: 1 }}>
 
-          <h2> Verifier form</h2>
-          
-          <div className="input-row">
-            <label>Receiver address : </label>
-            <input 
-              type="text"
-              name="receiverAddress" 
-              id="receiver address" 
-              placeholder="enter the address here"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.receiverAddress}
-              //@ts-ignore
-              className={touched.receiverAddress && errors.receiverAddress ? "has-error" : null}
-            />
-            <Error touched={touched.receiverAddress} message={errors.receiverAddress} />
-          </div>
-
-          <div className="input-row">
-            <label htmlFor="deadline">Deadline : </label>
-            <input 
-              type="date"
-              name="deadline" 
-              id="deadline" 
-              placeholder="enter the deadline here"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.deadline}
-              //@ts-ignore
-              className={touched.deadline && errors.deadline ? "has-error" : null}
-            />
-            <Error touched={touched.deadline} message={errors.deadline} />
-          </div>
+          <Formik
             
-          <div className="input-row">
-            <label htmlFor="claim">Claim : </label>
-            <input 
-              type="text"
-              name="claim" 
-              id="claim" 
-              placeholder="Claim"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.claim}
-              //@ts-ignore
-            />
-          </div>
+            initialValues={{ 
+              receiverAddress: "", 
+              deadline: "",
+              revocable: true,
+              claim: ""}}
+            validationSchema={ValidationSchema}
+            validate={(values) => {
+              console.log(values);
+              form = values;
+            }}
+            onSubmit={(values, { setSubmitting, resetForm }) => {
+              setSubmitting(true);
+              setTimeout(() => {
+                alert(JSON.stringify(values, null, 2));
+                resetForm();
+                setSubmitting(false);
+              }, 500);
+            }}
+            >
+            {({ 
+              values, 
+              errors, 
+              touched, 
+              handleChange, 
+              handleBlur, 
+              handleSubmit, 
+              isSubmitting 
+            }) => (
+              <form onSubmit={handleSubmit}>
 
-          <div className="input-row">
-            <label>Revocable ?</label>
-            <Box
-              alignItems="center"
-              display="flex"
-              ml={-1} 
-              >
-              <Checkbox
-                checked={values.revocable}
-                name="revocable"
-                onChange={handleChange}
-              />
-            </Box>
-          </div>   
+                {JSON.stringify(values)}
+
+                <Typography component="h1" variant="h5">
+                  Verifier form
+                </Typography>
+                
+                <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="receiver address"
+                    label="Receiver address :"
+                    name="receiverAddress"
+                    placeholder="enter the address here"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.receiverAddress}
+                    //@ts-ignore
+                    className={touched.receiverAddress && errors.receiverAddress ? "has-error" : null}
+                    autoFocus
+                  />
+                
+                  <Error touched={touched.receiverAddress} message={errors.receiverAddress} />
+                
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  type="date"
+                  id="deadline"
+                  label=""
+                  name="deadline"
+                  placeholder="enter the deadline here"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.deadline}
+                  //@ts-ignore
+                  className={touched.deadline && errors.deadline ? "has-error" : null}
+                />
+
+                  <Error touched={touched.deadline} message={errors.deadline} />
+                
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  type="text"
+                  id="claim"
+                  label="Claim : "
+                  name="claim"
+                  placeholder="Claim"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.claim}
+                  //@ts-ignore
+                />
+                <Box
+                    alignItems="center"
+                    display="flex"
+                    ml={-1} 
+                    >
+                    <FormControlLabel 
+                      control={<Checkbox 
+                      color="success"
+                      checked={values.revocable}
+                      name="revocable"
+                      onChange={handleChange}
+                    />} label="Revocable ?" />
+                </Box>  
 
 
-          {state.matches({"connected":{"create attestation":{"form is valid":"form ready to sign"}}} ) &&
-          <div className="input-row">
-            {/* @ts-ignore */}
-            <button onClick={()=>{getSignature()}}>
-              Sign Attestation
-              </button>
-          </div>
-          }
+                {state.matches({"connected":{"create attestation":{"form is valid":"form ready to sign"}}} ) &&
+                <div className="input-row">
+                  {/* @ts-ignore */}
+                  <Button color="success" sx={{ mt: 3, mb: 2 }} onClick={()=>{getSignature()}} >
+                    Sign Attestation
+                    </Button>
+                </div>
+                }
 
-          {state.matches({"connected":{"create attestation":{"form is valid":"form signed"}}} ) &&
-          <div className="input-row">
+                {state.matches({"connected":{"create attestation":{"form is valid":"form signed"}}} ) &&
+                <div className="input-row">
 
-            <button onClick={()=>{
-              /* @ts-ignore */
-              download("attestation-" + state.context.attestation.message.recipient, state.context.attestation)
-              send("download")
-              }}>
-              Download Attestation
-              </button>
-          </div>
-          }
+                  <Button color="success" sx={{ mt: 3, mb: 2 }} onClick={()=>{
+                    /* @ts-ignore */
+                    download("attestation-" + state.context.attestation.message.recipient, state.context.attestation)
+                    send("download")
+                    }}>
+                    Download Attestation
+                    </Button>
+                </div>
+                }
 
-          {state.matches({"connected":{"create attestation":{"form is valid":"certification downloaded"}}} ) &&
-          <div className="input-row">
-            {/* @ts-ignore */}
-            <button onClick={()=>{send("go to home page")}}>
-              Home Page 
-              </button>
-          </div>
-          }
+                {state.matches({"connected":{"create attestation":{"form is valid":"certification downloaded"}}} ) &&
+                <div className="input-row">
+                  {/* @ts-ignore */}
+                  <Button color="success" sx={{ mt: 3, mb: 2 }} onClick={()=>{send("go to home page")}}>
+                    Home Page 
+                    </Button>
+                </div>
+                }
 
-        </form>
-      )}
-    </Formik>
+              </form>
+            )}
+          </Formik>
+    </Box>
+    </Box>
+    </Container>
   );
 }

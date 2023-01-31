@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 
 function ButtonMintEcoID(){
     return (
-      <Button variant="contained">Mint Eco ID</Button>
+      <Button variant="contained" color="success">Mint Eco ID</Button>
     );
 };
 

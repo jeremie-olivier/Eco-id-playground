@@ -2,6 +2,9 @@ import React, { useContext } from 'react';
 import { GlobalStateContext } from '../providers/globalState';
 import { useActor } from '@xstate/react';
 import { Container } from '@mui/material';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
 
 function XStateControls() {
@@ -12,29 +15,31 @@ function XStateControls() {
 
   return (
 
-    <Container sx={{ p: 2 }} style={{
+    <Container sx={{ p: 1 }} style={{
       backgroundColor: "black",
       color: "white",
-      position: "fixed",
       bottom: "0"
     }}>
-      <h1>State machine Controls (to be deleted ) </h1>
-      <h2>
-        Current State :
+      <Typography component="h1" variant="h5">
+        State machine Controls (to be deleted )
+      </Typography>
+    
+      <Typography component="h2" variant="h5">
+        Current state : 
         <span>{JSON.stringify(state.value)}</span>
-      </h2>
-      <button onClick={() => send('connect')}>Connect</button>
+      </Typography>
 
-      {/** You can send events to the running service */}
-      <button onClick={() => send('create')}>Create</button>
-      <button onClick={() => send('claim')}>Claim</button>
-
-      <button onClick={() => send('done')}>Done</button>
-      <button onClick={() => send('fail')}>Fail</button>
-
+      <Box sx={{ '& button': { m: 1 } }}>
+        <div>
+          <Button variant="outlined" size="small" color="success" onClick={() => send('connect')}>Connect</Button>
+          {/** You can send events to the running service */}
+          <Button variant="outlined" size="small" color="success" onClick={() => send('create')}>Create</Button>
+          <Button variant="outlined" size="small" color="success" onClick={() => send('claim')}>Claim</Button>
+          <Button variant="outlined" size="small" color="success" onClick={() => send('done')}>Done</Button>
+          <Button variant="outlined" size="small" color="success" onClick={() => send('fail')}>Fail</Button>
+        </div>
+      </Box>
     </Container>
-
-
   )
 }
 
