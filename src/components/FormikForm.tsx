@@ -191,7 +191,7 @@ export default function FormikForm() {
                 {state.matches({"connected":{"create attestation":{"form is valid":"form signed"}}} ) &&
                 <div className="input-row">
 
-                  <Button color="success" sx={{ mt: 3, mb: 2 }} onClick={()=>{
+                  <Button color="success" onClick={()=>{
                     /* @ts-ignore */
                     download("attestation-" + state.context.attestation.message.recipient, state.context.attestation)
                     send("download")
