@@ -1,40 +1,34 @@
+
 import { resolve } from 'path';
 import { createMachine } from 'xstate';
+import generateAttestation from './utilities/generateAttestation';
 import GetVerifierSignature from './utilities/getVerifierSignature';
+import getReceiverSignature from  './utilities/getReceiverSignature';
+import callRegister from  './utilities/register';
+
+
+
+
+import { FetchSignerResult } from "@wagmi/core";
+import { Signer } from "ethers";
+import { Attestation } from './types/types';
 
 const returnTrue = () => {
   return true
 };
 
-const hasBothSignature = () => {
-  return false
+const hasBothSignature = (context: any,event: any) => {
+  return event.attestation.verifySig && event.attestation.sig
 };
 
-const hasReceiverSignature = () => {
-  return true
+const hasVerifierSignature = (context: any,event: any) => {
+  return event.attestation.verifySig
 };
 
-const getReceiverSignature = ()=>{
-  const promise = new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve("foo");
-    }, 3000);
-  });
-  
-  return promise
-}
 
 
 
-const callRegister = ()=>{
-  const promise = new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve("foo");
-    }, 3000);
-  });
-  
-  return promise
-}
+
 
 const callMint = ()=>{
   const promise = new Promise((resolve, reject) => {
@@ -50,7 +44,7 @@ const callMint = ()=>{
 
 const machine = 
 
-/** @xstate-layout N4IgpgJg5mDOIC5QFEDGB7ABASQCKdwEMAHYgOgEsIAbMAYgwDtGxUAXAbQAYBdRUYulgU2FdI34gAHogC0ATgDMZAKwB2ABwA2ACzyVARhUaATFrUAaEAE9EO7WS1auB8wc1quW+VoC+vqzQsPAISciYWdgpGKDoIcTBuPiQQQWFRcUkZBBUtMnkDeRN9E3sDDR17K1sclS5VE0VzOq5PRR1Ff0CMHHwiUjII1jZIOIpYIfYkyTSRMQkU7INHJo6VDqMNNXVtasRFeR18kyM1Q5NPe1KukCDe0IHJkYgyAAt0AFswTGJCGAYAE5gQgjaYpWYZBagbKVeo6Qr2FTrJTyLiNPYIAyNZbFNSKAxcJFcNYmG53EL9cLiSLPN6fb6-f6oaiECgfMECIRzTKLOyVMg6LSKLiKNRCjTaHQmFQYgwGfmeHwaFSKDSnNQ6Mk9ClhQbU4aQQZAkHfEEjWBsEHzOhQLBsLDvL4-P6JXgzLmQrL7cpkLjEip6HQueSorSy4V5JRcUxabTmcwaLXBPq6p6G1DGkaYM1wS2QsgAM3QAI+mHGmAAboRqFRC8XS8aINZMPbMMIoIw6BWwACKAWKD22xQOxzUh75l6EGpPKpid5Cop1sVZXplFwQ8L8V5EUn7pS9cwDS8M8CszmLVbxHWS2XYJXq7Wizf2ywIHF0AB3RjUdCECCjiEJ15KcNQFfFijMQ4NHOWVp2WeFKkFJFNEJXcdUefV2HTTNTTYc083ma9S3LKsa2PHtRH7VBL0YTB4i-H8-1GE8TUwFgPwA8ceWhRAsSxMhNw1JwYxOGUbF4rRigFFxPG2M5CmMNCUwww8sOPHDszw3MaKI297zIsgAGVh0YaJYniFhKEYCt0AAazAMhyWUqlVNpFizy0i98yfYi71I2tjI7MyEGiGzqMhJJOPSICeIQIoVDILY-WVTxsXlWUnDUMhpUXM5iXkUxWiUh4XJpbDT1w-CdJ8vT-JeQLTJiOgewBYsyGIFk2B8xztWcg8yvUirNKq7z61qh96pM4LQvQcL5kit1wS4qFpEQJL8gjeNSkkvQV0ORxFWJAlnBMMxiv3NNjxZNlMFYLAqBtO0HXpZ0YCi7kVuyfENF9f06m0bZTu2WUvHqeUkXsbcNCKgJbl6kr+qPQZrtLO6yxeKhaDoWAAFcACMPhETB+1od7PWA7QTGkxQzG8M5VVjDEpSynxch8YUTljRNYachHLuR1lUZ6WtMfoXGCaJknEgMZJOWi7jVoQDRFGUdpzhpvQtCMcN6hONRXAKRp8rFc7U0wtyUdu4WMZoMX8cJthiYoUmTFlsd5c+xA3F9E4sS1jV1nUDEOYEoNXAJeRtkKPwefhi7zfTS20drc8CPEPTGIgQ1U5ozBCdgO8gVQMAKG7AEhw7EEcaBbGTLJmLFYMRcjgKaHpxVVEVBMDRZXkMh1VWcGRSxU2VIGgWbuTl4c8hDPfyzl4XzM99LJm+yeuTPmE6uwWrfu6fPLT2jy0zw0l5iELrNmmiFrdwCFaWC4sppuVNty3bxIQExCUSnRDEaUw2wdD606LHTe8dXKJ13lPMgM95hzyYovKaTUWptQ6iCbqvMIHj2ZNA62sDD65xPvPM+yCoCXzCjfXg9cH68RVFlFKko5SnWlBiC4+R4R4m2F4LYpgR5gL3GbSBO9J74LgenYhiCCEjXgY2ZsrY8bfCBFAcYIwgRvmotQagmBlGqMHF8Ng7x-yLTlh9ScWJ9C+ibhqb+0Ztg90-oYI4kkiiqkFAcEUMdujgKETgpOYjCGz0kQvQY1YawxB0WAFRFoewrwcmvByWDfFI1waI-e0jtJBLvKfY8YSzKROiWoih18IrUJMe7MxwEm7uFUCrCUaJozFAMBiNQJwBRYg2MqZoo9SopP8ek8Rx9skkNyVo-JuiYkAmagCVqAJ2qdUwXHZJakJ5CwGYE+BwT0x5IiRMopM05riFvu6D25isT1BVrGP06hoyVAcTUQweRbFqmVJDaCXi4Y+LHn0vB6yZESOGVIvZPZmJhLztER2BijE0M9piF+iVhRInaN4P+hIMSvIRScP+lwjDRh6YjFZqS1nowyV5TZgKQmaPCVAcFjA2BxKsjZdeSTvmEv6SSwZCDKU7JpYTOlxTDmMGOUtU5VTXB5AXAUVw9itggx-k0KVehWgyTUPi-mRK94co2QCzAOTQljIiXy+lqC5noK6vWDegjWUW1+Vq-5QzdUjP1dS2lbABVUJ4DCs505srOBcJJXI05FDotyNTVpRQjBCnWGq7eqzNUp21Q6vVnL6LfhGY9TAeNCCoFsi2dAXqqneCeRUA45RziuBMGw4k2U8TIUaKiUUTcY3CLjTAzlWyD72orq+TNzYi4lzLtjMA1ACyuoLbFJuqp+6eAlAVA40FI7Bz-r6Jw3cm6Bvks2vxtqE1do7aSo+3bIC9sicXUusTU2Z3HY3S42UJTaGMPKEBYkahmCpkUHaZg8TKzOP4WGjB0BZ3gCkFlxATmVNirIRoRwDirGVmqLwKowyf1kB0H6-1SiGGjO4fE+LRbgfJpB8oeRYO6Hg8dJDTMHBOBcBKYwzNDBbuGGZAjDcvokdReoLunM6jNM-vYPINHyjKgqBcLuTG1KsdoZiM4Kx1BSlFPQ8olaUOLmWMlTDBI1R4gMBJ2kjoGQuik7CoGcmbGKcbaYWU2JsqR2KNofQmhubeKtb0wlGlBnGcnM4GDc6tDISUMrF9vETh90qKF1oxgaaoQEehNzbkPOJt0iRCaXngL+apvOpoAXVSLh1pGKUpQXDrDFJqWLfV1WJftclvyE1dJyLzd2tLsV9Z91jM4XQBJ-Sys-k3fa4WK0uCaOUXT5Wt4tvcpVTJhEaopYMjVF8kBmuK22H3Aopam6CkOGcWCP9cjDyUM0UUenyqsUGTV-StZi4AkohQQVdFPxpsQct7IeIwbNEFKlHa8hZTaHqAULW6gtMbhUCdwaZ2kuzdqwZBqLGRUQZW36ASfmctBdlGzMgrSu5qhDH6YkoOxvYJ+Wk9GL3EAqEjhwl5zcDhIhUzUKDQpZymD-lpnDo2XNxYJTaknItbZk4QLoBKUFyg0-0F3JmwpErdwlO0aC2hoJg9bQEvdFKlvw8I43VomWmjQ0JDOu5GJZDuDyBp1n2GdOgM5xV2NGq22Jq5dnB3+dC6sAHYOF8VcgQC46WF-E62u54iN3oX6LOsPafxFbz5rnudQN5526bOq9XnygD7swyhXCChOGJpxwW4pU3sD4YBw2KdZ6V3blXiek1Os5Q1hRSiol6PUWnpwvo1QCdFP7e5dh2Gs08OoDUgWVbl-ZbuqvjvRkuuBQCNP+0CqtyVBKMTGIKdU1aIV9QDMCplet+N7d8eD1ELVy8af6vTGa6WO0AvLQGbnO7i0-aSJ5QHFKHw64hPlk8+JWPslSenVUvySNR93hTqFaXhHUEjnsG7zinhBrQ8DXWKD0BHx3QT1-2rykUYALEhQhTPwqQv14hVmUEOHxG8FLTxAuBBnsFUGVAHw6GjHaAJ13yJzZRQMPyyUdSkRTUexyR9y2ASiMFOhpnFzXWgLfWOEki1kaDIzlGQIP3bWPzYPgUWwgBPX7XPRnw1zYxCwp0xwJEU2z0K3p0QDMB+n83kz-gjS2FVT-SAA */
+/** @xstate-layout N4IgpgJg5mDOIC5QFEDGB7ABASQCKdwEMAHYgOgEsIAbMAYgwDtGxUAXAbQAYBdRUYulgU2FdI34gAHogCMAdjIAOJQCZ5AZgCsATll6uANlWqALABoQAT0SmlhsocNdZKrUtPqtsgL4-LaFh4BCTkTCzskHQQFLDhrJy8koLCouKSMgiyjhqGptr5su7yWvL2ljYIGjqmZDqqRfI16lx2Zn4BGDj4RKRk8ZEQZAAW6AC2YJjEhDAMAE5ghGxg3HxIICkiYhLrmaamXGSm+nZaWqY61VyqGhVyN9mqOpqyXGet2qodIIHdIX0DZZDUYTKYzeioaiEChjVbJIRbdK7Wz7I6GDRcDTydEqPKqLR3LKyVHyLg6QxKLQaJSNeSmb6-YK9MLiCJA-oLJaTJbLWBsJbbOhQLBsLAgybTGBw9abNI7UCZDSuMhcVoeC4HfQ6IyE2QYhyXLhqClObFlBldJmhfqshKQDmLZaYHlwflysgAM3QczGmFimAAboRqFRPd7fZyIFZMKLMMIoIw6AGwHMKB6KCm4xQE9KBAi5RlEPJSWQtK1DHpLucnrqLhoVTpDUqjKcLUEetbAfbUJynS6+QLxGGfX7YIHg6GvSP4ywINF0AB3RjUdCECC5jb57aFhDFxRKJolJSqjRY566tT10maDQatSeLRtv7Mm3MO1DHuO7lsXlu7bD31-SDEMPxTUR01QQdGEwCBF2XVcICiT8uUwFgFw3WVt2RLIGlUMgMSxUwnGNBoCWsORjB0I4XGvUpK3cJ8rQBW1BgdFD+z-Icp0AsdgNDABlbNGAoRgoHnFhKEYAN0AAazAMhGQ7Zi31Y5C+x-V0oIA0dxxAshBITESoAQETpMguVVgwrckQVRAdG8MgWm8BRTHOVxVF1PIHEMUoy0bIwlVcxilJZFT2TU79fy07idL4oYDOE0S6BTOZvTIYgoTYbiFMtELXzZbte0izT3RioCJ3ioSjJMqT0HM7ZLKSGVrPlaQ7IUOp7KIo03iMDzyKyDVS0bDE1FVIpgv+UKCo-KEYUwVgsCoIURTFcYJXBKzUiw2yqmVVVTiNQwShMEpdSMQ5iTOOwW2PeRJpfLtZuhX1Fr9IYqFoOhYAAVwAIzGERMHTWgtsRVrMnsPCDg0VQnGeS57CUQlPEUcktArdFrlkCklAezsWPCubXq6UNPvoX6AaBkGVlkNY822my2oQJRT3wjUbjMckil1DFHIUHG9BuVpnkMfHlJm-piYW0mPpoCn-sBthgYoUHVHpzdGYhxBjuybHZDhlzzlKQkMTw28XEMV5nm8clxem98pZemWlqGDioJ0lc13td25UwQHYDHBZUDAChkzmLMEyWH6Fm+oSwYLbC9XOOpXC4YsqW1LRVGRgb9DIWlcmOVzMQN+38sdyFnbe0Nfe2T2EPtGcjPE+TTNk+TFKmivVOlmu3Y0gc-f9L3EKGZvRJqsyoMajXMKZzIDeLfCGj1Ix0VKC5CVUN5lFcg3qS8Ux5D1cunqd+b+7IOvxAb73x6qpKUrSjKlmyrvHsJ7s+9l6-B846CI9G4P0MpPdu9VxCz3hFrHcRQsTKFKPYY4BsTBkUqOoOoxxNAlCMAeNQZd-A-Fyt3c+VdL6-xvoAsco8fb-w9pGaMsY-qTAWFAWIywFhzkgtQagmBWHsMzBMNgox1xNQZuDWBTwtAqj1HSHeRojyEm8LUSiNwPDom1LkM+X9nrkNdn-KKw9qHAP6MGEMok+FgDYXyFMrdJLSTkjldsJCdEXxJvoyhd8x6mJ4UZSx1iOFTzqjPXgCcdrMz1B1Kk1Jjw7zUHoQk8gGhHANoUSkx1HyEI-gTMK39q4ULoUYzANCPxmL8fwmxcxkpzFSnMdKmV37EM-rk3R7j3oGJKvXIB98fHmKgP4gRcwgkQMYFA5qMCk4G0OKeCkqpShGn2LnSo3gHDyJpJSG6Sg7ZZKaTkyWZC2m10KV04xPSKkcKQmY-2IllZCJEWEhechYbZFZm8KkREahljQYgDZyhnmuVJMcMseMdnOOafsn+Hjjm326d47hfTrmMDYHY9ujjskS0rpC9pnjYXdjKRYwGSLhkhJ4A87WRInAF0uHoHGR4DznV3rkGlFx040XuqC58ezMX5KhYYk5xSTHwr8YS5Fz86mvyyuGJxnKMW9x5di6FVCBU9KFQSm5xKLKhLEZrCRkzl5w3GsYDGxZbgDXSdRLETxSIb3pBypiDs5V6IVXymFpzvGeJnJATAf1ozB1DuHb6YBqAekRYkOeLVYGniUAXUkKgdCs3jY2eQptXIqicDnZOx0mi+DtXlUhWKjkuqVSUjpQ966eogN631rB-W2NgkuUeZLYGAscioew7hiQn20NvYwdQ4ZmDhpoVmTQ-CEMYOgRC8B1jouINA3Vu0AC0shlSklyM4Rsm8TWEgXdUKiqo1BUh8q5Uo7LOhgutOTOdidF0llXU4Mk9k6RboGsfR4G8ihlmxPDbRLSr3hMXk0HIm8bglCxO5bdSpsjAvxNgvq+wf2S3FGCGAf7HkIFOkBuRWIqQnzULqB4jlnhPHsI+lQCHK5FWdIq1D5LnC1GqKzHydFqTdrzg0Ki+xXBuAUJcao5HVKUcodpcqIEaM7h8ubeNuQzhNBY98rI+pME73xHDE9Ytc0uJaWxdSRbhO8QqtpBhMYsAzjE9hE+VETQtleGqeledqi1H2A0YwLhciuBzWemVDrwqCcVXp3Sk5wyR1nGZ3aJQqJ6GqMu28FZj46F1KSaRGNS6XAyVifjPmvxUd02VfTekQ5zHAhQEZME4IlNC8zTQl0MlEVJP2reectkqIHccJ4moDwZcKlloTuWAuVVAVACrmRSTTKk0x2TrN5NFArGQJJ2caT+QOpkzz9qe5E3lVQIbiBdBozsK4Ao1Qzj9UqAukwtR90geOs4aoeROutJdu0y94z53MzyNImo6yDv2WzijPmag223i2UjHQd23EPcLZ011yqx5bayOnc2uRjxvFjYs7deoHDQeONUBoAUQUrbza4g54OB5Fq8bQ0nAcg41rDpmGc0cFiw9SRxpUkXs6aG3RcFURozDeCNAoJUGhQdE6vjit1TdH6Dee9eiJcN6w4yIrhEoyj5P1COFsvImgra6AV0LgtJPIfFpMZ4ozTCWFWMGZARncMHB87sOibECglm2AwejRLxY6ys0Fxp8F3KnUQ7LVDktqr+nnJTFbmodQtmuHJG2rwSjVfp08DB6kFYPC642-rgPhuznm8qZbqX-6nmeCOGWTE9gpk50SRHs4xJsdtFSenv3meAFk9Kb4tVSLGfPNLPDoFh47BO4QDUR4xYDwZrayD73XLHWHObx7XFQxGAeluTc-P4jpeL1PPWGoSoKxRc0Ooc6dhSyUhPfkI0t5ltEPPbK9bTfS0t4Xw-j2Faq2WJDjTuYVvdCzdeNh3CSex2iAcM0a42+wugDQB47KfgQAA */
 createMachine(
   {
   predictableActionArguments: true,
@@ -60,14 +54,9 @@ states: {
 "idle": {
   on: {
     "connect": {
-      target: "connecting"
+      target: "connected"
     }
-  }
-},
-"connecting": {
-  on: {
-    "done": "connected"
-  }
+  },
 },
 "connected": {
   initial: "home page",
@@ -100,7 +89,8 @@ states: {
                 "download": {
                   target: "certification downloaded"
                 }
-              }
+              },
+              entry : "storeVerifierSignature"
             },
 
             "certification downloaded": {
@@ -114,7 +104,8 @@ states: {
                 src: "GetVerifierSignature",
                 onDone : "form signed",
                 onError : "form ready to sign"
-              }
+              },
+              entry : "generateAttestation"
             }
           }
         }
@@ -132,7 +123,7 @@ states: {
           on: {
             "submit file" : [
               {target : "attestation is loaded.attestation ready to be registered", cond: "hasBothSignature"},
-              {target : "attestation is loaded.attestation miss receiver signature", cond: "hasReceiverSignature"},
+              {target : "attestation is loaded.attestation miss receiver signature", cond: "hasVerifierSignature"},
               {
                 target : "idle",
               },
@@ -143,25 +134,26 @@ states: {
 
         "attestation is loaded": {
           states: {
-
             "attestation miss receiver signature": {
               on : {
                 "sign" : "signing"
               }
             },
+
             "signing" : {
               invoke : {
                 src : "getReceiverSignature",
                 onDone : "attestation signed by receiver",
                 onError : "attestation miss receiver signature"
               },
-              entry : "StoreForm"
             },
+
             "attestation ready to be registered": {
               on : {
                 "call register method" : "calling register"
               }
             },
+
             "calling register" : {
               invoke : {
                 src : "callRegister",
@@ -169,11 +161,13 @@ states: {
                 onError : "attestation ready to be registered"
               }
             },
+
             "registered": {
               on :{
                 "call mint method" : "calling mint"
               }
             },
+
             "calling mint" : {
               invoke:  {
                 src : "callMint",
@@ -186,25 +180,17 @@ states: {
 
             },
 
-            "attestation downloaded": {
-              on: {
-                "go back to": {
-                  target: "attestation signed by receiver"
-                }
-              }
-            },
-
             "attestation signed by receiver": {
               on: {
                 "self mint": "attestation ready to be registered",
 
                 download: {
-                  target: "attestation downloaded"
+                  target: "attestation signed by receiver",
+                  internal: true
                 }
-              }
-            },
-
-
+              },
+              entry : "storeReceiverSignature"
+            }
           },
 
           initial: "attestation miss receiver signature"
@@ -225,10 +211,13 @@ states: {
 ,
 schema: {
   context: {} as {
-    attestation : {}
+    attestation : Attestation | {}
     form : {}
+    signer : FetchSignerResult<Signer> | undefined
+    verifierSignature : string
   },
-  events: {} as {"type": "connect"}|
+  events: {} as 
+  {"type": "connect"}|
   {"type": "done"}|
   {"type": "fail"}|
   {"type": "create"}|
@@ -236,8 +225,8 @@ schema: {
   {"type": "user input"}|
   {"type": "validate form"}|
   {"type": "disconnect"}|
-  {"type": "sign"}|
-  {"type": "verifier sign", form : {}}|
+  {"type": "sign", signer : {}}|
+  {"type": "verifier sign", form : {}, signer : {}}|
   {"type": "download"}|
   {"type": "create new"}|
   {"type": "go to home page"}|
@@ -253,7 +242,9 @@ schema: {
 },
 context: {
   attestation : {},
-  form : {}
+  form : {},
+  signer : undefined,
+  verifierSignature : ""
 },
 preserveActionOrder: true,
 },{
@@ -262,19 +253,36 @@ preserveActionOrder: true,
       if (event.type == 'submit file') context.attestation = event.attestation
       console.log('event!',event);
     },
-    StoreForm : (context, event) => {
-      if (event.type == 'verifier sign') context.form = event.form
-      console.log('event!',event);
-    }
+    generateAttestation,
+    storeVerifierSignature : (context, event) => {
+      console.log("storeVerifierSignature",event);
+      
+      //@ts-ignore
+      context.verifierSignature = event.data
+      //@ts-ignore
+      context.attestation.verifySig = event.data
+
+    },
+    storeReceiverSignature  : (context, event) => {
+      console.log("storeReceiverSignature",event);
+      
+      //@ts-ignore
+      context.receiverSignature = event.data
+      //@ts-ignore
+      context.attestation.sig = event.data
+
+    },
+    
   },
   guards : {
     hasBothSignature,
-    hasReceiverSignature
+    hasVerifierSignature
   },
   delays : {},
   services : {
     getReceiverSignature,
     GetVerifierSignature,
+    callRegister,
   }
 })
 
