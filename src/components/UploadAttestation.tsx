@@ -75,7 +75,7 @@ function UploadAttestation() {
 
   return (
 
-    <Button variant="contained" component="label" endIcon={<UploadIcon />}>
+    <Button variant="contained" color="success" component="label" endIcon={<UploadIcon />}>
       Upload File
       <input
         type="file"
