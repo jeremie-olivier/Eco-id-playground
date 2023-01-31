@@ -25,3 +25,11 @@ export interface AttestationValues  {
     nonce: Number
 }
 
+export interface Attestation {
+    types : TypeData
+    primaryType: string
+    message: AttestationValues
+    verifySig? :string
+    sig : string
+}
+
