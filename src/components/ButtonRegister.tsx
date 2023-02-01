@@ -1,10 +1,24 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
+import { GlobalStateContext } from '../providers/globalState';
+import { useActor } from '@xstate/react';
+
+import {  useSigner } from 'wagmi'
+
+
 import Button from '@mui/material/Button';
 
 function ButtonRegister(){
 
+  const globalServices = useContext(GlobalStateContext);
+  const [state, send] = useActor(globalServices.stateService);
+
+  const { data: signer } = useSigner();
+
+
+
     return (
-      <Button variant="contained" color="success" >Register</Button>
+      //@ts-ignore
+      <Button variant="contained" color="success" onClick={()=>{send({type: "call register method", signer})}} >Register</Button>
     );
 };
 

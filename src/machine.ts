@@ -6,6 +6,7 @@ import generateAttestation from './utilities/generateAttestation';
 import GetVerifierSignature from './utilities/getVerifierSignature';
 import getReceiverSignature from  './utilities/getReceiverSignature';
 import callRegister from  './utilities/register';
+import callMint from  './utilities/mint';
 
 
 
@@ -29,21 +30,6 @@ const hasVerifierSignature = (context: any,event: any) => {
 const hasVerifierSignature = (context: any,event: any) => {
   return event.attestation.verifySig
 };
-
-
-
-
-
-
-const callMint = ()=>{
-  const promise = new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve("foo");
-    }, 3000);
-  });
-  
-  return promise
-}
 
 
 
@@ -252,7 +238,7 @@ schema: {
   {"type": "submit file", attestation : {}}|
   {"type": "validate attestation with verifier signature"}|
   {"type": "validate is attestation has end user signature"}|
-  {"type": "call register method"}|
+  {"type": "call register method", signer : {}}|
   {"type": "call mint method"}|
   {"type": "download, send to third person"}|
   {"type": "self mint"}|
@@ -303,6 +289,7 @@ preserveActionOrder: true,
     getReceiverSignature,
     GetVerifierSignature,
     callRegister,
+    callMint,
   }
 })
 
