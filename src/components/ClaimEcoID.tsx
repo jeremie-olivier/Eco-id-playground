@@ -34,7 +34,7 @@ function ClaimEcoID() {
 
             {state.matches({ "connected": { "claim eco id": { "attestation is loaded": "attestation is valid" } } }) ? <FormikForm></FormikForm> : ""}
             {state.matches({ "connected": { "claim eco id": "idle" } }) ? <UploadAttestation></UploadAttestation> : ""}
-            {state.matches({"connected":{"claim eco id":{"attestation is loaded":"attestation miss receiver signature"}}}) ? <Button variant="contained" onClick={
+            {state.matches({"connected":{"claim eco id":{"attestation is loaded":"attestation miss receiver signature"}}}) ? <Button variant="contained" color="success" onClick={
                 //@ts-ignore
                 ()=> send({type : "sign", signer})
             }>Sign</Button> : ""}
@@ -43,10 +43,10 @@ function ClaimEcoID() {
             {state.matches({"connected":{"claim eco id":{"attestation is loaded":"attestation signed by receiver"}}}) && 
                 <Grid container display="flex" justifyContent="center" alignItems="center" flexDirection="column" spacing={5}>
                     <Grid>
-                        <Button variant="contained" onClick={()=> send("self mint")}>Mint your Eco ID</Button> 
+                        <Button variant="contained" color="success" onClick={()=> send("self mint")}>Mint your Eco ID</Button> 
                     </Grid>
                     <Grid>
-                        <Button variant="contained" onClick={()=> {
+                        <Button variant="contained" color="success" onClick={()=> {
                             send("download");
                             //@ts-ignore   
                             download("attestation-" + state.context.attestation.message.recipient, state.context.attestation)
