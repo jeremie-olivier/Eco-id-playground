@@ -5,11 +5,11 @@ import FormikForm from './FormikForm';
 import UploadAttestation from './UploadAttestation';
 import ButtonRegister from './ButtonRegister';
 import ButtonMintEcoID from './ButtonMintEcoID';
-import { Button, Grid } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import download from "../utilities/download";
-
-
+import CircularProgress from '@mui/material/CircularProgress';
 import {  useSigner } from 'wagmi'
+import LinearProgress from '@mui/material/LinearProgress';
 
 
 function ClaimEcoID() {
@@ -30,7 +30,6 @@ function ClaimEcoID() {
             width: "100%"
         }}>
 
-            Eco id Claim page
 
             {state.matches({ "connected": { "claim eco id": { "attestation is loaded": "attestation is valid" } } }) ? <FormikForm></FormikForm> : ""}
             {state.matches({ "connected": { "claim eco id": "idle" } }) ? <UploadAttestation></UploadAttestation> : ""}
@@ -39,6 +38,14 @@ function ClaimEcoID() {
                 ()=> send({type : "sign", signer})
             }>Sign</Button> : ""}
 
+            {state.matches({ "connected": { "claim eco id": { "attestation is loaded": "signing" } } }) ? 
+                <Grid>
+                    <Typography variant="overline" display="block" gutterBottom>
+                        waiting for signature
+                    </Typography>
+                    <LinearProgress color="success" />
+                </Grid>
+                : ""}
 
             {state.matches({"connected":{"claim eco id":{"attestation is loaded":"attestation signed by receiver"}}}) && 
                 <Grid container display="flex" justifyContent="center" alignItems="center" flexDirection="column" spacing={5}>
@@ -55,13 +62,26 @@ function ClaimEcoID() {
                 </Grid>
             }
 
-
             {state.matches({ "connected": { "claim eco id": { "attestation is loaded": "attestation ready to be registered" } } }) ? <ButtonRegister></ButtonRegister> : ""}
+            {state.matches({ "connected": { "claim eco id": { "attestation is loaded": "calling register" } } }) ? 
+                <Grid>
+                    <Typography variant="overline" display="block" gutterBottom>
+                        Calling smart contract : register method
+                    </Typography>
+                    <LinearProgress color="success" />
+                </Grid>
+                : ""}
+            
             {state.matches({"connected":{"claim eco id":{"attestation is loaded":"registered"}}}) ? <ButtonMintEcoID></ButtonMintEcoID> : ""}
-
-
+            {state.matches({ "connected": { "claim eco id": { "attestation is loaded": "calling mint" } } }) ? 
+                <Grid>
+                    <Typography variant="overline" display="block" gutterBottom>
+                        Calling mint : register method
+                    </Typography>
+                    <LinearProgress color="success" />
+                </Grid>
+                : ""}
         </div>
-
     );
 };
 
