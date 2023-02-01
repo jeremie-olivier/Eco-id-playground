@@ -7,7 +7,6 @@ import ButtonRegister from './ButtonRegister';
 import ButtonMintEcoID from './ButtonMintEcoID';
 import { Button, Grid, Typography } from '@mui/material';
 import download from "../utilities/download";
-import CircularProgress from '@mui/material/CircularProgress';
 import {  useSigner } from 'wagmi'
 import LinearProgress from '@mui/material/LinearProgress';
 
@@ -41,7 +40,7 @@ function ClaimEcoID() {
             {state.matches({ "connected": { "claim eco id": { "attestation is loaded": "signing" } } }) ? 
                 <Grid>
                     <Typography variant="overline" display="block" gutterBottom>
-                        waiting for signature
+                        Waiting for signature
                     </Typography>
                     <LinearProgress color="success" />
                 </Grid>
