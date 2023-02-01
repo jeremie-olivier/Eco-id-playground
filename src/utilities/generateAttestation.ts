@@ -68,8 +68,7 @@ function buildAttestation(form: FormData, verifierAddress: any){
           claim: form.claim,
           recipient: form.receiverAddress,
           verifier: JSON.parse(localStorage["wagmi.store"]).state.data.account,
-        //   deadline: new Date(form.deadline).getTime() / 1000,
-          deadline : 1700075736,
+          deadline: new Date(form.deadline).getTime() / 1000,
           nonce: 0,
           feeAmount: 0,
           revocable: false

@@ -1,37 +1,27 @@
-import { FetchSignerResult } from "@wagmi/core";
-import { ethers, Signer, TypedDataDomain, TypedDataField } from "ethers";
 import {FormData} from "../types/types"
+import { ethers } from "ethers";
+import EcoID from "../abi/EcoID.json";
 
 
 
-type TypeData = {
-  domain: TypedDataDomain
-  types: Record<string, TypedDataField[]>
-  message: AttestationValues
-  verifySig: string
-  sig: string
-}
-
-type AttestationValues = {
-  claim: string
-  feeAmount: Number
-  revocable: boolean
-  recipient: string
-  deadline: Number
-  nonce: Number
-}
 
 
 
-export default  function GetVerifierSignature(context: any, event: any ) {
+
+export default  async function GetVerifierSignature(context: any, event: any ) {
 
   console.log("context",context)
   console.log("event",event);
-  
+  let signer = event.signer
+
 
 
  let attestation = context.attestation
  console.log(attestation);
+
+ let nonce = await getNounce(signer,attestation.message.claim)
+ console.log("nonce",nonce)
+ attestation.message.nonce = nonce 
 
  let types = JSON.parse(JSON.stringify(attestation.types));
  types.Register = types.Register.filter( (item: any)=> item.name !== "verifier")
@@ -41,14 +31,31 @@ export default  function GetVerifierSignature(context: any, event: any ) {
  delete message.verifier;
 
 
- let signer = event.signer
- let promise =  signer._signTypedData(attestation.domain, types, message)
 
- console.log(promise);
+
+ let promiseRes = await  signer._signTypedData(attestation.domain, types, message)
+
+ console.log(promiseRes);
  
 
-return promise
+return promiseRes
 
 
-};
+}
+
+async function  getNounce(signer: any,claim: any){
+  console.log("in getNounce");
+    
+  const nftContract = new ethers.Contract("0x6FEC2db7DD68adbb28bF17F4e9Dd0c566Ec75b49", EcoID.abi, signer);
+
+
+
+  const nonce = await nftContract.nonces(claim, { gasLimit: 500_000 });
+
+  console.log("nonce",nonce);
+  
+
+
+  return parseInt(nonce._hex,16)
+}
 
