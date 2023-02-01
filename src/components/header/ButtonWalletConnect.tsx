@@ -44,8 +44,9 @@ function ButtonWalletConnect() {
 
 
   const account = useAccount({
-    onConnect() {
-      setTimeout(() => {        
+    onConnect(connection) {
+      setTimeout(() => {   
+        console.log( "signer",connection.address)     
         send('connect'); 
       }, 0);
 

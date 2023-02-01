@@ -3,19 +3,27 @@ import { FetchSignerResult } from "@wagmi/core";
 import { ethers, Signer, TypedDataDomain, TypedDataField } from "ethers";
 import {FormData} from "../types/types"
 
-export default function generateAttestation(context: any,event: any ){
+export default  function generateAttestation(context: any,event: any ){
 
-    let signer = context.signer
+    let signer = event.signer
     let form: FormData = event.form
 
-    let attestation = buildAttestation(event.form,signer)
+    // let verifierAddress = await signer.getAddress()
+    let verifierAddress = "0xE8EDD6d8dd72b9B390335f838480a7D62cb72BEE"
+
+    
+    
+
+    let attestation =  buildAttestation(event.form,verifierAddress)
+
+
 
     context.attestation = attestation
     context.form = form
 
 }
 
-function buildAttestation(form: FormData, signer: FetchSignerResult<ethers.Signer>){
+function buildAttestation(form: FormData, verifierAddress: any){
 
     let attestation = {
       types: {
@@ -51,16 +59,17 @@ function buildAttestation(form: FormData, signer: FetchSignerResult<ethers.Signe
           ]
       },
       domain: {
-          name: "Eco ID",
+          name: "EcoID",
           version: "1",
           chainId: 5,
-          verifyingContract: "0x5bc2Fa9426e882710d055C1A60F8cc93A31Edc58"
+          verifyingContract: "0x6FEC2db7DD68adbb28bF17F4e9Dd0c566Ec75b49"
       },
       message: {
           claim: form.claim,
           recipient: form.receiverAddress,
-          verifier: "0xBcF96b9bbBe9b5A385A611bFf48BAf0cccf4C0Ab",
-          deadline: new Date(form.deadline).getTime() / 1000,
+          verifier: JSON.parse(localStorage["wagmi.store"]).state.data.account,
+        //   deadline: new Date(form.deadline).getTime() / 1000,
+          deadline : 1700075736,
           nonce: 0,
           feeAmount: 0,
           revocable: false

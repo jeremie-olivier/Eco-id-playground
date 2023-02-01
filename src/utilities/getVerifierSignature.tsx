@@ -33,9 +33,16 @@ export default  function GetVerifierSignature(context: any, event: any ) {
  let attestation = context.attestation
  console.log(attestation);
 
+ let types = JSON.parse(JSON.stringify(attestation.types));
+ types.Register = types.Register.filter( (item: any)=> item.name !== "verifier")
+
+ let message = JSON.parse(JSON.stringify(attestation.message));
+
+ delete message.verifier;
+
 
  let signer = event.signer
- let promise =  signer._signTypedData(attestation.domain, attestation.types, attestation.message)
+ let promise =  signer._signTypedData(attestation.domain, types, message)
 
  console.log(promise);
  

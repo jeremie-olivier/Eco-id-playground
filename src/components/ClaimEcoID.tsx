@@ -9,7 +9,7 @@ import { Button, Grid } from '@mui/material';
 import download from "../utilities/download";
 
 
-import { useAccount, useSigner, } from 'wagmi'
+import {  useSigner } from 'wagmi'
 
 
 function ClaimEcoID() {
@@ -57,7 +57,7 @@ function ClaimEcoID() {
 
 
             {state.matches({ "connected": { "claim eco id": { "attestation is loaded": "attestation ready to be registered" } } }) ? <ButtonRegister></ButtonRegister> : ""}
-            {state.matches({ "connected": { "claim eco id": { "attestation is loaded": "Eco ID ready to be minted" } } }) ? <ButtonMintEcoID></ButtonMintEcoID> : ""}
+            {state.matches({"connected":{"claim eco id":{"attestation is loaded":"registered"}}}) ? <ButtonMintEcoID></ButtonMintEcoID> : ""}
 
 
         </div>
