@@ -17,6 +17,9 @@ import { GlobalStateContext } from "../providers/globalState";
 import { useActor } from '@xstate/react';
 import {FormData} from '../types/types';
 import { useSigner } from "wagmi";
+import Stack from '@mui/material/Stack';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
 
 
 
@@ -34,6 +37,12 @@ const ValidationSchema = yup.object().shape({
   .required("Claim required"),
 });
 
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref,
+) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export default function FormikForm() {
 
@@ -50,6 +59,20 @@ export default function FormikForm() {
     send({ type : 'verifier sign', form, signer})
   }
 
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
 
   return (
     <Container component="main" maxWidth="xs">
@@ -63,6 +86,18 @@ export default function FormikForm() {
             alignItems: 'center',
           }}
         >
+          <Stack spacing={2} sx={{ width: '100%' }}>
+      <Button variant="outlined" onClick={handleClick}>
+        Get Infos to use the dapp
+      </Button>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="info" sx={{ width: '100%' }}>
+          Fill the infos then sign the attestation.
+        </Alert>
+      </Snackbar>
+      
+    </Stack>
+
         <Typography component="h1" variant="h5">
             Verifier Form
         </Typography>
