@@ -10,6 +10,7 @@ import ComputerIcon from '@mui/icons-material/Computer';
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
+import Tooltip from '@mui/material/Tooltip';
 
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
@@ -63,12 +64,19 @@ function HomePage() {
     </Stack>
 
       <Grid container display="flex" justifyContent="center" alignItems="center" flexDirection="column" spacing={2}>
+        
         <Grid>
-          <Button variant="contained" color="success" endIcon={<CreateIcon/>} onClick={() => send('create')}>Create attestation</Button>
+          <Tooltip title="Create a new attestation for yourself and download it" placement="right">
+            <Button variant="contained" color="success" endIcon={<CreateIcon/>} onClick={() => send('create')}>Create attestation</Button>
+          </Tooltip>
         </Grid>
+
         <Grid>
-          <Button variant="contained" color="success" endIcon={<ComputerIcon/>} onClick={() => send('claim')}>Claim attestation</Button>
+          <Tooltip title="Upload and sign an already existing one" placement="right">
+            <Button variant="contained" color="success" endIcon={<ComputerIcon/>} onClick={() => send('claim')}>Claim attestation</Button>
+          </Tooltip>
         </Grid>
+
       </Grid>
     </Box>
   );
