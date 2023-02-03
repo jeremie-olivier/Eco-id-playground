@@ -3,6 +3,14 @@ import { GlobalStateContext } from '../providers/globalState';
 import { useActor } from '@xstate/react';
 import { Container } from '@mui/material';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Chip from '@mui/material/Chip';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
+import Divider from '@mui/material/Divider';
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
+
 
 
 function XStateControls() {
@@ -19,13 +27,16 @@ function XStateControls() {
       bottom: 0,
       position: "fixed"
     }}>
-      <Typography component="h1" variant="h5">
-        State machine current state :
+          
+      <Typography gutterBottom variant="body2">
+        <LightbulbIcon/>How to use the app : Start by connecting your wallet. Then you can create a new attestation for yourself and download it or claim an attestation by uploading and signing an already existing one.
       </Typography>
-    
-      <Typography component="h2" variant="h5"> 
-        <span>{JSON.stringify(state.value)}</span>
-      </Typography>
+      <Divider variant="middle" color="green" />
+        <Grid container alignItems="center">
+          <Typography color="grey" variant="body2"> 
+          State machine current state : <span>{JSON.stringify(state.value)}</span>
+          </Typography>
+        </Grid>
     </Container>
   )
 }
