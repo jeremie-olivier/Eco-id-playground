@@ -29,7 +29,7 @@ function XStateControls() {
     }}>
           
       <Typography gutterBottom variant="body2">
-        <LightbulbIcon/>How to use the app : Start by connecting your wallet. Then you can create a new attestation for yourself and download it or claim an attestation by uploading and signing an already existing one.
+        <LightbulbIcon/>How to use the app : Start by connecting your wallet. Then follow the tips !
       </Typography>
       <Divider variant="middle" color="green" />
         <Grid container alignItems="center">
