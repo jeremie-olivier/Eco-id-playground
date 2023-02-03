@@ -71,7 +71,7 @@ function buildAttestation(form: FormData, verifierAddress: any){
           deadline: new Date(form.deadline).getTime() / 1000,
           nonce: 0,
           feeAmount: 0,
-          revocable: false
+          revocable: form.revocable
       },
       primaryType: "Register",
   }
