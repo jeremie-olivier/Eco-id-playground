@@ -32,7 +32,7 @@ function NavBar() {
             aria-label="menu"
             sx={{ mr: 2 }}
           >
-            <MenuIcon />
+            
           </IconButton>
           <Button color='success' endIcon={<HomeIcon/>} onClick={() => { send("go to home page") }}>Home</Button>
 

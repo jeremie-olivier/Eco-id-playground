@@ -21,6 +21,10 @@ import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Grid from '@mui/material/Unstable_Grid2';
 
 
 const ValidationSchema = yup.object().shape({
@@ -75,33 +79,20 @@ export default function FormikForm() {
 
 
   return (
-    <Container component="main" maxWidth="xs">
+        <Grid container display="flex" justifyContent="center" alignItems="center" flexDirection="column" spacing={2}>
+
       <CssBaseline />
 
-      <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Stack spacing={2} sx={{ width: '100%' }}>
-      <Button variant="outlined" onClick={handleClick}>
-        Get Infos to use the dapp
-      </Button>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="info" sx={{ width: '100%' }}>
-          Fill the infos then sign the attestation.
-        </Alert>
-      </Snackbar>
       
-    </Stack>
+            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+              Create your attestation
+            </Typography>
+            
+          
 
         <Typography component="h1" variant="h5">
             Verifier Form
         </Typography>
-        <Box component="form" noValidate sx={{ mt: 1 }}>
 
           <Formik
             
@@ -188,11 +179,6 @@ export default function FormikForm() {
                   value={values.claim}
                   //@ts-ignore
                 />
-                <Box
-                    alignItems="center"
-                    display="flex"
-                    ml={-1} 
-                    >
                     <FormControlLabel 
                       control={<Checkbox 
                       color="success"
@@ -200,7 +186,6 @@ export default function FormikForm() {
                       name="revocable"
                       onChange={handleChange}
                     />} label="Revocable ?" />
-                </Box>  
 
 
                 {state.matches({"connected":{"create attestation":{"form is valid":"form ready to sign"}}} ) &&
@@ -237,8 +222,7 @@ export default function FormikForm() {
               </form>
             )}
           </Formik>
-        </Box>
-      </Box>
-    </Container>
+    </Grid>
+
   );
 }
