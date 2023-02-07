@@ -32,7 +32,7 @@ function HomePage() {
                 Create Attestation
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Click here to create your attestation
+                Create a new attestation for yourself and download it
               </Typography>
             </CardContent>
           </CardActionArea>
@@ -49,7 +49,7 @@ function HomePage() {
                 Claim your attestation
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                Click here to mint
+              Upload and sign an existing attestation, mint an Eco ID
               </Typography>
             </CardContent>
           </CardActionArea>

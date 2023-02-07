@@ -20,6 +20,23 @@ function ClaimEcoID() {
 
 
     return (
+
+        <Grid container display="flex" justifyContent="center" alignItems="center" flexDirection="column" spacing={2}>
+
+            <Grid>
+                <Button size="small" color="inherit" onClick={() => window.history.back()}>
+                    ← Back
+                </Button>
+
+                <Typography component="h1" variant="h5">
+                    Claim Attestation - Sign
+                </Typography>
+
+                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                Sign attestation with your address. You can then mint an Eco ID ou download the new attestation
+                </Typography>
+            </Grid>
+
         <div style={{
             padding: "50px",
             display: "flex",
@@ -56,7 +73,7 @@ function ClaimEcoID() {
                             send("download");
                             //@ts-ignore   
                             download("attestation-" + state.context.attestation.message.recipient, state.context.attestation)
-                            }}>Download</Button>                
+                            }}>Download attestation</Button>                
                     </Grid>
                 </Grid>
             }
@@ -81,6 +98,7 @@ function ClaimEcoID() {
                 </Grid>
                 : ""}
         </div>
+        </Grid>
     );
 };
 
