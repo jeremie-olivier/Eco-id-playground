@@ -77,23 +77,32 @@ export default function FormikForm() {
     setOpen(false);
   };
 
+  
+
 
   return (
         <Grid container display="flex" justifyContent="center" alignItems="center" flexDirection="column" spacing={2}>
 
+<Card sx={{ gridColumn: 'span 2', borderRadius: '3' }} style={{ textAlign: 'left' }} >
       <CssBaseline />
 
-      
-            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              Create your attestation
-            </Typography>
-            
-          
+        <Button size="small" color="inherit" onClick={() => { send("go to home page") }}>
+          ← Back
+        </Button>
 
         <Typography component="h1" variant="h5">
             Verifier Form
         </Typography>
 
+        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+          Create your attestation
+        </Typography>
+        </ Card>
+            
+          
+
+        
+        <Card sx={{ gridColumn: 'span 1', borderRadius: '3' }} >
           <Formik
             
             initialValues={{ 
@@ -222,6 +231,7 @@ export default function FormikForm() {
               </form>
             )}
           </Formik>
+          </Card>
     </Grid>
 
   );

@@ -5,9 +5,14 @@ import { useActor } from '@xstate/react';
 import Button from '@mui/material/Button';
 import UploadIcon from '@mui/icons-material/Upload';
 
-
 import { ethers, TypedDataDomain, TypedDataField } from "ethers";
 import EcoID from "../abi/EcoID.json";
+import Grid from '@mui/material/Unstable_Grid2';
+import NoteAddOutlinedIcon from '@mui/icons-material/NoteAddOutlined';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import CardActionArea from '@mui/material/CardActionArea';
 
 
 import { useSigner, useProvider } from "wagmi";
@@ -75,15 +80,49 @@ function UploadAttestation() {
 
   return (
 
-    <Button variant="contained" color="success" component="label" endIcon={<UploadIcon />}>
-      Upload File
-      <input
-        type="file"
-        hidden
-        //@ts-ignore
-        onChange={(e) => readFileOnUpload(e.target.files[0])}
-      />
-    </Button>
+    <Grid container display="flex" justifyContent="center" alignItems="center" flexDirection="column" spacing={2}>
+
+      <Grid>
+        <Button size="small" color="inherit" onClick={() => { send("go to home page") }}>
+          ← Back
+        </Button>
+
+        <Typography component="h1" variant="h5">
+          Claim Attestation
+        </Typography>
+
+        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+          to claim your attestation
+        </Typography>
+      </Grid>
+
+      <Grid>
+        <Card sx={{ gridColumn: 'span 1', borderRadius: '3' }} onClick={() => send('claim')}>
+        
+          <CardActionArea >
+          <NoteAddOutlinedIcon style={{ fontSize: '1rem', padding: '1rem' }} color="success"> </NoteAddOutlinedIcon>
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                Drag end drop file or choose from drive
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                .pdf, .txt, max 1 MB
+              </Typography>
+              <Button variant="contained" color="success" component="label" endIcon={<UploadIcon />}>
+                Upload File
+                <input
+                  type="file"
+                  hidden
+                  //@ts-ignore
+                  onChange={(e) => readFileOnUpload(e.target.files[0])}
+                />
+              </Button>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+      </Grid>
+
+    </Grid>  
   );
 };
 

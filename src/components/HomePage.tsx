@@ -3,12 +3,13 @@ import { GlobalStateContext } from '../providers/globalState';
 import { useActor } from '@xstate/react';
 
 import Grid from '@mui/material/Unstable_Grid2';
-import CreateIcon from '@mui/icons-material/Create';
-import ComputerIcon from '@mui/icons-material/Computer';
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import CardActionArea from '@mui/material/CardActionArea';
+import Button from '@mui/material/Button';
 
 
 
@@ -22,9 +23,10 @@ function HomePage() {
     <Grid container display="flex" justifyContent="center" alignItems="center" flexDirection="column" spacing={2}>
 
       <Grid>
+        
         <Card sx={{ gridColumn: 'span 1', borderRadius: '3' }} onClick={() => send('create')}>
           <CardActionArea >
-          <CreateIcon style={{ fontSize: '1rem', padding: '1rem' }} color="success"> </CreateIcon>
+          <AddCircleOutlineIcon style={{ fontSize: '1rem', padding: '1rem' }} color="success"> </AddCircleOutlineIcon>
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 Create Attestation
@@ -41,7 +43,7 @@ function HomePage() {
         <Card sx={{ gridColumn: 'span 1', borderRadius: '3' }} onClick={() => send('claim')}>
         
           <CardActionArea >
-          <ComputerIcon style={{ fontSize: '1rem', padding: '1rem' }} color="success"> </ComputerIcon>
+          <DescriptionOutlinedIcon style={{ fontSize: '1rem', padding: '1rem' }} color="success"> </DescriptionOutlinedIcon>
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 Claim your attestation
