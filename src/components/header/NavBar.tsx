@@ -17,6 +17,7 @@ import HomeIcon from '@mui/icons-material/Home';
 
 
 
+
 function NavBar() {
   const globalServices = useContext(GlobalStateContext);
   const [state, send] = useActor(globalServices.stateService);
@@ -39,6 +40,9 @@ function NavBar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Eco ID Dapp
           </Typography>
+          
+          <Button color='success' onClick={() => { send("go to about page") }}>About</Button>
+
           <ButtonWalletConnect></ButtonWalletConnect>
         </Toolbar>
       </AppBar>

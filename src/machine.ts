@@ -235,6 +235,7 @@ schema: {
   {"type": "download"}|
   {"type": "create new"}|
   {"type": "go to home page"}|
+  {"type": "go to about page"}|
   {"type": "submit file", attestation : {}}|
   {"type": "validate attestation with verifier signature"}|
   {"type": "validate is attestation has end user signature"}|
