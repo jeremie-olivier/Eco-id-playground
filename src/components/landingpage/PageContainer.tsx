@@ -24,8 +24,8 @@ function PageContainer() {
           sx={{
             backgroundColor: 'primary.light',
             //'&:hover': { backgroundColor: 'primary.main', opacity: [0.9, 0.8, 0.7], }, 
-            marginTop: 8,
-            margin: 8,
+            marginTop: 2,
+            margin: 1,
             display: 'flex',
             p: 2,           
             flexDirection: 'column',
@@ -33,11 +33,11 @@ function PageContainer() {
           }}
         >
 
-      {state.matches('idle') ? <BlockInvitationToConnect></BlockInvitationToConnect> : ""}
-      {state.matches({ "connected": "home page" }) ? <HomePage></HomePage> : ""}
-      {state.matches({ "connected": "about page" }) ? <AboutPage></AboutPage> : ""}
-      {state.matches({"connected":{"create attestation":"form is valid"}} ) ? <FormikForm></FormikForm> : ""}
-      {state.matches({ "connected": "claim eco id" }) ? <ClaimEcoID></ClaimEcoID> : ""}
+        {state.matches('idle') ? <BlockInvitationToConnect></BlockInvitationToConnect> : ""}
+        {state.matches({ "connected": "home page" }) ? <HomePage></HomePage> : ""}
+        {state.matches({ "connected": "about page" }) ? <AboutPage></AboutPage> : ""}
+        {state.matches({"connected":{"create attestation":"form is valid"}} ) ? <FormikForm></FormikForm> : ""}
+        {state.matches({ "connected": "claim eco id" }) ? <ClaimEcoID></ClaimEcoID> : ""}
       </Box>
     </Container>
   );

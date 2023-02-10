@@ -23,43 +23,43 @@ function HomePage() {
   return (
 
     <Container sx={{ m: 2, margin:"0 auto", padding: "20px 5px"}}>
-    <Grid container display="flex" justifyContent="center" alignItems="center" flexDirection="column" spacing={2}>
+      <Grid container display="flex" justifyContent="center" alignItems="center" flexDirection="column" spacing={2}>
 
-      <Grid>
-        
-        <Card sx={{ gridColumn: 'span 1', borderRadius: '3' }} onClick={() => send('create')}>
-          <CardActionArea >
-          <AddCircleOutlineIcon style={{ fontSize: '1rem', padding: '1rem' }} color="primary"> </AddCircleOutlineIcon>
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                Create Attestation
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Create a new attestation for yourself and download it
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </Grid>
+        <Grid>
+          
+          <Card sx={{ gridColumn: 'span 1', borderRadius: '3' }} onClick={() => send('create')}>
+            <CardActionArea >
+            <AddCircleOutlineIcon style={{ fontSize: '1rem', padding: '1rem' }} color="primary"> </AddCircleOutlineIcon>
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  Create Attestation
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Create a new attestation for yourself and download it
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        </Grid>
 
-      <Grid>
-        <Card sx={{ gridColumn: 'span 1', borderRadius: '3', maxWidth: '400px', color: 'secondary' }} onClick={() => send('claim')}>
-          <CardActionArea >
-          <DescriptionOutlinedIcon style={{ fontSize: '1rem', padding: '1rem' }} color="primary"> </DescriptionOutlinedIcon>
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                Claim your attestation
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-              Upload and sign an existing attestation, mint an Eco ID
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </Grid>
+        <Grid>
+          <Card sx={{ gridColumn: 'span 1', borderRadius: '3', maxWidth: '400px', color: 'secondary' }} onClick={() => send('claim')}>
+            <CardActionArea >
+            <DescriptionOutlinedIcon style={{ fontSize: '1rem', padding: '1rem' }} color="primary"> </DescriptionOutlinedIcon>
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  Claim your attestation
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                Upload and sign an existing attestation, mint an Eco ID
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        </Grid>
 
-    </ Grid>
-      </Container>
+      </ Grid>
+    </Container>
   );
 }
 

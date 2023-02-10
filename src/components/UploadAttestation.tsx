@@ -77,7 +77,6 @@ function UploadAttestation() {
       spacing={2}
     >
       
-
       <Grid>
         <Card
           sx={{ gridColumn: "span 1", borderRadius: "3" }}

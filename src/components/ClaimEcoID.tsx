@@ -25,37 +25,27 @@ function ClaimEcoID() {
 
     return (
 
-        <Card style={{ maxWidth: 450, margin: "0 auto", padding: "20px 5px" }}>
-            <CardContent>
-                <Button
-                size="small"
-                color="inherit"
-                onClick={() => {
-                    send("go to home page");
-                }}
-                >
-                ← Back
-                </Button>
+        <Container sx={{ m: 2, margin:"0 auto", padding: "20px 5px"}}>
+            <Card style={{ maxWidth: 450, margin: "0 auto", padding: "20px 5px" }}>
+                <CardContent>
+                    <Button
+                    size="small"
+                    color="inherit"
+                    onClick={() => {
+                        send("go to home page");
+                    }}
+                    >
+                    ← Back
+                    </Button>
 
-                <Typography component="h1" variant="h5">
-                    Claim Attestation - Sign
-                </Typography>
+                    <Typography component="h1" variant="h5">
+                        Claim Attestation - Sign
+                    </Typography>
 
-                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                Sign attestation with your address. You can then mint an Eco ID ou download the new attestation
-                </Typography>
-            </CardContent>
-
-            <Grid container spacing={1}>
-                <div style={{
-                    padding: "50px",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    height: "100%",
-                    width: "100%"
-                }}>
-
+                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                    Sign attestation with your address. You can then mint an Eco ID ou download the new attestation
+                    </Typography>
+                </CardContent>
 
                 {state.matches({ "connected": { "claim eco id": { "attestation is loaded": "attestation is valid" } } }) ? <FormikForm></FormikForm> : ""}
                 {state.matches({ "connected": { "claim eco id": "idle" } }) ? <UploadAttestation></UploadAttestation> : ""}
@@ -107,9 +97,8 @@ function ClaimEcoID() {
                         <LinearProgress color="primary" />
                     </Grid>
                     : ""}
-                </div>
-            </Grid>
-        </Card>
+            </Card>
+        </Container>
     );
 };
 

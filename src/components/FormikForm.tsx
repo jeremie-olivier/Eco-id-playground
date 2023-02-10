@@ -78,36 +78,27 @@ export default function FormikForm() {
 
   return (
     <Container sx={{ m: 2, margin:"0 auto", padding: "20px 5px"}}>
-    <Grid container display="flex" justifyContent="center" alignItems="center" flexDirection="column" spacing={2}>
+        <Card style={{ maxWidth: 450, margin: "0 auto", padding: "20px 5px" }}>
+          <CardContent>
+              <Button
+              size="small"
+              color="inherit"
+              onClick={() => {
+                  send("go to home page");
+              }}
+              >
+              ← Back
+              </Button>
 
- 
+              <Typography component="h1" variant="h5">
+                  Claim Attestation - Sign
+              </Typography>
 
-      
-    <Card style={{ maxWidth: 450, margin: "0 auto", padding: "20px 5px" }}>
-      <CardContent>
-          <Button
-          size="small"
-          color="inherit"
-          onClick={() => {
-              send("go to home page");
-          }}
-          >
-          ← Back
-          </Button>
+              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+              Sign attestation with your address. You can then mint an Eco ID ou download the new attestation
+              </Typography>
+            </CardContent>
 
-          <Typography component="h1" variant="h5">
-              Claim Attestation - Sign
-          </Typography>
-
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          Sign attestation with your address. You can then mint an Eco ID ou download the new attestation
-          </Typography>
-      </CardContent>
-    </Card>
-
-      </Grid>
-
-      <Card style={{ maxWidth: 450, margin: "0 auto", padding: "20px 5px" }} >
         <Formik
           initialValues={{
             receiverAddress: "",
@@ -249,6 +240,7 @@ export default function FormikForm() {
                   },
                 }) && (
                   <div className="input-row">
+                    
                     <Button
                       color="primary"
                       variant="contained"
