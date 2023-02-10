@@ -91,7 +91,7 @@ function UploadAttestation() {
             </NoteAddOutlinedIcon>
             <CardContent>
               <Typography color="secondary" gutterBottom variant="body2" component="div">
-                Drag end drop file or choose from drive
+                Upload the attestation file signed by Verifier
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 .pdf, .txt, max 1 MB

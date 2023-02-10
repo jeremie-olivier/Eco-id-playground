@@ -37,13 +37,15 @@ function ClaimEcoID() {
                     >
                     ← Back
                     </Button>
-
-                    <Typography color="secondary" component="h1" variant="h5">
-                        Claim Attestation - Sign
+                    <Typography variant="subtitle2" gutterBottom>
+                        Receiver           
                     </Typography>
-
+                    <Typography color="secondary" component="h1" variant="h5">
+                        Claim your Attestation 
+                    </Typography>
                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    Sign attestation with your address. You can then mint an Eco ID or download the new attestation
+                    Upload the attestation already signed by the verifier, add your signature with 
+                    your wallet address. You can then mint your Eco ID and download the new attestation
                     </Typography>
                 </CardContent>
 
@@ -61,6 +63,9 @@ function ClaimEcoID() {
                                 Waiting for signature
                             </Typography>
                             <LinearProgress color="secondary" />
+                            <Typography variant="caption" display="block" gutterBottom>
+                                Please do not close or refresh this page
+                            </Typography>
                         </Grid>
                         : ""}
 
@@ -86,6 +91,9 @@ function ClaimEcoID() {
                                 Calling smart contract : register method
                             </Typography>
                             <LinearProgress color="secondary" />
+                            <Typography variant="caption" display="block" gutterBottom>
+                                Please do not close or refresh this page
+                            </Typography>
                         </Grid>
                         : ""}
                     
@@ -96,6 +104,9 @@ function ClaimEcoID() {
                                 Calling mint : register method
                             </Typography>
                             <LinearProgress color="secondary" />
+                            <Typography variant="caption" display="block" gutterBottom>
+                                Please do not close or refresh this page
+                            </Typography>
                         </Grid>
                         : ""}
                 </CardContent>

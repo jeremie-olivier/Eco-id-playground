@@ -90,12 +90,19 @@ export default function FormikForm() {
               ← Back
               </Button>
 
+              <Typography variant="subtitle2" gutterBottom>
+                Verifier
+              </Typography>
+
               <Typography component="h1" variant="h5">
-                  Claim Attestation - Sign
+                Create Attestation
               </Typography>
 
               <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              Sign attestation with your address. You can then mint an Eco ID ou download the new attestation
+                You are acting like the Verifier. Fill the form with the Receiver address 
+                (your friend) and the other infos. Then you can sign the attestation and download it ! 
+                By signing the attestation you add your signature to the attestation. 
+                A wallet signature is like a physical one, if only you have this document no one can proof that you actually signed it.
               </Typography>
             </CardContent>
 

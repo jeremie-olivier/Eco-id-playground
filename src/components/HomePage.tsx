@@ -31,12 +31,16 @@ function HomePage() {
             <CardActionArea >
             <AddCircleOutlineIcon style={{ fontSize: '1rem', padding: '1rem' }} color="secondary"> </AddCircleOutlineIcon>
               <CardContent>
+                <Typography variant="subtitle2" gutterBottom>
+                  Verifier
+                </Typography>
                 <Typography  color="secondary" gutterBottom variant="h5" component="div">
                   Create Attestation
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Create a new attestation for the receiver of your choice and download it
+                  Create a new attestation for the receiver of your choice by adding your signature. You can download the attestation after you signed it.
                 </Typography>
+
               </CardContent>
             </CardActionArea>
           </Card>
@@ -47,11 +51,14 @@ function HomePage() {
             <CardActionArea >
             <DescriptionOutlinedIcon style={{ fontSize: '1rem', padding: '1rem' }} color="secondary"> </DescriptionOutlinedIcon>
               <CardContent>
+                <Typography variant="subtitle2" gutterBottom>
+                  Receiver           
+                </Typography>
                 <Typography color="secondary" gutterBottom variant="h5" component="div">
                   Claim your attestation
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                Upload and sign an existing attestation, mint an Eco ID
+                  Upload and sign your attestation already verified, register and mint an Eco ID
                 </Typography>
               </CardContent>
             </CardActionArea>
