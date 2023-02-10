@@ -4,7 +4,7 @@ import CreateIcon from '@mui/icons-material/Create';
 
 function ButtonCreateAttestation(){
     return (
-      <Button variant="contained" color="success" endIcon={<CreateIcon/>}>Create Attestation</Button>
+      <Button variant="contained" color="primary" endIcon={<CreateIcon/>}>Create Attestation</Button>
     );
 };
 

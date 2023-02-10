@@ -5,6 +5,7 @@ import BlockInvitationToConnect from '../BlockInvitationToConnect';
 import HomePage from '../HomePage';
 import FormikForm from '../FormikForm';
 import ClaimEcoID from '../ClaimEcoID';
+import AboutPage from '../About';
 import { Container } from '@mui/material';
 import Box from '@mui/material/Box';
 
@@ -18,13 +19,15 @@ function PageContainer() {
   return (
 
     
-    <Container sx={{ m: 2 }}>
+    <Container sx={{ m: 2, margin:"0 auto", padding: "20px 5px"}}>
       <Box
           sx={{
+            backgroundColor: 'primary.light',
+            //'&:hover': { backgroundColor: 'primary.main', opacity: [0.9, 0.8, 0.7], }, 
             marginTop: 8,
             margin: 8,
             display: 'flex',
-            p: 2, border: '1px dashed green',           
+            p: 2,           
             flexDirection: 'column',
             alignItems: 'center',
           }}
@@ -32,6 +35,7 @@ function PageContainer() {
 
       {state.matches('idle') ? <BlockInvitationToConnect></BlockInvitationToConnect> : ""}
       {state.matches({ "connected": "home page" }) ? <HomePage></HomePage> : ""}
+      {state.matches({ "connected": "about page" }) ? <AboutPage></AboutPage> : ""}
       {state.matches({"connected":{"create attestation":"form is valid"}} ) ? <FormikForm></FormikForm> : ""}
       {state.matches({ "connected": "claim eco id" }) ? <ClaimEcoID></ClaimEcoID> : ""}
       </Box>

@@ -10,6 +10,8 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from '../Styles'
 
 
 
@@ -20,24 +22,26 @@ function XStateControls() {
 
 
   return (
+    <ThemeProvider theme={theme}>
 
-    <Container sx={{ p: 1 }} style={{
-      backgroundColor: "black",
-      color: "white",
-      bottom: 0,
-      position: "fixed"
-    }}>
-          
-      <Typography gutterBottom variant="body2">
-        <LightbulbIcon/>How to use the app : Start by connecting your wallet. Then follow the tips !
-      </Typography>
-      <Divider variant="middle" color="green" />
-        <Grid container alignItems="center">
-          <Typography color="grey" variant="body2"> 
-          State machine current state : <span>{JSON.stringify(state.value)}</span>
-          </Typography>
-        </Grid>
-    </Container>
+      <Container sx={{ p: 1 }} style={{
+        backgroundColor: "secondary",
+        color: "primary",
+        bottom: 0,
+        position: "fixed"
+      }}>
+            
+        <Typography gutterBottom variant="body2">
+          <LightbulbIcon/>How to use the app : Start by connecting your wallet. Then follow the tips !
+        </Typography>
+        <Divider variant="middle" color="primary" />
+          <Grid container alignItems="center">
+            <Typography color="grey" variant="body2"> 
+            State machine current state : <span>{JSON.stringify(state.value)}</span>
+            </Typography>
+          </Grid>
+      </Container>
+    </ThemeProvider>
   )
 }
 

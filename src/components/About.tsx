@@ -33,11 +33,11 @@ export default function AboutPage() {
             
           />
           <CardContent>
-            <Typography gutterBottom variant="h3" component="div">
+            <Typography color= "primary" gutterBottom variant="h3" component="div">
               About Eco ID dapp
             </Typography>
 
-            <Typography gutterBottom variant="h5" component="div">
+            <Typography sx={{ color: "primary", m: 2 }} gutterBottom variant="h5" component="div">
               What is Eco ID?
             </Typography>
             <Typography variant="body2" color="text.secondary">
@@ -47,7 +47,7 @@ export default function AboutPage() {
               verifiers, and then consumed by any parties interested in those assessments.  
             </Typography>
             
-            <Typography gutterBottom variant="h5" component="div">
+            <Typography sx={{ color: "primary", m: 2 }} gutterBottom variant="h5" component="div">
               What's the Eco ID dapp?
             </Typography>
             <Typography variant="body2" color="text.secondary">
@@ -57,7 +57,7 @@ export default function AboutPage() {
               head over to the <a target="_blank" rel="noopener noreferrer" href="https://github.com/jeremie-olivier/Eco-id-dapp" >Github repository</a>)
             </Typography>
 
-            <Typography gutterBottom variant="h5" component="div">
+            <Typography sx={{ color: "primary", m: 2 }} gutterBottom variant="h5" component="div">
               Okay, but why?
             </Typography>
             <Typography variant="body2" color="text.secondary">

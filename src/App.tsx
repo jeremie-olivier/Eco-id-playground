@@ -21,6 +21,9 @@ import { infuraProvider } from "wagmi/providers/infura";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 
+import { ThemeProvider } from '@mui/material/styles';
+import theme from './Styles'
+
 
 const { chains, provider } = configureChains(
   [goerli
@@ -55,17 +58,17 @@ function App() {
   const stateService = useInterpret(machine, { devTools: true });
 
   return (
-    <WagmiConfig client={wagmiClient}>
-      <RainbowKitProvider chains={chains}>
-        <GlobalStateContext.Provider value={{ stateService }}>
-          <NavBar></NavBar>
-          <PageContainer></PageContainer>
-
-          <XStateControls></XStateControls>
-        </GlobalStateContext.Provider>
-      </RainbowKitProvider>
-    </WagmiConfig>
-
+    <ThemeProvider theme={theme}>
+      <WagmiConfig client={wagmiClient}>
+        <RainbowKitProvider chains={chains}>
+          <GlobalStateContext.Provider value={{ stateService }}>
+            <NavBar></NavBar>
+            <PageContainer></PageContainer>
+            <XStateControls></XStateControls>
+          </GlobalStateContext.Provider>
+        </RainbowKitProvider>
+      </WagmiConfig>
+    </ThemeProvider>
   );
 };
 

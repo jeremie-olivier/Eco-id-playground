@@ -10,6 +10,8 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import CardActionArea from '@mui/material/CardActionArea';
 import Button from '@mui/material/Button';
+import { Container } from '@mui/system';
+
 
 
 
@@ -20,13 +22,14 @@ function HomePage() {
 
   return (
 
+    <Container sx={{ m: 2, margin:"0 auto", padding: "20px 5px"}}>
     <Grid container display="flex" justifyContent="center" alignItems="center" flexDirection="column" spacing={2}>
 
       <Grid>
         
         <Card sx={{ gridColumn: 'span 1', borderRadius: '3' }} onClick={() => send('create')}>
           <CardActionArea >
-          <AddCircleOutlineIcon style={{ fontSize: '1rem', padding: '1rem' }} color="success"> </AddCircleOutlineIcon>
+          <AddCircleOutlineIcon style={{ fontSize: '1rem', padding: '1rem' }} color="primary"> </AddCircleOutlineIcon>
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 Create Attestation
@@ -40,10 +43,9 @@ function HomePage() {
       </Grid>
 
       <Grid>
-        <Card sx={{ gridColumn: 'span 1', borderRadius: '3' }} onClick={() => send('claim')}>
-        
+        <Card sx={{ gridColumn: 'span 1', borderRadius: '3', maxWidth: '400px', color: 'secondary' }} onClick={() => send('claim')}>
           <CardActionArea >
-          <DescriptionOutlinedIcon style={{ fontSize: '1rem', padding: '1rem' }} color="success"> </DescriptionOutlinedIcon>
+          <DescriptionOutlinedIcon style={{ fontSize: '1rem', padding: '1rem' }} color="primary"> </DescriptionOutlinedIcon>
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 Claim your attestation
@@ -56,7 +58,8 @@ function HomePage() {
         </Card>
       </Grid>
 
-    </Grid>
+    </ Grid>
+      </Container>
   );
 }
 

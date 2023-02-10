@@ -18,7 +18,7 @@ function ButtonRegister(){
 
     return (
       //@ts-ignore
-      <Button variant="contained" color="success" onClick={()=>{send({type: "call register method", signer})}} >Register</Button>
+      <Button variant="contained" color="primary" onClick={()=>{send({type: "call register method", signer})}} >Register</Button>
     );
 };
 

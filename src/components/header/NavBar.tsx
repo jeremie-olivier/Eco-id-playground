@@ -24,7 +24,7 @@ function NavBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" color="inherit">
+      <AppBar position="static" color="primary">
         <Toolbar>
           <IconButton
             size="large"
@@ -35,13 +35,13 @@ function NavBar() {
           >
             
           </IconButton>
-          <Button color='success' endIcon={<HomeIcon/>} onClick={() => { send("go to home page") }}>Home</Button>
+          <Button color='inherit' endIcon={<HomeIcon/>} onClick={() => { send("go to home page") }}>Home</Button>
 
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Eco ID Dapp
           </Typography>
           
-          <Button color='success' onClick={() => { send("go to about page") }}>About</Button>
+          <Button color='inherit' onClick={() => { send("go to about page") }}>About</Button>
 
           <ButtonWalletConnect></ButtonWalletConnect>
         </Toolbar>
