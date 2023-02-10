@@ -85,12 +85,12 @@ function UploadAttestation() {
           <CardActionArea>
             <NoteAddOutlinedIcon
               style={{ fontSize: "1rem", padding: "1rem" }}
-              color="primary"
+              color="secondary"
             >
               {" "}
             </NoteAddOutlinedIcon>
             <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
+              <Typography color="secondary" gutterBottom variant="body2" component="div">
                 Drag end drop file or choose from drive
               </Typography>
               <Typography variant="body2" color="text.secondary">
@@ -98,7 +98,7 @@ function UploadAttestation() {
               </Typography>
               <Button
                 variant="contained"
-                color="primary"
+                color="secondary"
                 component="label"
                 endIcon={<UploadIcon />}
               >

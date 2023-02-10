@@ -4,7 +4,7 @@ import InputIcon from '@mui/icons-material/Input';
 
 function ButtonSelectAttestation(){
     return (
-      <Button variant="contained" color="primary" endIcon={<InputIcon/>}>Select Attestation</Button>
+      <Button variant="contained" color="secondary" endIcon={<InputIcon/>}>Select Attestation</Button>
     );
 };
 

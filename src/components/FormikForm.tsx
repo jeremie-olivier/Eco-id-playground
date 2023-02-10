@@ -82,7 +82,7 @@ export default function FormikForm() {
           <CardContent>
               <Button
               size="small"
-              color="inherit"
+              color="primary"
               onClick={() => {
                   send("go to home page");
               }}
@@ -200,7 +200,7 @@ export default function FormikForm() {
                 <FormControlLabel
                   control={
                     <Checkbox
-                      color="primary"
+                      color="secondary"
                       checked={values.revocable}
                       name="revocable"
                       onChange={handleChange}
@@ -222,7 +222,7 @@ export default function FormikForm() {
                     {/* @ts-ignore */}
 
                     <Button
-                      color="primary"
+                      color="secondary"
                       variant="contained"
                       sx={{ mt: 3, mb: 2 }}
                       onClick={() => {
@@ -242,7 +242,7 @@ export default function FormikForm() {
                   <div className="input-row">
                     
                     <Button
-                      color="primary"
+                      color="secondary"
                       variant="contained"
                       onClick={() => {
                         /* @ts-ignore */
@@ -269,7 +269,7 @@ export default function FormikForm() {
                   <div className="input-row">
                     {/* @ts-ignore */}
                     <Button
-                      color="primary"
+                      color="secondary"
                       variant="contained"
                       sx={{ mt: 3, mb: 2 }}
                       onClick={() => {

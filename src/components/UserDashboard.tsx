@@ -14,7 +14,7 @@ function UserDashboard(){
 
   return (
     <div>
-      <Button variant="contained" color='primary' endIcon={<InputIcon/>} onClick={() => send('submit file')}>Select attestation</Button>
+      <Button variant="contained" color='secondary' endIcon={<InputIcon/>} onClick={() => send('submit file')}>Select attestation</Button>
     </div>
   );
 }

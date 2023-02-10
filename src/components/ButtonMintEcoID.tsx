@@ -15,7 +15,7 @@ function ButtonMintEcoID(){
 
     return (
       //@ts-ignore
-      <Button variant="contained" color="primary" onClick={()=>{send({type: "call mint method", signer})}}>Mint Eco ID</Button>
+      <Button variant="contained" color="secondary" onClick={()=>{send({type: "call mint method", signer})}}>Mint Eco ID</Button>
     );
 };
 

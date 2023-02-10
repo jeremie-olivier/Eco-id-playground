@@ -4,7 +4,7 @@ import ComputerIcon from '@mui/icons-material/Computer';
 
 function ButtonMintAttestation(){
     return (
-      <Button variant="contained" color="primary" endIcon={<ComputerIcon/>}>Mint Attestation</Button>
+      <Button variant="contained" color="secondary" endIcon={<ComputerIcon/>}>Mint Attestation</Button>
     );
 };
 

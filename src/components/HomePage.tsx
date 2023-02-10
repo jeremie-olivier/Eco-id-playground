@@ -29,9 +29,9 @@ function HomePage() {
           
           <Card sx={{ gridColumn: 'span 1', borderRadius: '3' }} onClick={() => send('create')}>
             <CardActionArea >
-            <AddCircleOutlineIcon style={{ fontSize: '1rem', padding: '1rem' }} color="primary"> </AddCircleOutlineIcon>
+            <AddCircleOutlineIcon style={{ fontSize: '1rem', padding: '1rem' }} color="secondary"> </AddCircleOutlineIcon>
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography color="secondary" gutterBottom variant="h5" component="div">
                   Create Attestation
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
@@ -45,9 +45,9 @@ function HomePage() {
         <Grid>
           <Card sx={{ gridColumn: 'span 1', borderRadius: '3', maxWidth: '400px', color: 'secondary' }} onClick={() => send('claim')}>
             <CardActionArea >
-            <DescriptionOutlinedIcon style={{ fontSize: '1rem', padding: '1rem' }} color="primary"> </DescriptionOutlinedIcon>
+            <DescriptionOutlinedIcon style={{ fontSize: '1rem', padding: '1rem' }} color="secondary"> </DescriptionOutlinedIcon>
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography color="secondary" gutterBottom variant="h5" component="div">
                   Claim your attestation
                 </Typography>
                 <Typography variant="body2" color="text.secondary">

@@ -4,7 +4,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 
 function ButtonDownloadAttestation(){
     return (
-      <Button variant="contained" color="primary" endIcon={<DownloadIcon/>}>Download Attestation</Button>
+      <Button variant="contained" color="secondary" endIcon={<DownloadIcon/>}>Download Attestation</Button>
     );
 };
 
