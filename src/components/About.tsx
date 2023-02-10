@@ -18,6 +18,7 @@ import { Container } from '@mui/system';
 
 export default function AboutPage() {
   const globalServices = useContext(GlobalStateContext);
+  const [state, send] = useActor(globalServices.stateService);
 
   return (
 
@@ -25,6 +26,16 @@ export default function AboutPage() {
       <Card style={{ maxWidth: 450, margin: "0 auto", padding: "20px 5px" }}>
 
         <CardContent>
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => {
+                send("go to home page");
+            }}
+            >
+            ← Back
+          </Button>
+
           <Typography color= "Secondary" gutterBottom variant="h3" component="div">
             About Eco ID dapp
           </Typography>

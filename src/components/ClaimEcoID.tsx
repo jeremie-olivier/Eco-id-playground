@@ -43,7 +43,7 @@ function ClaimEcoID() {
                     </Typography>
 
                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    Sign attestation with your address. You can then mint an Eco ID ou download the new attestation
+                    Sign attestation with your address. You can then mint an Eco ID or download the new attestation
                     </Typography>
                 </CardContent>
 

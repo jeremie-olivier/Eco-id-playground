@@ -27,7 +27,7 @@ function HomePage() {
 
         <Grid>
           
-          <Card sx={{ gridColumn: 'span 1', borderRadius: '3' }} onClick={() => send('create')}>
+          <Card sx={{ gridColumn: 'span 1', borderRadius: '3', maxWidth: "300px" }} onClick={() => send('create')}>
             <CardActionArea >
             <AddCircleOutlineIcon style={{ fontSize: '1rem', padding: '1rem' }} color="secondary"> </AddCircleOutlineIcon>
               <CardContent>
@@ -35,7 +35,7 @@ function HomePage() {
                   Create Attestation
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Create a new attestation for yourself and download it
+                  Create a new attestation for the receiver of your choice and download it
                 </Typography>
               </CardContent>
             </CardActionArea>
@@ -43,7 +43,7 @@ function HomePage() {
         </Grid>
 
         <Grid>
-          <Card sx={{ gridColumn: 'span 1', borderRadius: '3', maxWidth: '400px', color: 'secondary' }} onClick={() => send('claim')}>
+          <Card sx={{ gridColumn: 'span 1', borderRadius: '3', width: '300px', color: 'secondary' }} onClick={() => send('claim')}>
             <CardActionArea >
             <DescriptionOutlinedIcon style={{ fontSize: '1rem', padding: '1rem' }} color="secondary"> </DescriptionOutlinedIcon>
               <CardContent>

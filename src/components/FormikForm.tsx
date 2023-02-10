@@ -130,9 +130,7 @@ export default function FormikForm() {
             isSubmitting,
           }) => (
             <form onSubmit={handleSubmit}>
-              <Typography variant="caption" display="block" gutterBottom>
-                {JSON.stringify(values)}
-              </Typography>
+              
 
               <Grid>
                 <TextField
@@ -245,11 +243,11 @@ export default function FormikForm() {
                       color="secondary"
                       variant="contained"
                       onClick={() => {
-                        /* @ts-ignore */
+                        
                         download(
                           "attestation" +
-                            state.context.attestation.message.recipient,
-                          state.context.attestation
+                          /* @ts-ignore */
+                            state.context.attestation.message.recipient, state.context.attestation
                         );
                         send("download");
                       }}
