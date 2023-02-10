@@ -31,7 +31,7 @@ function HomePage() {
             <CardActionArea >
             <AddCircleOutlineIcon style={{ fontSize: '1rem', padding: '1rem' }} color="secondary"> </AddCircleOutlineIcon>
               <CardContent>
-                <Typography color="secondary" gutterBottom variant="h5" component="div">
+                <Typography  color="secondary" gutterBottom variant="h5" component="div">
                   Create Attestation
                 </Typography>
                 <Typography variant="body2" color="text.secondary">

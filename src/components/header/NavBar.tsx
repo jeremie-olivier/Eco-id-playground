@@ -8,8 +8,8 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-
-
+import Container from '@mui/material/Container';
+import AdbIcon from '@mui/icons-material/Adb';
 
 
 import ButtonWalletConnect from './ButtonWalletConnect';
@@ -27,7 +27,8 @@ function NavBar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" color="secondary">
-        <Toolbar>
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
           <IconButton
             size="large"
             edge="start"
@@ -37,16 +38,36 @@ function NavBar() {
           >
             
           </IconButton>
-          <Button color='primary' endIcon={<HomeIcon/>} onClick={() => { send("go to home page") }}>Home</Button>
-
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Button color='primary' endIcon={<HomeIcon/>} onClick={() => { send("go to home page") }}></Button>
+        
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="/home"
+            sx={{
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'inherit',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+              flexGrow: 1
+            }}
+          >
             Eco ID Dapp
           </Typography>
+
           
-          <Button color='primary' onClick={() => { send("go to about page") }}>About</Button>
+
+          
+          
+          <Button sx={{fontFamily: 'inherit'}} color='primary' onClick={() => { send("go to about page") }}>About</Button>
 
           <ButtonWalletConnect></ButtonWalletConnect>
         </Toolbar>
+        </Container>
       </AppBar>
     </Box>
   );
