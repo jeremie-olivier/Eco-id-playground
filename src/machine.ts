@@ -39,7 +39,7 @@ const machine =
 createMachine(
   {
   predictableActionArguments: true,
-  id: "Eco ID Dapp",
+  id: "Eco ID Playground",
 initial: "idle",
 states: {
   "idle": {

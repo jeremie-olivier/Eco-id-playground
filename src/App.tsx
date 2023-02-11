@@ -14,8 +14,9 @@ import NavBar from './components/header/NavBar';
 import PageContainer from './components/landingpage/PageContainer';
 
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
-import { configureChains, createClient, WagmiConfig, goerli
- } from "wagmi";
+import {
+  configureChains, createClient, WagmiConfig, goerli
+} from "wagmi";
 
 import { infuraProvider } from "wagmi/providers/infura";
 import { alchemyProvider } from "wagmi/providers/alchemy";
@@ -36,7 +37,7 @@ const { chains, provider } = configureChains(
 );
 
 const { connectors } = getDefaultWallets({
-  appName: 'Eco ID Dapp',
+  appName: 'Eco ID Playground',
   chains,
 });
 

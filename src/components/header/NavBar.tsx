@@ -27,45 +27,45 @@ function NavBar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" color="secondary">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <IconButton
-            size="large"
-            edge="start"
-            color="primary"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            
-          </IconButton>
-          <Button color='primary' endIcon={<HomeIcon/>} onClick={() => { send("go to home page") }}></Button>
-        
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'inherit',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-              flexGrow: 1
-            }}
-          >
-            Eco ID Dapp
-          </Typography>
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <IconButton
+              size="large"
+              edge="start"
+              color="primary"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+            >
 
-          
+            </IconButton>
+            <Button color='primary' endIcon={<HomeIcon />} onClick={() => { send("go to home page") }}></Button>
 
-          
-          
-          <Button sx={{fontFamily: 'inherit'}} color='primary' onClick={() => { send("go to about page") }}>About</Button>
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              sx={{
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontFamily: 'inherit',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+                flexGrow: 1
+              }}
+            >
+              Eco ID Playground
+            </Typography>
 
-          <ButtonWalletConnect></ButtonWalletConnect>
-        </Toolbar>
+
+
+
+
+            <Button sx={{ fontFamily: 'inherit' }} color='primary' onClick={() => { send("go to about page") }}>About</Button>
+
+            <ButtonWalletConnect></ButtonWalletConnect>
+          </Toolbar>
         </Container>
       </AppBar>
     </Box>
