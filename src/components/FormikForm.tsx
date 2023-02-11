@@ -25,6 +25,8 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Unstable_Grid2";
+import LinearProgress from '@mui/material/LinearProgress';
+
 
 const ValidationSchema = yup.object().shape({
   receiverAddress: yup
@@ -240,13 +242,28 @@ export default function FormikForm() {
                       </Typography>
                     </div>
                   )}
+                  
+                    <Grid>
+                      <Typography variant="overline" display="block" gutterBottom>
+                          Waiting for signature
+                      </Typography>
+                      <LinearProgress color="secondary" />
+                      <Typography variant="caption" display="block" gutterBottom>
+                          Please do not close or refresh this page
+                      </Typography>
+                  </Grid>
+                  
 
                 {state.matches({
                   connected: {
                     "create attestation": { "form is valid": "form signed" },
                   },
-                }) && (
+                }) 
+                &&
+                
+                (
                     <div className="input-row">
+                      
 
                       <Button
                         color="secondary"
