@@ -10,6 +10,7 @@ import { Container } from '@mui/material';
 import Box from '@mui/material/Box';
 import Toast from '../ErrorToast';
 import ErrorToast from '../ErrorToast';
+import SuccessToast from '../SuccessToast';
 
 
 function PageContainer() {
@@ -39,6 +40,7 @@ function PageContainer() {
         {state.matches('idle') ? <BlockInvitationToConnect></BlockInvitationToConnect> : ""}
 
         {state.event.type.includes("error") ? <ErrorToast></ErrorToast> : ""}
+        {state.event.type.includes("done.invoke") ? <SuccessToast></SuccessToast> : ""}
 
 
         {state.matches({ "connected": "home page" }) ? <HomePage></HomePage> : ""}
