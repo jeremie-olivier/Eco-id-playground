@@ -3,7 +3,7 @@ import { GlobalStateContext } from '../providers/globalState';
 import { useActor } from '@xstate/react';
 import { Alert, Snackbar } from '@mui/material';
 
-function Toast() {
+function ErrorToast() {
 
     const globalServices = useContext(GlobalStateContext);
     const [state, send] = useActor(globalServices.stateService);
@@ -29,4 +29,4 @@ function Toast() {
 }
 
 
-export default Toast;
+export default ErrorToast;

@@ -75,12 +75,16 @@ states: {
           "form is valid": {
             initial: "form ready to sign",
 
-            states: {
-              "form ready to sign": {
-                on: {
-                  "verifier sign": "Signing"
-                }
+          states: {
+            "form ready to sign": {
+              on: {
+                "verifier sign": "Signing"
               },
+              entry : (context,event)=>{
+                console.log('event',event)
+                context.toast.error = event
+              }
+            },
 
               "form signed": {
                 on: {
@@ -227,6 +231,10 @@ schema: {
     form : {}
     signer : FetchSignerResult<Signer> | undefined
     verifierSignature : string
+    toast : {
+      success : {} | null
+      error : {} | null
+    }
   },
   events: {} as 
   {"type": "connect"}|
@@ -257,7 +265,11 @@ context: {
   attestation : {},
   form : {},
   signer : undefined,
-  verifierSignature : ""
+  verifierSignature : "",
+  toast:  {
+    error : null,
+    success : null
+  }
 },
 preserveActionOrder: true,
 },{

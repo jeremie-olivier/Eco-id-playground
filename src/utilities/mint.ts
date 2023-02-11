@@ -18,7 +18,7 @@ export default  async function callMint(context:  any, event: any) {
 
     // return  registerTx.wait();
     const mintReceipt = await mintTx.wait();
-    console.log("registerReceipt.status", mintReceipt.status)
+    console.log("mintReceipt", mintReceipt)
 
     if (!mintReceipt.status) {
     throw new Error(mintTx);

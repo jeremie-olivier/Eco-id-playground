@@ -22,19 +22,19 @@ function HomePage() {
 
   return (
 
-    <Container sx={{ m: 2, margin:"0 auto", padding: "20px 5px"}}>
+    <Container sx={{ m: 2, margin: "0 auto", padding: "20px 5px" }}>
       <Grid container display="flex" justifyContent="center" alignItems="center" flexDirection="column" spacing={2}>
 
         <Grid>
-          
+
           <Card sx={{ gridColumn: 'span 1', borderRadius: '3', maxWidth: "300px" }} onClick={() => send('create')}>
             <CardActionArea >
-            <AddCircleOutlineIcon style={{ fontSize: '1rem', padding: '1rem' }} color="secondary"> </AddCircleOutlineIcon>
+              <AddCircleOutlineIcon style={{ fontSize: '1rem', padding: '1rem' }} color="secondary"> </AddCircleOutlineIcon>
               <CardContent>
                 <Typography variant="subtitle2" gutterBottom>
                   Verifier
                 </Typography>
-                <Typography  color="secondary" gutterBottom variant="h5" component="div">
+                <Typography color="secondary" gutterBottom variant="h5" component="div">
                   Create Attestation
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
@@ -49,10 +49,10 @@ function HomePage() {
         <Grid>
           <Card sx={{ gridColumn: 'span 1', borderRadius: '3', width: '300px', color: 'secondary' }} onClick={() => send('claim')}>
             <CardActionArea >
-            <DescriptionOutlinedIcon style={{ fontSize: '1rem', padding: '1rem' }} color="secondary"> </DescriptionOutlinedIcon>
+              <DescriptionOutlinedIcon style={{ fontSize: '1rem', padding: '1rem' }} color="secondary"> </DescriptionOutlinedIcon>
               <CardContent>
                 <Typography variant="subtitle2" gutterBottom>
-                  Receiver           
+                  Receiver
                 </Typography>
                 <Typography color="secondary" gutterBottom variant="h5" component="div">
                   Claim your attestation

@@ -17,7 +17,7 @@ export default  async function callRegister(context:  any, event: any) {
     const registerTx = await nftContract.register(att.claim, att.feeAmount, att.revocable, att.recipient, att.verifier, att.deadline, attestation.sig, attestation.verifySig, { gasLimit: 500_000 });
     // return  registerTx.wait();
     const registerReceipt = await registerTx.wait();
-    console.log("registerReceipt.status", registerReceipt.status)
+    console.log("registerReceipt", registerReceipt)
 
     if (!registerReceipt.status) {
     throw new Error(registerTx);
