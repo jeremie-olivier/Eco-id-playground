@@ -43,10 +43,6 @@ function ClaimEcoID() {
                     <Typography color="secondary" component="h1" variant="h5">
                         Claim your Attestation
                     </Typography>
-                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                        Upload the attestation already signed by the verifier, add your signature with
-                        your wallet address. You can then mint your Eco ID and download the new attestation
-                    </Typography>
                 </CardContent>
 
                 <CardContent>
@@ -74,21 +70,42 @@ function ClaimEcoID() {
                         : ""}
 
                     {state.matches({ "connected": { "claim eco id": { "attestation is loaded": "attestation signed by receiver" } } }) &&
-                        <Grid container display="flex" justifyContent="center" alignItems="center" flexDirection="column" spacing={5}>
-                            <Grid>
-                                <Button variant="contained" color="secondary" onClick={() => send("self mint")}>Mint your Eco ID</Button>
-                            </Grid>
-                            <Grid>
+                        <Grid container display="flex" justifyContent="center" alignItems="center" flexDirection="column" >
+                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                The attestation now contains both a Verifier and your signature. Its now ready to be registered on the Ethereum blockchain
+                            </Typography>
+                            <br /><br />
+                            <Grid display="flex" flexDirection="column">
                                 <Button variant="contained" color="secondary" onClick={() => {
                                     send("download");
                                     //@ts-ignore   
                                     download("attestation-" + state.context.attestation.message.recipient, state.context.attestation)
                                 }}>Download attestation</Button>
+                                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                    If you have someone to pay the gas fee for you, you can download the attestation and send it to him
+                                </Typography>
+                                <br /><br />
                             </Grid>
+                            <Grid display="flex" flexDirection="column">
+                                <Button variant="contained" color="secondary" onClick={() => send("self mint")}>Mint your Eco ID</Button>
+                                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                    Or you can Mint it yourself
+                                </Typography>
+                            </Grid>
+
+
                         </Grid>
                     }
 
-                    {state.matches({ "connected": { "claim eco id": { "attestation is loaded": "attestation ready to be registered" } } }) ? <ButtonRegister></ButtonRegister> : ""}
+                    {state.matches({ "connected": { "claim eco id": { "attestation is loaded": "attestation ready to be registered" } } }) ?
+                        <Grid display="flex" flexDirection="column">
+                            <ButtonRegister></ButtonRegister>
+                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                The <b>REGISTER</b> method of the Eco ID smart contract verify the validity of the attestation and store it on-chain
+                            </Typography>
+                        </Grid>
+
+                        : ""}
                     {state.matches({ "connected": { "claim eco id": { "attestation is loaded": "calling register" } } }) ?
                         <Grid>
                             <Typography variant="overline" display="block" gutterBottom>
@@ -115,7 +132,7 @@ function ClaimEcoID() {
                         : ""}
                 </CardContent>
             </Card>
-        </Container>
+        </Container >
     );
 };
 

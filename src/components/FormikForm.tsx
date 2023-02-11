@@ -77,34 +77,32 @@ export default function FormikForm() {
   };
 
   return (
-    <Container sx={{ m: 2, margin:"0 auto", padding: "20px 5px"}}>
-        <Card style={{ maxWidth: 450, margin: "0 auto", padding: "20px 5px" }}>
-          <CardContent>
-              <Button
-              size="small"
-              color="primary"
-              onClick={() => {
-                  send("go to home page");
-              }}
-              >
-              ← Back
-              </Button>
+    <Container sx={{ m: 2, margin: "0 auto", padding: "20px 5px" }}>
+      <Card style={{ maxWidth: 450, margin: "0 auto", padding: "20px 5px" }}>
+        <CardContent>
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => {
+              send("go to home page");
+            }}
+          >
+            ← Back
+          </Button>
 
-              <Typography variant="subtitle2" gutterBottom>
-                Verifier
-              </Typography>
+          <Typography variant="subtitle2" gutterBottom>
+            Verifier
+          </Typography>
 
-              <Typography component="h1" variant="h5">
-                Create Attestation
-              </Typography>
+          <Typography component="h1" variant="h5">
+            Create Attestation
+          </Typography>
 
-              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                You are acting like the Verifier. Fill the form with the Receiver address 
-                (your friend) and the other infos. Then you can sign the attestation and download it ! 
-                By signing the attestation you add your signature to the attestation. 
-                A wallet signature is like a physical one, if only you have this document no one can proof that you actually signed it.
-              </Typography>
-            </CardContent>
+          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+            You are acting as a Verifier. Fill the form with the Receiver address
+            (your friend) and the other infos. Then you can sign the attestation then download it !
+          </Typography>
+        </CardContent>
 
         <Formik
           initialValues={{
@@ -137,7 +135,7 @@ export default function FormikForm() {
             isSubmitting,
           }) => (
             <form onSubmit={handleSubmit}>
-              
+
 
               <Grid>
                 <TextField
@@ -200,7 +198,7 @@ export default function FormikForm() {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.claim}
-                  //@ts-ignore
+                //@ts-ignore
                 />
                 <FormControlLabel
                   control={
@@ -223,46 +221,53 @@ export default function FormikForm() {
                     },
                   },
                 }) && (
-                  <div className="input-row">
-                    {/* @ts-ignore */}
+                    <div className="input-row">
+                      {/* @ts-ignore */}
 
-                    <Button
-                      color="secondary"
-                      variant="contained"
-                      sx={{ mt: 3, mb: 2 }}
-                      onClick={() => {
-                        getSignature();
-                      }}
-                    >
-                      Sign Attestation
-                    </Button>
-                  </div>
-                )}
+                      <Button
+                        color="secondary"
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                        onClick={() => {
+                          getSignature();
+                        }}
+                      >
+                        Sign Attestation
+                      </Button>
+                      <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                        By signing the attestation you add your signature to the attestation.
+                        A wallet signature is like a physical one, if only you have this document no one can proof that you actually signed it.
+                      </Typography>
+                    </div>
+                  )}
 
                 {state.matches({
                   connected: {
                     "create attestation": { "form is valid": "form signed" },
                   },
                 }) && (
-                  <div className="input-row">
-                    
-                    <Button
-                      color="secondary"
-                      variant="contained"
-                      onClick={() => {
-                        
-                        download(
-                          "attestation" +
-                          /* @ts-ignore */
+                    <div className="input-row">
+
+                      <Button
+                        color="secondary"
+                        variant="contained"
+                        onClick={() => {
+
+                          download(
+                            "attestation" +
+                            /* @ts-ignore */
                             state.context.attestation.message.recipient, state.context.attestation
-                        );
-                        send("download");
-                      }}
-                    >
-                      Download Attestation
-                    </Button>
-                  </div>
-                )}
+                          );
+                          send("download");
+                        }}
+                      >
+                        Download Attestation
+                      </Button>
+                      <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                        Now that you the attestation contains your signature, you can download it
+                      </Typography>
+                    </div>
+                  )}
 
                 {state.matches({
                   connected: {
@@ -271,20 +276,23 @@ export default function FormikForm() {
                     },
                   },
                 }) && (
-                  <div className="input-row">
-                    {/* @ts-ignore */}
-                    <Button
-                      color="secondary"
-                      variant="contained"
-                      sx={{ mt: 3, mb: 2 }}
-                      onClick={() => {
-                        send("go to home page");
-                      }}
-                    >
-                      Home Page
-                    </Button>
-                  </div>
-                )}
+                    <div className="input-row">
+                      <Typography gutterBottom>
+                        Send this attestation file to the Receiver, so he can sign it as well
+                      </Typography>
+                      {/* @ts-ignore */}
+                      <Button
+                        color="secondary"
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                        onClick={() => {
+                          send("go to home page");
+                        }}
+                      >
+                        Home Page
+                      </Button>
+                    </div>
+                  )}
               </Grid>
             </form>
           )}
