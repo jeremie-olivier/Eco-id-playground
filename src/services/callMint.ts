@@ -1,6 +1,5 @@
-import { ethers, TypedDataDomain, TypedDataField } from "ethers";
+import { ethers } from "ethers";
 import EcoID from "../abi/EcoID.json";
-
 
 
 export default  async function callMint(context:  any, event: any) {

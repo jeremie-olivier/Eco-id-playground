@@ -1,6 +1,4 @@
 
-import { FetchSignerResult } from "@wagmi/core";
-import { ethers, Signer, TypedDataDomain, TypedDataField } from "ethers";
 import {FormData} from "../types/types"
 
 export default  function generateAttestation(context: any,event: any ){

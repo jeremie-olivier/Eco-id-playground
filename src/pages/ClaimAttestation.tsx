@@ -6,7 +6,7 @@ import UploadAttestation from '../molecules/UploadAttestation';
 import ButtonRegister from '../atoms/ButtonRegister';
 import ButtonMintEcoID from '../atoms/ButtonMintEcoID';
 import { Button, Grid, Typography } from '@mui/material';
-import download from "../utilities/download";
+import download from "../utilities/downloadFile";
 import { useSigner } from 'wagmi'
 import LinearProgress from '@mui/material/LinearProgress';
 import { Container } from '@mui/system';

@@ -1,23 +1,18 @@
 import { createMachine } from 'xstate';
-import generateAttestation from './utilities/generateAttestation';
-import generateAttestation from './utilities/generateAttestation';
-import GetVerifierSignature from './utilities/getVerifierSignature';
-import getReceiverSignature from  './utilities/getReceiverSignature';
-import callRegister from  './utilities/register';
-import callMint from  './utilities/mint';
+import generateAttestation from '../utilities/generateAttestation';
+import GetVerifierSignature from '../services/getVerifierSignature';
+import getReceiverSignature from  '../services/getReceiverSignature';
+import callRegister from  '../services/callRegister';
+import callMint from  '../services/callMint';
 import { FetchSignerResult } from "@wagmi/core";
 import { Signer } from "ethers";
-import { Attestation } from './types/types';
+import { Attestation } from '../types/types';
 
 
-const hasBothSignature = (context: any,event: any) => {
-  return event.attestation.verifySig && event.attestation.sig
 const hasBothSignature = (context: any,event: any) => {
   return event.attestation.verifySig && event.attestation.sig
 };
 
-const hasVerifierSignature = (context: any,event: any) => {
-  return event.attestation.verifySig
 const hasVerifierSignature = (context: any,event: any) => {
   return event.attestation.verifySig
 };
@@ -217,7 +212,6 @@ states: {
 schema: {
   context: {} as {
     attestation : Attestation | {}
-    attestation : Attestation | {}
     form : {}
     signer : FetchSignerResult<Signer> | undefined
     verifierSignature : string
@@ -291,7 +285,6 @@ preserveActionOrder: true,
   },
   guards : {
     hasBothSignature,
-    hasVerifierSignature
     hasVerifierSignature
   },
   delays : {},

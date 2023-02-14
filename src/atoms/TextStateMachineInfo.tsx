@@ -7,10 +7,10 @@ import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import { ThemeProvider } from '@mui/material/styles';
-import theme from '../Styles'
+import theme from '../providers/Styles'
 
 
-function XStateControls() {
+function TextStateMachineInfo() {
 
   const globalServices = useContext(GlobalStateContext);
   const [state] = useActor(globalServices.stateService);
@@ -39,4 +39,4 @@ function XStateControls() {
   )
 }
 
-export default XStateControls
+export default TextStateMachineInfo

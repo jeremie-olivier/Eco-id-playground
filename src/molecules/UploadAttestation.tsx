@@ -84,7 +84,7 @@ function UploadAttestation() {
         >
           <CardActionArea>
             <NoteAddOutlinedIcon
-              style={{ fontSize: "1rem", padding: "1rem" }}
+              style={{ fontSize: "2rem", padding: "1rem" }}
               color="secondary"
             >
               {" "}
@@ -92,9 +92,6 @@ function UploadAttestation() {
             <CardContent>
               <Typography color="secondary" gutterBottom variant="body2" component="div">
                 Upload the attestation file signed by Verifier
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                .pdf, .txt, max 1 MB
               </Typography>
               <Button
                 variant="contained"

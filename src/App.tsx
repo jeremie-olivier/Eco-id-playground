@@ -4,14 +4,14 @@ import './App.css';
 import "@rainbow-me/rainbowkit/styles.css";
 
 import { inspect } from '@xstate/inspect';
-import machine from './machine'
+import machine from './stateMachines/machine'
 import { GlobalStateContext } from './providers/globalState';
 import { useInterpret } from '@xstate/react';
 
-import XStateControls from './atoms/XStateControls';
+import XStateControls from './atoms/TextStateMachineInfo';
 
 import NavBar from './molecules/NavBar';
-import PageContainer from './PageContainer';
+import PageContainer from './molecules/PageContainer';
 
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import {
@@ -23,7 +23,7 @@ import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 
 import { ThemeProvider } from '@mui/material/styles';
-import theme from './Styles'
+import theme from './providers/Styles'
 
 
 const { chains, provider } = configureChains(

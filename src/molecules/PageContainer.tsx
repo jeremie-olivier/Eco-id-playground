@@ -1,15 +1,15 @@
 import { useContext } from 'react';
-import { GlobalStateContext } from './providers/globalState';
+import { GlobalStateContext } from '../providers/globalState';
 import { useActor } from '@xstate/react';
-import BlockInvitationToConnect from './atoms/TextInvitationToConnect';
-import Home from './pages/Home';
-import CreateAttestation from './pages/CreateAttestation';
-import ClaimAttestation from './pages/ClaimAttestation';
-import AboutPage from './pages/About';
+import BlockInvitationToConnect from '../atoms/TextInvitationToConnect';
+import Home from '../pages/Home';
+import CreateAttestation from '../pages/CreateAttestation';
+import ClaimAttestation from '../pages/ClaimAttestation';
+import AboutPage from '../pages/About';
 import { Container } from '@mui/material';
 import Box from '@mui/material/Box';
-import ErrorToast from './atoms/ToastError';
-import SuccessToast from './atoms/ToastSuccess';
+import ErrorToast from '../atoms/ToastError';
+import SuccessToast from '../atoms/ToastSuccess';
 
 
 function PageContainer() {

@@ -8,7 +8,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Checkbox from "@mui/material/Checkbox";
-import download from "../utilities/download";
+import download from "../utilities/downloadFile";
 import { GlobalStateContext } from "../providers/globalState";
 import { useActor } from "@xstate/react";
 import { FormData } from "../types/types";
@@ -104,7 +104,6 @@ export default function CreateAttestation() {
             handleSubmit,
           }) => (
             <form onSubmit={handleSubmit}>
-
 
               <Grid>
                 <TextField

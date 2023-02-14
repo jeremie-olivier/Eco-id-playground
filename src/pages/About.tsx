@@ -1,19 +1,11 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { GlobalStateContext } from '../providers/globalState';
 import { useActor } from '@xstate/react';
-
-
 import Card from '@mui/material/Card';
-import Grid from '@mui/material/Unstable_Grid2';
-import CardActions from '@mui/material/CardActions';
-import CssBaseline from '@mui/material/CssBaseline';
-
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Container } from '@mui/system';
-
 
 
 export default function AboutPage() {
@@ -36,7 +28,7 @@ export default function AboutPage() {
             ← Back
           </Button>
 
-          <Typography color="Secondary" gutterBottom variant="h3" component="div">
+          <Typography color="Secondary" gutterBottom variant="h4" component="div">
             About Eco ID Playground
           </Typography>
 

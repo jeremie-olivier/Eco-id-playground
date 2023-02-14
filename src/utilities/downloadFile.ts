@@ -1,5 +1,5 @@
 
-export default function download(filename: string, text: {}) {
+export default function downloadFile(filename: string, text: {}) {
   const element = document.createElement('a');
   element.setAttribute(
     'href',

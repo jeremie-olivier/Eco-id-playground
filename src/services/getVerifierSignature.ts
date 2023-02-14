@@ -1,11 +1,5 @@
-import {FormData} from "../types/types"
 import { ethers } from "ethers";
 import EcoID from "../abi/EcoID.json";
-
-
-
-
-
 
 
 export default  async function GetVerifierSignature(context: any, event: any ) {
@@ -16,27 +10,26 @@ export default  async function GetVerifierSignature(context: any, event: any ) {
 
 
 
- let attestation = context.attestation
- console.log(attestation);
+let attestation = context.attestation
+console.log(attestation);
 
- let nonce = await getNounce(signer,attestation.message.claim)
- console.log("nonce",nonce)
- attestation.message.nonce = nonce 
+let nonce = await getNounce(signer,attestation.message.claim)
+console.log("nonce",nonce)
+attestation.message.nonce = nonce 
 
- let types = JSON.parse(JSON.stringify(attestation.types));
- types.Register = types.Register.filter( (item: any)=> item.name !== "verifier")
+let types = JSON.parse(JSON.stringify(attestation.types));
+types.Register = types.Register.filter( (item: any)=> item.name !== "verifier")
 
- let message = JSON.parse(JSON.stringify(attestation.message));
+let message = JSON.parse(JSON.stringify(attestation.message));
 
- delete message.verifier;
-
-
+delete message.verifier;
 
 
- let promiseRes = await  signer._signTypedData(attestation.domain, types, message)
 
- console.log(promiseRes);
- 
+let promiseRes = await  signer._signTypedData(attestation.domain, types, message)
+
+console.log(promiseRes);
+
 
 return promiseRes
 
