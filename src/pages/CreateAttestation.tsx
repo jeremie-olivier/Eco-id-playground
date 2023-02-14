@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Formik } from "formik";
 import * as yup from "yup";
-import Error from "./Error";
+import Error from "../atoms/Error";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";

@@ -1,16 +1,15 @@
 import React, { useContext } from 'react';
-import { GlobalStateContext } from '../../providers/globalState';
+import { GlobalStateContext } from './providers/globalState';
 import { useActor } from '@xstate/react';
-import BlockInvitationToConnect from '../BlockInvitationToConnect';
-import HomePage from '../HomePage';
-import FormikForm from '../FormikForm';
-import ClaimEcoID from '../ClaimEcoID';
-import AboutPage from '../About';
+import BlockInvitationToConnect from './atoms/BlockInvitationToConnect';
+import HomePage from './pages/Home';
+import FormikForm from './pages/CreateAttestation';
+import ClaimEcoID from './pages/ClaimAttestation';
+import AboutPage from './pages/About';
 import { Container } from '@mui/material';
 import Box from '@mui/material/Box';
-import Toast from '../ErrorToast';
-import ErrorToast from '../ErrorToast';
-import SuccessToast from '../SuccessToast';
+import ErrorToast from './atoms/ErrorToast';
+import SuccessToast from './atoms/SuccessToast';
 
 
 function PageContainer() {

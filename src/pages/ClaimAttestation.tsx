@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { GlobalStateContext } from '../providers/globalState';
 import { useActor } from '@xstate/react';
-import FormikForm from './FormikForm';
-import UploadAttestation from './UploadAttestation';
-import ButtonRegister from './ButtonRegister';
-import ButtonMintEcoID from './ButtonMintEcoID';
+import FormikForm from './CreateAttestation';
+import UploadAttestation from '../atoms/UploadAttestation';
+import ButtonRegister from '../atoms/ButtonRegister';
+import ButtonMintEcoID from '../atoms/ButtonMintEcoID';
 import { Button, Grid, Typography } from '@mui/material';
 import download from "../utilities/download";
 import { useSigner } from 'wagmi'
@@ -14,14 +14,11 @@ import CardContent from "@mui/material/CardContent";
 import Card from "@mui/material/Card";
 
 
-
 function ClaimEcoID() {
-
 
     const globalServices = useContext(GlobalStateContext);
     const [state, send] = useActor(globalServices.stateService);
     const { data: signer } = useSigner();
-
 
     return (
 

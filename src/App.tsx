@@ -8,10 +8,10 @@ import machine from './machine'
 import { GlobalStateContext } from './providers/globalState';
 import { useInterpret } from '@xstate/react';
 
-import XStateControls from './components/XStateControls';
+import XStateControls from './atoms/XStateControls';
 
-import NavBar from './components/header/NavBar';
-import PageContainer from './components/landingpage/PageContainer';
+import NavBar from './molecules/header/NavBar';
+import PageContainer from './PageContainer';
 
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import {
