@@ -1,22 +1,18 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Formik } from "formik";
 import * as yup from "yup";
-// import DatePicker from 'react-datepicker';
 import Error from "./Error";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Checkbox from "@mui/material/Checkbox";
 import download from "../utilities/download";
-import { sendParent } from "xstate/lib/actions";
 import { GlobalStateContext } from "../providers/globalState";
 import { useActor } from "@xstate/react";
 import { FormData } from "../types/types";
 import { useSigner } from "wagmi";
-import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Unstable_Grid2";
@@ -26,24 +22,18 @@ import LinearProgress from '@mui/material/LinearProgress';
 const ValidationSchema = yup.object().shape({
   receiverAddress: yup
     .string()
-    .min(26, "26 characters minimum")
-    .max(35, "Limited to 35 characters")
-    .required("Must enter a wallet address"),
+    .min(42, "Wallet address should be 42 characters" )
+    .max(42, "Wallet address should be 42 characters")
+    .required("You must enter a wallet address"),
   deadline: yup.date().required("Enter the deadline"),
   revocable: yup.boolean().oneOf([true]),
   claim: yup
     .string()
-    .min(26, "26 characters minimum")
+    .min(4, "4 characters minimum")
     .max(35, "Limited to 35 characters")
     .required("Claim required"),
 });
 
-const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
-  props,
-  ref
-) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
 
 export default function FormikForm() {
   const globalServices = useContext(GlobalStateContext);
@@ -54,23 +44,6 @@ export default function FormikForm() {
 
   const getSignature = () => {
     signer && send({ type: "verifier sign", form, signer });
-  };
-
-  const [open, setOpen] = React.useState(false);
-
-  const handleClick = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (
-    event?: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
   };
 
   return (
@@ -129,7 +102,6 @@ export default function FormikForm() {
             handleChange,
             handleBlur,
             handleSubmit,
-            isSubmitting,
           }) => (
             <form onSubmit={handleSubmit}>
 
@@ -256,7 +228,6 @@ export default function FormikForm() {
                   </Grid>
                   )}
                     
-  
                 {state.matches({
                   connected: {
                     "create attestation": { "form is valid": "form signed" },
@@ -266,13 +237,11 @@ export default function FormikForm() {
                 
                 (
                     <div className="input-row">
-                      
-
+                    
                       <Button
                         color="secondary"
                         variant="contained"
                         onClick={() => {
-
                           download(
                             "attestation" +
                             /* @ts-ignore */
@@ -288,7 +257,7 @@ export default function FormikForm() {
                       </Typography>
                     </div>
                   )}
-
+                  
                 {state.matches({
                   connected: {
                     "create attestation": {
