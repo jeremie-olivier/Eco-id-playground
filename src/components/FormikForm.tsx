@@ -238,7 +238,14 @@ export default function FormikForm() {
                     </div>
                   )}
                   
-                    <Grid>
+                  {state.matches({
+                  connected: {
+                    "create attestation": {
+                      "form is valid": "Signing",
+                    },
+                  },
+                }) && (
+                  <Grid>
                       <Typography variant="overline" display="block" gutterBottom>
                           Waiting for signature
                       </Typography>
@@ -247,8 +254,9 @@ export default function FormikForm() {
                           Please do not close or refresh this page
                       </Typography>
                   </Grid>
-                  
-
+                  )}
+                    
+  
                 {state.matches({
                   connected: {
                     "create attestation": { "form is valid": "form signed" },

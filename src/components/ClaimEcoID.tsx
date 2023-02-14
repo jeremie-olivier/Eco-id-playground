@@ -145,7 +145,7 @@ function ClaimEcoID() {
                     {state.matches({ "connected": { "claim eco id": { "attestation is loaded": "calling mint" } } }) ?
                         <Grid>
                             <Typography variant="overline" display="block" gutterBottom>
-                                Calling mint : register method
+                                Calling Eco ID smart contract : mint method
                             </Typography>
                             <LinearProgress color="secondary" />
                             <Typography variant="caption" display="block" gutterBottom>
@@ -162,7 +162,7 @@ function ClaimEcoID() {
                             
                             <Typography variant="caption" display="block" gutterBottom>
                                 You can go to <a target="_blank" rel="noopener noreferrer" 
-                                href="https://testnets.opensea.io/collection/eco-id-vy7hlggmox" >OpenSea Eco IDs</a> to see your Eco ID.
+                                href="https://testnets.opensea.io/account" >OpenSea Eco IDs</a> to see your Eco ID.
                             </Typography>
                         </Grid>
                         : ""}
