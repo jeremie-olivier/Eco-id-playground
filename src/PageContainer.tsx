@@ -1,22 +1,22 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { GlobalStateContext } from './providers/globalState';
 import { useActor } from '@xstate/react';
-import BlockInvitationToConnect from './atoms/BlockInvitationToConnect';
-import HomePage from './pages/Home';
-import FormikForm from './pages/CreateAttestation';
-import ClaimEcoID from './pages/ClaimAttestation';
+import BlockInvitationToConnect from './atoms/TextInvitationToConnect';
+import Home from './pages/Home';
+import CreateAttestation from './pages/CreateAttestation';
+import ClaimAttestation from './pages/ClaimAttestation';
 import AboutPage from './pages/About';
 import { Container } from '@mui/material';
 import Box from '@mui/material/Box';
-import ErrorToast from './atoms/ErrorToast';
-import SuccessToast from './atoms/SuccessToast';
+import ErrorToast from './atoms/ToastError';
+import SuccessToast from './atoms/ToastSuccess';
 
 
 function PageContainer() {
 
 
   const globalServices = useContext(GlobalStateContext);
-  const [state, send] = useActor(globalServices.stateService);
+  const [state] = useActor(globalServices.stateService);
 
   return (
 
@@ -42,11 +42,11 @@ function PageContainer() {
         {state.event.type.includes("done.invoke") ? <SuccessToast></SuccessToast> : ""}
 
 
-        {state.matches({ "connected": "home page" }) ? <HomePage></HomePage> : ""}
+        {state.matches({ "connected": "home page" }) ? <Home></Home> : ""}
         {state.matches("about page") ? <AboutPage></AboutPage> : ""}
         {state.matches({ "connected": "about page" }) ? <AboutPage></AboutPage> : ""}
-        {state.matches({ "connected": { "create attestation": "form is valid" } }) ? <FormikForm></FormikForm> : ""}
-        {state.matches({ "connected": "claim eco id" }) ? <ClaimEcoID></ClaimEcoID> : ""}
+        {state.matches({ "connected": { "create attestation": "form is valid" } }) ? <CreateAttestation></CreateAttestation> : ""}
+        {state.matches({ "connected": "claim eco id" }) ? <ClaimAttestation></ClaimAttestation> : ""}
       </Box>
     </Container>
   );

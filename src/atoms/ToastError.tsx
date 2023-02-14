@@ -6,7 +6,7 @@ import { Alert, Snackbar } from '@mui/material';
 function ErrorToast() {
 
     const globalServices = useContext(GlobalStateContext);
-    const [state, send] = useActor(globalServices.stateService);
+    const [state] = useActor(globalServices.stateService);
     const [open, setOpen] = React.useState(true);
 
 

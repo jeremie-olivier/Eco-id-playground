@@ -1,8 +1,5 @@
-import React from "react";
-
-
 //@ts-ignore
-const Error = ({ touched, message }) => {
+const TextFormError = ({ touched, message }) => {
   if (!touched) {
     return <div className="form-message invalid">&nbsp;</div>;
   }
@@ -12,4 +9,4 @@ const Error = ({ touched, message }) => {
   return <div className="form-message valid">all good</div>;
 };
 
-export default Error;
+export default TextFormError;

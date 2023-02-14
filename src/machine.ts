@@ -1,5 +1,3 @@
-
-import { resolve } from 'path';
 import { createMachine } from 'xstate';
 import generateAttestation from './utilities/generateAttestation';
 import generateAttestation from './utilities/generateAttestation';
@@ -7,17 +5,10 @@ import GetVerifierSignature from './utilities/getVerifierSignature';
 import getReceiverSignature from  './utilities/getReceiverSignature';
 import callRegister from  './utilities/register';
 import callMint from  './utilities/mint';
-
-
-
-
 import { FetchSignerResult } from "@wagmi/core";
 import { Signer } from "ethers";
 import { Attestation } from './types/types';
 
-const returnTrue = () => {
-  return true
-};
 
 const hasBothSignature = (context: any,event: any) => {
   return event.attestation.verifySig && event.attestation.sig
@@ -30,7 +21,6 @@ const hasVerifierSignature = (context: any,event: any) => {
 const hasVerifierSignature = (context: any,event: any) => {
   return event.attestation.verifySig
 };
-
 
 
 const machine = 
@@ -275,7 +265,7 @@ preserveActionOrder: true,
 },{
   actions : {
     storeAttestation: (context, event) => {
-      if (event.type == 'submit file') context.attestation = event.attestation
+      if (event.type === 'submit file') context.attestation = event.attestation
       console.log('event!',event);
     },
     generateAttestation,

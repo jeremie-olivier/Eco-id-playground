@@ -1,25 +1,19 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { GlobalStateContext } from '../providers/globalState';
 import { useActor } from '@xstate/react';
 import { Container } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import Chip from '@mui/material/Chip';
-import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../Styles'
 
 
-
 function XStateControls() {
 
   const globalServices = useContext(GlobalStateContext);
-  const [state, send] = useActor(globalServices.stateService);
-
+  const [state] = useActor(globalServices.stateService);
 
   return (
     <ThemeProvider theme={theme}>

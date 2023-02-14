@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { GlobalStateContext } from '../providers/globalState';
 import { useActor } from '@xstate/react';
-import FormikForm from './CreateAttestation';
-import UploadAttestation from '../atoms/UploadAttestation';
+import CreateAttestation from './CreateAttestation';
+import UploadAttestation from '../molecules/UploadAttestation';
 import ButtonRegister from '../atoms/ButtonRegister';
 import ButtonMintEcoID from '../atoms/ButtonMintEcoID';
 import { Button, Grid, Typography } from '@mui/material';
@@ -14,7 +14,7 @@ import CardContent from "@mui/material/CardContent";
 import Card from "@mui/material/Card";
 
 
-function ClaimEcoID() {
+export default function ClaimAttestation() {
 
     const globalServices = useContext(GlobalStateContext);
     const [state, send] = useActor(globalServices.stateService);
@@ -43,7 +43,7 @@ function ClaimEcoID() {
                 </CardContent>
 
                 <CardContent>
-                    {state.matches({ "connected": { "claim eco id": { "attestation is loaded": "attestation is valid" } } }) ? <FormikForm></FormikForm> : ""}
+                    {state.matches({ "connected": { "claim eco id": { "attestation is loaded": "attestation is valid" } } }) ? <CreateAttestation></CreateAttestation> : ""}
                     {state.matches({ "connected": { "claim eco id": "idle" } }) ?
                         <Grid>
                             <UploadAttestation></UploadAttestation>
@@ -170,7 +170,7 @@ function ClaimEcoID() {
     );
 };
 
-export default ClaimEcoID
+
 
 
 

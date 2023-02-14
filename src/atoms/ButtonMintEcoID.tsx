@@ -1,9 +1,7 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { GlobalStateContext } from '../providers/globalState';
 import { useActor } from '@xstate/react';
-
 import {  useSigner } from 'wagmi'
-
 import Button from '@mui/material/Button';
 
 function ButtonMintEcoID(){

@@ -10,7 +10,7 @@ import { useInterpret } from '@xstate/react';
 
 import XStateControls from './atoms/XStateControls';
 
-import NavBar from './molecules/header/NavBar';
+import NavBar from './molecules/NavBar';
 import PageContainer from './PageContainer';
 
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";

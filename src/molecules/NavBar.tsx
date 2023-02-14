@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { GlobalStateContext } from '../../providers/globalState';
+import { GlobalStateContext } from '../providers/globalState';
 import { useActor } from '@xstate/react';
 
 import AppBar from '@mui/material/AppBar';
@@ -9,10 +9,9 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import AdbIcon from '@mui/icons-material/Adb';
 
 
-import ButtonWalletConnect from './ButtonWalletConnect';
+import ButtonWalletConnect from '../atoms/ButtonWalletConnect';
 import { Button } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 

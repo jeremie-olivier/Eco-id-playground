@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Formik } from "formik";
 import * as yup from "yup";
-import Error from "../atoms/Error";
+import TextFormError from "../atoms/TextFormError";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -22,8 +22,8 @@ import LinearProgress from '@mui/material/LinearProgress';
 const ValidationSchema = yup.object().shape({
   receiverAddress: yup
     .string()
-    .min(42, "Wallet address should be 42 characters" )
-    .max(42, "Wallet address should be 42 characters")
+    .min(42, "Wallet address should be 42 characters long" )
+    .max(42, "Wallet address should be 42 characters long")
     .required("You must enter a wallet address"),
   deadline: yup.date().required("Enter the deadline"),
   revocable: yup.boolean().oneOf([true]),
@@ -35,7 +35,7 @@ const ValidationSchema = yup.object().shape({
 });
 
 
-export default function FormikForm() {
+export default function CreateAttestation() {
   const globalServices = useContext(GlobalStateContext);
   const [state, send] = useActor(globalServices.stateService);
   const { data: signer } = useSigner();
@@ -126,7 +126,7 @@ export default function FormikForm() {
                   }
                   autoFocus
                 />
-                <Error
+                <TextFormError
                   touched={touched.receiverAddress}
                   message={errors.receiverAddress}
                 />
@@ -151,7 +151,7 @@ export default function FormikForm() {
                   }
                 />
 
-                <Error touched={touched.deadline} message={errors.deadline} />
+                <TextFormError touched={touched.deadline} message={errors.deadline} />
               </Grid>
 
               <Grid>

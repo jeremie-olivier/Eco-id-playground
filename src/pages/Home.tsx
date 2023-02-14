@@ -1,7 +1,6 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { GlobalStateContext } from '../providers/globalState';
 import { useActor } from '@xstate/react';
-
 import Grid from '@mui/material/Unstable_Grid2';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
@@ -9,13 +8,10 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import CardActionArea from '@mui/material/CardActionArea';
-import Button from '@mui/material/Button';
 import { Container } from '@mui/system';
 
 
-
-
-function HomePage() {
+function Home() {
   const globalServices = useContext(GlobalStateContext);
   const [state, send] = useActor(globalServices.stateService);
 
@@ -70,4 +66,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default Home;

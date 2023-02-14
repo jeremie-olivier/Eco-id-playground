@@ -1,10 +1,7 @@
 import React, { useContext } from 'react';
 import { GlobalStateContext } from '../providers/globalState';
 import { useActor } from '@xstate/react';
-
 import {  useSigner } from 'wagmi'
-
-
 import Button from '@mui/material/Button';
 
 function ButtonRegister(){
@@ -13,8 +10,6 @@ function ButtonRegister(){
   const [state, send] = useActor(globalServices.stateService);
 
   const { data: signer } = useSigner();
-
-
 
     return (
       //@ts-ignore

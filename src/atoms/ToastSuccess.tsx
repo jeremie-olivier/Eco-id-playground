@@ -9,7 +9,6 @@ function SuccessToast() {
     const [state, send] = useActor(globalServices.stateService);
     const [open, setOpen] = React.useState(true);
 
-
     const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
         setOpen(false);
     };
