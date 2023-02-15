@@ -21,7 +21,7 @@ function PageContainer() {
   return (
 
 
-    <Container sx={{ m: 2, margin: "0 auto", padding: "20px 5px" }}>
+    <Container sx={{ m: 2, margin: "0 auto", padding: "20px 5px 150px 5px" }}>
       <Box
         sx={{
           backgroundColor: 'primary.light',
