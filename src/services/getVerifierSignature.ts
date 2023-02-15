@@ -38,8 +38,9 @@ return promiseRes
 
 async function  getNounce(signer: any,claim: any){
   console.log("in getNounce");
-    
-  const nftContract = new ethers.Contract("0x6FEC2db7DD68adbb28bF17F4e9Dd0c566Ec75b49", EcoID.abi, signer);
+  
+  // @ts-ignore
+  const nftContract = new ethers.Contract(process.env.REACT_APP_ECO_ID_CONTRACT, EcoID.abi, signer);
 
 
 
