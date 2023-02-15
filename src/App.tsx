@@ -15,8 +15,10 @@ import PageContainer from './molecules/PageContainer';
 
 import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import {
-  configureChains, createClient, WagmiConfig, goerli
+  configureChains, createClient, WagmiConfig
 } from "wagmi";
+import * as chainList from '@wagmi/core/chains'
+
 
 import { infuraProvider } from "wagmi/providers/infura";
 import { alchemyProvider } from "wagmi/providers/alchemy";
@@ -26,12 +28,17 @@ import { ThemeProvider } from '@mui/material/styles';
 import theme from './providers/Styles'
 
 
+console.log('goerli', chainList)
+
+console.log("ENV", process.env.REACT_APP_CHAIN)
+
 const { chains, provider } = configureChains(
-  [goerli
+  // @ts-ignore
+  [chainList[process.env.REACT_APP_CHAIN]
   ],
   [
-    infuraProvider({ apiKey: process.env.NEXT_PUBLIC_INFURA_ID || "9fac2c4055444f7e9aefd509df789922" }),
-    alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY || "CjccbhvHOgr96gSq9rbmBIxKaqWBhl7A" }),
+    infuraProvider({ apiKey: process.env.REACT_APP_PUBLIC_INFURA_ID || "9fac2c4055444f7e9aefd509df789922" }),
+    alchemyProvider({ apiKey: process.env.REACT_APP_PUBLIC_ALCHEMY_KEY || "CjccbhvHOgr96gSq9rbmBIxKaqWBhl7A" }),
     publicProvider(),
   ]
 );
@@ -46,6 +53,7 @@ const wagmiClient = createClient({
   connectors,
   provider
 })
+
 
 
 inspect({
