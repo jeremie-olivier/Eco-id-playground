@@ -50,21 +50,21 @@ export default function ClaimAttestation() {
                         </Grid>
                         : ""}
 
-                    {state.matches({ "connected": { "claim eco id": { "attestation is loaded": "attestation miss receiver signature" } } }) ? 
-                    <Grid container display="flex" justifyContent="center" alignItems="center" flexDirection="column">
-                        <Button variant="contained" color="secondary" onClick={
-                            //@ts-ignore
-                            () => send({ type: "sign", signer })
+                    {state.matches({ "connected": { "claim eco id": { "attestation is loaded": "attestation miss receiver signature" } } }) ?
+                        <Grid container display="flex" justifyContent="center" alignItems="center" flexDirection="column">
+                            <Button variant="contained" color="secondary" onClick={
+                                //@ts-ignore
+                                () => send({ type: "sign", signer })
                             }>Sign</Button>
-                        <br /><br />
-                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                        By signing the attestation you add your signature to the attestation. 
-                        A wallet signature is like a physical one, if only you have this 
-                        document no one can proof that you actually signed it.
-                        </Typography>
-                    </Grid>
-                    : ""}
-                    
+                            <br /><br />
+                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                By signing the attestation you add your signature to the attestation.
+                                A wallet signature is like a physical one, if only you have this
+                                document no one can proof that you actually signed it.
+                            </Typography>
+                        </Grid>
+                        : ""}
+
 
                     {state.matches({ "connected": { "claim eco id": { "attestation is loaded": "signing" } } }) ?
                         <Grid>
@@ -128,17 +128,17 @@ export default function ClaimAttestation() {
                         </Grid>
                         : ""}
 
-                    {state.matches({ "connected": { "claim eco id": { "attestation is loaded": "registered" } } }) ? 
-                    <Grid display="flex" flexDirection="column">
-                        <ButtonMintEcoID></ButtonMintEcoID> 
-                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                            The <b>MINT</b> method create an Eco ID soulbound NFT. That means that you won't be able 
-                            to transfer this NFT to someone else. It will stay in your wallet forever.
-                            This NFT will be composed of the Attestation Data you registered in the previous step
-                        </Typography>
-                    </Grid>
-                    : ""}
-                    
+                    {state.matches({ "connected": { "claim eco id": { "attestation is loaded": "registered" } } }) ?
+                        <Grid display="flex" flexDirection="column">
+                            <ButtonMintEcoID></ButtonMintEcoID>
+                            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                The <b>MINT</b> method create an Eco ID soulbound NFT. That means that you won't be able
+                                to transfer this NFT to someone else. It will stay in your wallet forever.
+                                This NFT will be composed of the Attestation Data you registered in the previous step
+                            </Typography>
+                        </Grid>
+                        : ""}
+
                     {state.matches({ "connected": { "claim eco id": { "attestation is loaded": "calling mint" } } }) ?
                         <Grid>
                             <Typography variant="overline" display="block" gutterBottom>
@@ -154,12 +154,12 @@ export default function ClaimAttestation() {
                     {state.matches({ "connected": { "claim eco id": { "attestation is loaded": "nft minted" } } }) ?
                         <Grid>
                             <Typography variant="overline" display="block" gutterBottom>
-                                You're Eco ID soulbound NFT is now minted ! 🥳 
+                                You're Eco ID soulbound NFT is now minted ! 🥳
                             </Typography>
-                            
+
                             <Typography variant="caption" display="block" gutterBottom>
-                                You can go to <a target="_blank" rel="noopener noreferrer" 
-                                href="https://testnets.opensea.io/account" >OpenSea Eco IDs</a> to see your Eco ID.
+                                You can go to <a target="_blank" rel="noopener noreferrer"
+                                    href={process.env.REACT_APP_CHAIN == "goerli" ? "https://testnets.opensea.io/account" : "https://opensea.io/account"} >your OpenSea account</a> to see your Eco ID.
                             </Typography>
                         </Grid>
                         : ""}
