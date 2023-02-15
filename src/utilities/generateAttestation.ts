@@ -6,13 +6,7 @@ export default  function generateAttestation(context: any,event: any ){
     let signer = event.signer
     let form: FormData = event.form
 
-    // let verifierAddress = await signer.getAddress()
-    let verifierAddress = "0xE8EDD6d8dd72b9B390335f838480a7D62cb72BEE"
-
-    
-    
-
-    let attestation =  buildAttestation(event.form,verifierAddress)
+    let attestation =  buildAttestation(event.form)
 
 
 
@@ -21,7 +15,7 @@ export default  function generateAttestation(context: any,event: any ){
 
 }
 
-function buildAttestation(form: FormData, verifierAddress: any){
+function buildAttestation(form: FormData){
 
     let attestation = {
       types: {
@@ -59,8 +53,8 @@ function buildAttestation(form: FormData, verifierAddress: any){
       domain: {
           name: "EcoID",
           version: "1",
-          chainId: 5,
-          verifyingContract: "0x6FEC2db7DD68adbb28bF17F4e9Dd0c566Ec75b49"
+          chainId: process.env.REACT_APP_CHAIN_ID,
+          verifyingContract: process.env.REACT_APP_ECO_ID_CONTRACT
       },
       message: {
           claim: form.claim,

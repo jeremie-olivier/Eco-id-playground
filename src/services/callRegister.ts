@@ -10,7 +10,9 @@ export default  async function callRegister(context:  any, event: any) {
     let signer = event.signer
     let attestation = context.attestation
     if (!signer) return;
-    const nftContract = new ethers.Contract("0x6FEC2db7DD68adbb28bF17F4e9Dd0c566Ec75b49", EcoID.abi, signer);
+
+     // @ts-ignore
+    const nftContract = new ethers.Contract(process.env.REACT_APP_ECO_ID_CONTRACT, EcoID.abi, signer);
     let att = attestation.message
 
 
