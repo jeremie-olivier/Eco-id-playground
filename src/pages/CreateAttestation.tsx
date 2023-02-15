@@ -22,7 +22,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 const ValidationSchema = yup.object().shape({
   receiverAddress: yup
     .string()
-    .min(42, "Wallet address should be 42 characters long" )
+    .min(42, "Wallet address should be 42 characters long")
     .max(42, "Wallet address should be 42 characters long")
     .required("You must enter a wallet address"),
   deadline: yup.date().required("Enter the deadline"),
@@ -79,7 +79,7 @@ export default function CreateAttestation() {
             receiverAddress: "",
             deadline: "",
             revocable: true,
-            claim: "",
+            claim: "Friend",
           }}
           validationSchema={ValidationSchema}
           validate={(values) => {
@@ -163,6 +163,7 @@ export default function CreateAttestation() {
                   label="Claim : "
                   name="claim"
                   placeholder="Claim"
+                  disabled
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.claim}
@@ -208,35 +209,35 @@ export default function CreateAttestation() {
                       </Typography>
                     </div>
                   )}
-                  
-                  {state.matches({
+
+                {state.matches({
                   connected: {
                     "create attestation": {
                       "form is valid": "Signing",
                     },
                   },
                 }) && (
-                  <Grid>
+                    <Grid>
                       <Typography variant="overline" display="block" gutterBottom>
-                          Waiting for signature
+                        Waiting for signature
                       </Typography>
                       <LinearProgress color="secondary" />
                       <Typography variant="caption" display="block" gutterBottom>
-                          Please do not close or refresh this page
+                        Please do not close or refresh this page
                       </Typography>
-                  </Grid>
+                    </Grid>
                   )}
-                    
+
                 {state.matches({
                   connected: {
                     "create attestation": { "form is valid": "form signed" },
                   },
-                }) 
-                &&
-                
-                (
+                })
+                  &&
+
+                  (
                     <div className="input-row">
-                    
+
                       <Button
                         color="secondary"
                         variant="contained"
@@ -256,7 +257,7 @@ export default function CreateAttestation() {
                       </Typography>
                     </div>
                   )}
-                  
+
                 {state.matches({
                   connected: {
                     "create attestation": {
