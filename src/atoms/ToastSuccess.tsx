@@ -14,12 +14,14 @@ function SuccessToast() {
     };
 
     return (
-
-        <Snackbar open={open} autoHideDuration={6000} anchorOrigin={{ vertical: "bottom", horizontal: "center" }}>
-            <Alert onClose={handleClose} severity="success" variant="filled" sx={{ width: '100%' }}>
-                Success
-            </Alert>
-        </Snackbar>
+            <Snackbar open={open} autoHideDuration={6000} anchorOrigin={{ vertical: "bottom", horizontal: "center" }}>
+                <Alert onClose={handleClose} severity="success" variant="filled" sx={{ width: '100%' }}>
+                    {
+                        // @ts-ignore
+                        state.context.toast.success[state.context.toast.success.length - 1 ]
+                    }
+                </Alert>
+            </Snackbar>
     )
 
 }

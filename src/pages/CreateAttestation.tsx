@@ -42,7 +42,9 @@ export default function CreateAttestation() {
 
   let form: FormData;
 
+  
   const getSignature = () => {
+    state.context.form = form;
     signer && send({ type: "verifier sign", form, signer });
   };
 
@@ -62,6 +64,7 @@ export default function CreateAttestation() {
 
           <Typography variant="subtitle2" gutterBottom>
             Verifier
+            {JSON.stringify(state.context.form)}
           </Typography>
 
           <Typography component="h1" variant="h5">
@@ -85,14 +88,10 @@ export default function CreateAttestation() {
           validate={(values) => {
             console.log(values);
             form = values;
+            state.context.form = values;
           }}
-          onSubmit={(values, { setSubmitting, resetForm }) => {
-            setSubmitting(true);
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              resetForm();
-              setSubmitting(false);
-            }, 500);
+          onSubmit= {() => {
+            
           }}
         >
           {({

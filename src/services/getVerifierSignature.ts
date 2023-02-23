@@ -10,33 +10,38 @@ export default  async function GetVerifierSignature(context: any, event: any ) {
 
 
 
-let attestation = context.attestation
-console.log(attestation);
+  let attestation = context.attestation
+  console.log(attestation);
 
-let nonce = await getNounce(signer,attestation.message.claim)
-console.log("nonce",nonce)
-attestation.message.nonce = nonce 
+  let nonce = await getNounce(signer,attestation.message.claim, context)
+  console.log("nonce",nonce)
+  attestation.message.nonce = nonce 
 
-let types = JSON.parse(JSON.stringify(attestation.types));
-types.Register = types.Register.filter( (item: any)=> item.name !== "verifier")
+  let types = JSON.parse(JSON.stringify(attestation.types));
+  types.Register = types.Register.filter( (item: any)=> item.name !== "verifier")
 
-let message = JSON.parse(JSON.stringify(attestation.message));
+  let message = JSON.parse(JSON.stringify(attestation.message));
 
-delete message.verifier;
-
-
-
-let promiseRes = await  signer._signTypedData(attestation.domain, types, message)
-
-console.log(promiseRes);
+  delete message.verifier;
 
 
-return promiseRes
 
+  try{
+    let sig = await  signer._signTypedData(attestation.domain, types, message)
+    context.toast.success.push('Your signature is : ' +  sig)
+  }
+  catch(error){
+    // @ts-ignore
+    let err = error.reason;
+    console.log('eerr',err)
+
+    context.toast.error.push('Verifier signature failed : ' + err)
+    throw new Error(err);
+  }
 
 }
 
-async function  getNounce(signer: any,claim: any){
+async function  getNounce(signer: any,claim: any, context : any){
   console.log("in getNounce");
   
   // @ts-ignore
@@ -44,12 +49,13 @@ async function  getNounce(signer: any,claim: any){
 
 
 
-  const nonce = await nftContract.nonces(claim, { gasLimit: 500_000 });
+  const nounce = await nftContract.nonces(claim, { gasLimit: 500_000 });
+  context.toast.success.push("attestation  nounce is :" + nounce)
 
-  console.log("nonce",nonce);
+  console.log("nonce",nounce);
   
 
 
-  return parseInt(nonce._hex,16)
+  return parseInt(nounce._hex,16)
 }
 

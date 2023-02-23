@@ -4,7 +4,7 @@ import GetVerifierSignature from '../services/getVerifierSignature';
 import getReceiverSignature from  '../services/getReceiverSignature';
 import callRegister from  '../services/callRegister';
 import callMint from  '../services/callMint';
-import callIsClaimVerifier from  '../services/callIsClaimVerifier';
+import callIsClaimRegistered from  '../services/callIsClaimRegistered';
 import callIsMinted from  '../services/callIsMinted';
 import { FetchSignerResult } from "@wagmi/core";
 import { Signer } from "ethers";
@@ -66,10 +66,6 @@ states: {
             "form ready to sign": {
               on: {
                 "verifier sign": "Signing"
-              },
-              entry : (context,event)=>{
-                console.log('event',event)
-                context.toast.error = event
               }
             },
 
@@ -144,8 +140,8 @@ states: {
                 },
 
                 invoke: {
-                  src: "callIsClaimVerified",
-                  onDone: "calling mint",
+                  src: "callIsClaimRegistered",
+                  onDone: "registered",
                   onError: {
                     target: "attestation ready to be registered",
                     internal: true
@@ -233,7 +229,7 @@ schema: {
   context: {} as {
     attestation : Attestation | {}
     form : {}
-    signer : FetchSignerResult<Signer> | undefined
+    signer : any
     verifierSignature : string
     toast : {
       success : {} | null
@@ -268,11 +264,11 @@ schema: {
 context: {
   attestation : {},
   form : {},
-  signer : undefined,
+  signer : {},
   verifierSignature : "",
   toast:  {
-    error : null,
-    success : null
+    error : [],
+    success : []
   }
 },
 preserveActionOrder: true,
@@ -313,7 +309,7 @@ preserveActionOrder: true,
     GetVerifierSignature,
     callRegister,
     callMint,
-    callIsClaimVerified,
+    callIsClaimRegistered,
     callIsMinted,
 
   }

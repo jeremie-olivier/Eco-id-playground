@@ -91,12 +91,12 @@ export default function ClaimAttestation() {
                                     download("attestation-" + state.context.attestation.message.recipient, state.context.attestation)
                                 }}>Download attestation</Button>
                                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                    If you have someone to pay the gas fee for you, you can download the attestation and send it to him
+                                    If someone is paying the gas fee for you, you can download the attestation that contains both signatures and send it to this person
                                 </Typography>
                                 <br /><br />
                             </Grid>
                             <Grid display="flex" flexDirection="column">
-                                <Button variant="contained" color="secondary" onClick={() => send("self mint")}>Mint your Eco ID</Button>
+                                <Button variant="contained" color="secondary" onClick={() => send("self mint")}>Register / Mint your Eco ID</Button>
                                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                                     Or you can Mint it yourself
                                 </Typography>
