@@ -13,7 +13,7 @@ function ButtonRegister(){
 
     return (
       //@ts-ignore
-      <Button variant="contained" color="secondary" onClick={()=>{send({type: "call register method", signer})}} >Register</Button>
+      <Button variant="contained" color="secondary" onClick={()=>{send("call register method")}} >Register</Button>
     );
 };
 

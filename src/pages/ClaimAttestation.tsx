@@ -54,7 +54,7 @@ export default function ClaimAttestation() {
                         <Grid container display="flex" justifyContent="center" alignItems="center" flexDirection="column">
                             <Button variant="contained" color="secondary" onClick={
                                 //@ts-ignore
-                                () => send({ type: "sign", signer })
+                                () => send("sign")
                             }>Sign</Button>
                             <br /><br />
                             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>

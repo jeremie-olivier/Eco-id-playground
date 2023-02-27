@@ -4,10 +4,7 @@ import {FormData} from "../types/types"
 export default  function generateAttestation(context: any,event: any ){
 
     let signer = context.signer
-    // let form: FormData = context.form
-    let form = FormData
-    console.log('context',context)
-    console.log('event',event)
+    let form: FormData = context.form
 
     let attestation =  buildAttestation(form)
 

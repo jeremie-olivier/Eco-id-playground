@@ -6,7 +6,7 @@ export default  async function callIsClaimRegistered(context:  any, event: any) 
   console.log("callIsClaimRegistered",event);
   
   let signer = context.signer
-  console.log('siigner',signer)
+
   let attestation = context.attestation
   if (!signer) {
     throw new Error('no signers detected');

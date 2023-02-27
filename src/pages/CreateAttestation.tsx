@@ -44,8 +44,7 @@ export default function CreateAttestation() {
 
   
   const getSignature = () => {
-    state.context.form = form;
-    signer && send({ type: "verifier sign", form, signer });
+    signer && send("verifier sign");
   };
 
   return (
@@ -86,8 +85,6 @@ export default function CreateAttestation() {
           }}
           validationSchema={ValidationSchema}
           validate={(values) => {
-            console.log(values);
-            form = values;
             state.context.form = values;
           }}
           onSubmit= {() => {

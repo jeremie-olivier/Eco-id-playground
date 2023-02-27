@@ -12,11 +12,11 @@ import { Attestation } from '../types/types';
 
 
 const hasBothSignature = (context: any,event: any) => {
-  return event.attestation.verifySig && event.attestation.sig
+  return context.attestation.verifySig && context.attestation.sig
 };
 
 const hasVerifierSignature = (context: any,event: any) => {
-  return event.attestation.verifySig
+  return context.attestation.verifySig
 };
 
 
@@ -74,8 +74,7 @@ states: {
                   "download": {
                     target: "certification downloaded"
                   }
-                },
-                entry : "storeVerifierSignature"
+                }
               },
 
               "certification downloaded": {
@@ -115,7 +114,6 @@ states: {
                 },
               ]
           },
-          exit : ["storeAttestation"]
         },
 
           "attestation is loaded": {
@@ -192,8 +190,7 @@ states: {
                     target: "attestation signed by receiver",
                     internal: true
                   }
-                },
-                entry : "storeReceiverSignature"
+                }
               }
             },
 
@@ -245,16 +242,16 @@ schema: {
   {"type": "user input"}|
   {"type": "validate form"}|
   {"type": "disconnect"}|
-  {"type": "sign", signer : {}}|
-  {"type": "verifier sign", form : {}, signer : {}}|
+  {"type": "sign"}|
+  {"type": "verifier sign"}|
   {"type": "download"}|
   {"type": "create new"}|
   {"type": "go to home page"}|
   {"type": "go to about page"}|
-  {"type": "submit file", attestation : {}}|
+  {"type": "submit file"}|
   {"type": "validate attestation with verifier signature"}|
   {"type": "validate is attestation has end user signature"}|
-  {"type": "call register method", signer : {}}|
+  {"type": "call register method"}|
   {"type": "call mint method"}|
   {"type": "download, send to third person"}|
   {"type": "self mint"}|
@@ -274,29 +271,7 @@ context: {
 preserveActionOrder: true,
 },{
   actions : {
-    storeAttestation: (context, event) => {
-      if (event.type === 'submit file') context.attestation = event.attestation
-      console.log('event!',event);
-    },
-    generateAttestation,
-    storeVerifierSignature : (context, event) => {
-      console.log("storeVerifierSignature",event);
-      
-      //@ts-ignore
-      context.verifierSignature = event.data
-      //@ts-ignore
-      context.attestation.verifySig = event.data
-
-    },
-    storeReceiverSignature  : (context, event) => {
-      console.log("storeReceiverSignature",event);
-      
-      //@ts-ignore
-      context.receiverSignature = event.data
-      //@ts-ignore
-      context.attestation.sig = event.data
-
-    },
+    generateAttestation
     
   },
   guards : {

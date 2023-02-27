@@ -6,7 +6,7 @@ export default  async function GetVerifierSignature(context: any, event: any ) {
 
   console.log("context",context)
   console.log("event",event);
-  let signer = event.signer
+  let signer = context.signer
 
 
 
@@ -14,7 +14,7 @@ export default  async function GetVerifierSignature(context: any, event: any ) {
   console.log(attestation);
 
   let nonce = await getNounce(signer,attestation.message.claim, context)
-  console.log("nonce",nonce)
+
   attestation.message.nonce = nonce 
 
   let types = JSON.parse(JSON.stringify(attestation.types));
@@ -29,6 +29,9 @@ export default  async function GetVerifierSignature(context: any, event: any ) {
   try{
     let sig = await  signer._signTypedData(attestation.domain, types, message)
     context.toast.success.push('Your signature is : ' +  sig)
+    
+    context.verifierSignature = sig
+    context.attestation.verifySig = sig
   }
   catch(error){
     // @ts-ignore
