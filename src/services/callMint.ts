@@ -6,7 +6,7 @@ export default  async function callMint(context:  any, event: any) {
 
     console.log("in mint",event);
     
-    let signer = event.signer
+    let signer = context.signer
     let attestation = context.attestation
     if (!signer) return;
 

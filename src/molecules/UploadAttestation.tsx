@@ -57,7 +57,9 @@ function UploadAttestation() {
 
         if (fileReader.result && typeof fileReader.result == "string") {
           attestation = JSON.parse(fileReader.result);
-          send({ type: "submit file", attestation });
+          console.log('BUGGGGG',attestation)
+          state.context.attestation = attestation
+          send("submit file");
           // register()
         }
       } catch (e) {

@@ -5,9 +5,8 @@ import EcoID from "../abi/EcoID.json";
 
 export default  async function callRegister(context:  any, event: any) {
 
-    console.log("in register",event);
     
-    let signer = event.signer
+    let signer = context.signer
     let attestation = context.attestation
     if (!signer) return;
 
@@ -17,9 +16,8 @@ export default  async function callRegister(context:  any, event: any) {
 
 
     const registerTx = await nftContract.register(att.claim, att.feeAmount, att.revocable, att.recipient, att.verifier, att.deadline, attestation.sig, attestation.verifySig, { gasLimit: 500_000 });
-    // return  registerTx.wait();
+
     const registerReceipt = await registerTx.wait();
-    console.log("registerReceipt", registerReceipt)
 
     if (!registerReceipt.status) {
     throw new Error(registerTx);

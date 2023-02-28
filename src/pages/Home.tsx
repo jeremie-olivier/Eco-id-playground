@@ -10,11 +10,19 @@ import Typography from '@mui/material/Typography';
 import CardActionArea from '@mui/material/CardActionArea';
 import { Container } from '@mui/system';
 
+import { useSigner } from 'wagmi'
+
+
 
 function Home() {
   const globalServices = useContext(GlobalStateContext);
   const [state, send] = useActor(globalServices.stateService);
 
+  const { data: signer } = useSigner();
+  console.log(
+   ' home page signer ', signer
+  )
+  state.context.signer = signer 
 
   return (
 

@@ -20,7 +20,7 @@ function ErrorToast() {
             <Alert onClose={handleClose} severity="error" variant="filled" sx={{ width: '100%' }}>
                 {
                     // @ts-ignore
-                    state.event.data.reason
+                    state.context.toast.error[state.context.toast.error.length - 1 ]
                 }
             </Alert>
         </Snackbar>

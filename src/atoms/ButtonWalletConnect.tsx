@@ -5,11 +5,11 @@ import { useActor } from '@xstate/react';
 import { useContext } from 'react';
 
 
+
 function ButtonWalletConnect() {
 
   const globalServices = useContext(GlobalStateContext);
   const [state, send] = useActor(globalServices.stateService);
-
 
   useAccount({
     onConnect(connection) {
@@ -25,6 +25,7 @@ function ButtonWalletConnect() {
       }, 0)
     }
   })
+
 
   return (
     <ConnectButton />

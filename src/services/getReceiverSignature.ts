@@ -23,24 +23,29 @@ type AttestationValues = {
 
 
 
-export default  function getReceiverSignature(context: any, event: any ) {
-
-  console.log("context",context)
-  console.log("event",event);
-  
+export default async function  getReceiverSignature(context: any, event: any ) {
 
 
 let attestation = context.attestation
 console.log(attestation);
 
+let signer = context.signer
 
-let signer = event.signer
-let promise =  signer._signTypedData(attestation.domain, attestation.types, attestation.message)
+try{
+  let sig =  await signer._signTypedData(attestation.domain, attestation.types, attestation.message)
+  context.toast.success.push('Your signature is : ' +  sig)
 
-console.log(promise);
+  context.receiverSignature = sig
+  context.attestation.sig = sig
+}
+catch(error){
+  // @ts-ignore
+  let err = error.reason;
 
+  context.toast.error.push('Receiver signature failed : ' + err)
+  throw new Error(err);
+}
 
-return promise
 
 
 };
